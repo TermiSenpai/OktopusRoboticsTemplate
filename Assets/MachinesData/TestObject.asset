@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13cb0d413bbc9c940a48992c66616e95, type: 3}
   m_Name: TestObject
   m_EditorClassIdentifier: 
-  machineObj: {fileID: 0}
-  top: 0
-  mid: 0
-  bottom: 0
+  machineObj: {fileID: 5889078253158325189, guid: 16bb7708989d8564caaaf8d34ba0afed, type: 3}
+  top: 15
+  mid: 7
+  bottom: 0.4
