@@ -8,6 +8,7 @@ public class ActiveMachineManager : MonoBehaviour
     [SerializeField] MachineScriptable[] machines;
     [SerializeField] CinemachineFreeLook cameraData;
     [SerializeField] float wheelSpeed;
+    [SerializeField] KeyCode screenshotKey;
     List<GameObject> currentSceneMachines = new List<GameObject>();
     GameObject activeMachine;
     float currentMouseAxis;
@@ -27,6 +28,26 @@ public class ActiveMachineManager : MonoBehaviour
         {
             orbits[i].m_Radius += currentMouseAxis * wheelSpeed;
         }
+
+        if(Input.GetKeyDown(screenshotKey))
+        {
+            TakeScreenshot();
+        }
+    }
+
+    public void TakeScreenshot()
+    {
+        string desktopFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+        string baseName = "CapturaDePantalla";
+        string extension = ".png";
+        string timeData = System.DateTime.Now.ToString("yyyyMMddHHmmssfff");
+
+        // Construir el nombre de archivo único
+        string fileName = baseName + "_" + timeData + extension;
+        string screenshotPath = System.IO.Path.Combine(desktopFolder, fileName);
+
+        // Capturar la pantalla y guardar la imagen en un archivo
+        ScreenCapture.CaptureScreenshot(screenshotPath);
     }
 
     public void SpawnAllMachinesInScene()
@@ -35,7 +56,6 @@ public class ActiveMachineManager : MonoBehaviour
         {
             currentSceneMachines.Add(Instantiate(machine.machineObj, parent));
         }
-
     }
 
     public void changeMachine(GameObject machine)
