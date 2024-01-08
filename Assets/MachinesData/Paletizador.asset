@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13cb0d413bbc9c940a48992c66616e95, type: 3}
   m_Name: Paletizador
   m_EditorClassIdentifier: 
-  machineObj: {fileID: 0}
+  machineObj: {fileID: 5005292451911520799, guid: a4ffacb816ad8154eac1036ac4f45c3d, type: 3}
   top: 0
   mid: 0
   bottom: 0
