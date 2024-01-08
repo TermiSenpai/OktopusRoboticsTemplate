@@ -6,8 +6,4 @@ using UnityEngine;
 public class MachineScriptable : ScriptableObject
 {
     public GameObject machineObj;
-
-    public float top;
-    public float mid;
-    public float bottom;
 }
