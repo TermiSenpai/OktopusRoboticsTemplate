@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class CameraFreeMovement : MonoBehaviour
 {
-    [SerializeField] float movementSpeed = 1;
-    [SerializeField] float rotateSpeed = 1;
-    [SerializeField] float scrollWheelSpeed = 1f;
+    [SerializeField, Range(0.1f, 10f)] float movementSpeed = 1;
+    [SerializeField, Range(0.1f, 10f)] float rotateSpeed = 1;
+    [SerializeField, Range(0.1f, 10f)] float scrollWheelSpeed = 1f;
     private float currentMouseAxis;
 
     private void Update()
