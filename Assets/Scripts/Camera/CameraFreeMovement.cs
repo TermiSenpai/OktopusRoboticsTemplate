@@ -8,13 +8,20 @@ public class CameraFreeMovement : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 1;
     [SerializeField] float rotateSpeed = 1;
-
-   
+    [SerializeField] float scrollWheelSpeed = 1f;
+    private float currentMouseAxis;
 
     private void Update()
     {
         MoveCamera();
         RotateCamera();
+        MovementSpeedModify();
+    }
+
+    private void MovementSpeedModify()
+    {
+        currentMouseAxis = Input.GetAxis("Mouse ScrollWheel");
+        movementSpeed += currentMouseAxis * scrollWheelSpeed;
     }
 
     private bool CanRotate()

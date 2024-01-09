@@ -492,6 +492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 2
   rotateSpeed: 2
+  scrollWheelSpeed: 2.5
 --- !u!114 &729555555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1021,7 +1022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c47e218717b064fa48f974f9d742b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseVisibilityKey: 324
+  mouseVisibilityKey: 325
 --- !u!114 &1025005523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1950,6 +1951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 1
   rotateSpeed: 1
+  scrollWheelSpeed: 1
 --- !u!1 &1648281140
 GameObject:
   m_ObjectHideFlags: 3
