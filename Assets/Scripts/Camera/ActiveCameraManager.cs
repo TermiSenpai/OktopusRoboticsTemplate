@@ -12,17 +12,17 @@ public enum CameraState
 public class ActiveCameraManager : MonoBehaviour
 {
     [SerializeField] CinemachineFreeLook orbitCamera;
-    [SerializeField] CinemachineFreeLook freeCamera;
+    [SerializeField] CinemachineVirtualCamera freeCamera;
 
     [SerializeField] KeyCode alternateKey;
 
-    CinemachineFreeLook currentCamera;
+    CinemachineVirtualCameraBase currentCamera;
     CameraState currentState;
 
     private void Start()
     {
-        currentState = CameraState.Orbit;
-        ChangeCamera(orbitCamera);
+        currentState = CameraState.Free;
+        ChangeCamera(freeCamera);
     }
 
     private void Update()
@@ -44,6 +44,13 @@ public class ActiveCameraManager : MonoBehaviour
     }
 
     private void ChangeCamera(CinemachineFreeLook camera)
+    {
+        if (currentCamera != null)
+            currentCamera.gameObject.SetActive(false);
+        currentCamera = camera;
+        currentCamera.gameObject.SetActive(true);
+    }
+    private void ChangeCamera(CinemachineVirtualCamera camera)
     {
         if (currentCamera != null)
             currentCamera.gameObject.SetActive(false);
