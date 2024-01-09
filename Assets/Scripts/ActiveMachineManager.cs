@@ -7,14 +7,14 @@ public class ActiveMachineManager : MonoBehaviour
     [SerializeField] MachineScriptable[] machines;
 
     Transform parent;
-    List<GameObject> currentSceneMachines = new List<GameObject>();
+    List<GameObject> currentSceneMachines = new();
     GameObject activeMachine;
     // Start is called before the first frame update
     void Start()
     {
         parent = GameObject.FindGameObjectWithTag("MachinesParent").GetComponent<Transform>();
         SpawnAllMachinesInScene();
-        changeMachine(currentSceneMachines[0]);
+        ChangeMachine(currentSceneMachines[0]);
     }
 
     public void SpawnAllMachinesInScene()
@@ -24,7 +24,7 @@ public class ActiveMachineManager : MonoBehaviour
         
     }
 
-    public void changeMachine(GameObject machine)
+    public void ChangeMachine(GameObject machine)
     {
         if (activeMachine != null)
             activeMachine.SetActive(false);
