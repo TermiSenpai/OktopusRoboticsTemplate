@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffda089402bb424389f66caadff54c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
+  movementSpeed: 5
   rotateSpeed: 2
   scrollWheelSpeed: 2.5
 --- !u!114 &729555555
@@ -541,7 +541,7 @@ Transform:
   m_GameObject: {fileID: 729555553}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 7, y: 6, z: 0}
+  m_LocalPosition: {x: 7, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -937,7 +937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orbitCamera: {fileID: 1183267978}
   freeCamera: {fileID: 729555555}
-  starterState: 0
+  starterState: 1
   alternateCameraKey: 32
 --- !u!1 &1091412086
 GameObject:
