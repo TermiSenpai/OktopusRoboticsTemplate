@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class CameraOrbitManager : MonoBehaviour
 {
-    [SerializeField,Tooltip("Velocidad de zoom de la cámara"), Range(1f,10f)] float wheelSpeed;
+    [SerializeField,Tooltip("Velocidad de zoom de la cámara"), Range(1f,10f)] float wheelSpeed = 5f;
     CinemachineFreeLook cameraData;
     float currentMouseAxis;
 
     private void Start()
     {
-        cameraData = GameObject.FindGameObjectWithTag("OrbitCamera").GetComponent<CinemachineFreeLook>();
+        cameraData = GetComponent<CinemachineFreeLook>();
     }
 
     private void Update()
