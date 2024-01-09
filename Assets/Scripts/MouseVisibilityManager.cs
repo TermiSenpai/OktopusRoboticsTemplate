@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseVisibilityManager : MonoBehaviour
 {
-    public KeyCode Key;
+    [SerializeField, Tooltip("Tecla para alternar la visualización del ratón")] KeyCode mouseVisibilityKey;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +14,7 @@ public class MouseVisibilityManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(Key))
+        if (Input.GetKeyDown(mouseVisibilityKey))
         {
             switch (Cursor.lockState)
             {
