@@ -5,41 +5,61 @@ using UnityEngine;
 
 public enum CameraState
 {
-    Orbit,
-    Free
+    OrbitCamera,
+    FreeCamera
 }
 
 public class ActiveCameraManager : MonoBehaviour
 {
     [SerializeField] CinemachineFreeLook orbitCamera;
     [SerializeField] CinemachineVirtualCamera freeCamera;
-
-    [SerializeField] KeyCode alternateKey;
-
-    CinemachineVirtualCameraBase currentCamera;
+    [SerializeField] CameraState starterState;
     CameraState currentState;
 
+    [SerializeField] KeyCode alternateCameraKey;
+
+    CinemachineVirtualCameraBase currentCamera;
+
     private void Start()
-    {
-        currentState = CameraState.Free;
-        ChangeCamera(freeCamera);
+    {        
+        EnableStarterCamera();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(alternateKey))
+        if (Input.GetKeyDown(alternateCameraKey))
         {
-            switch (currentState)
-            {
-                case CameraState.Orbit:
-                    ChangeCamera(freeCamera);
-                    currentState = CameraState.Free;
-                    break;
-                case CameraState.Free:
-                    ChangeCamera(orbitCamera);
-                    currentState = CameraState.Orbit;
-                    break;
-            }
+            CheckState();
+        }
+    }
+
+    private void EnableStarterCamera()
+    {
+        switch (starterState)
+        {
+            case CameraState.OrbitCamera:
+                ChangeCamera(orbitCamera);
+                currentState = CameraState.OrbitCamera;
+                break;
+            case CameraState.FreeCamera:
+                ChangeCamera(freeCamera);
+                currentState = CameraState.FreeCamera;
+                break;
+        }
+    }
+
+    private void CheckState()
+    {
+        switch (currentState)
+        {
+            case CameraState.OrbitCamera:
+                ChangeCamera(freeCamera);
+                currentState = CameraState.FreeCamera;
+                break;
+            case CameraState.FreeCamera:
+                ChangeCamera(orbitCamera);
+                currentState = CameraState.OrbitCamera;
+                break;
         }
     }
 
