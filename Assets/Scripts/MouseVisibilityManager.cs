@@ -6,6 +6,10 @@ public class MouseVisibilityManager : MonoBehaviour
 {
     [SerializeField, Tooltip("Tecla para alternar la visualización del ratón")] KeyCode mouseVisibilityKey;
     // Start is called before the first frame update
+
+    public delegate void MouseVisibility();
+    public static event MouseVisibility MouseRelease;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -16,6 +20,7 @@ public class MouseVisibilityManager : MonoBehaviour
     {
         if (Input.GetKeyDown(mouseVisibilityKey))
         {
+            MouseRelease?.Invoke();
             switch (Cursor.lockState)
             {
                 case CursorLockMode.Locked:
