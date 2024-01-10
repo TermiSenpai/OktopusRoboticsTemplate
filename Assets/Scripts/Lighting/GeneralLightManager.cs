@@ -5,8 +5,11 @@ using UnityEngine;
 public class GeneralLightManager : MonoBehaviour
 {
     [SerializeField] private Light MainSpot;
-    [SerializeField] private Light[] spotLights;
-    [SerializeField] private Light pointLight;
+    [SerializeField] private Light backSpot;
+    [SerializeField] private Light diagonalSpot;
+
+    [SerializeField] private Light ambientLight;
+
     [SerializeField] private GameObject UI;
 
     private void Awake()
@@ -24,29 +27,29 @@ public class GeneralLightManager : MonoBehaviour
         MouseVisibilityManager.MouseRelease -= ToggleUI;
     }
 
-    public void OnTogglePointBtn()
+    public void OnToggleBtn(GameObject light)
     {
-        pointLight.enabled = !pointLight.enabled;
+        light.SetActive(!light.activeInHierarchy);
     }
 
-    public void OnToggleSpotBtn()
+    public void OnAmbientIntensitySliderChange(float value)
     {
-        foreach (Light light in spotLights)
-        {
-            light.enabled = !light.enabled;
-        }
+        ambientLight.intensity = value;
     }
 
-    public void OnSpotIntensitySliderChange(float value)
+    public void OnMainSpotIntensitySliderChange(float value)
     {
-        pointLight.intensity = value;
+        MainSpot.intensity = value;
     }
-    public void OnPointIntensitySliderChange(float value)
+
+    public void OnBackIntensitySliderChange(float value)
     {
-        foreach (Light light in spotLights)
-        {
-            light.intensity = value;
-        }
+        backSpot.intensity = value;
+    }
+
+    public void OnDiagonalIntensitySliderChange(float value)
+    {
+        diagonalSpot.intensity = value;
     }
 
     private void ToggleUI()
