@@ -13,17 +13,9 @@ public class GeneralLightManager : MonoBehaviour
     [SerializeField] Color spotLightsColor = Color.white;
     [SerializeField] float spotIntensity = 1.0f;
 
-    private void Update()
+    private void Awake()
     {
-        //TODO 
-        // Crear evento on modified
-        // Seguramente hacer con GUI
-        //foreach (Light light in spotLights)
-        //{
-        //    light.color = spotLightsColor;
-        //    light.intensity = spotIntensity;
-        //    if (spotIntensity < 0) spotIntensity = 0;
-        //}
+        UI.SetActive(false);
     }
 
     private void OnEnable()
@@ -34,7 +26,6 @@ public class GeneralLightManager : MonoBehaviour
     private void OnDisable()
     {
         MouseVisibilityManager.MouseRelease -= ToggleUI;
-        
     }
 
     public void OnTogglePointBtn()
@@ -52,6 +43,18 @@ public class GeneralLightManager : MonoBehaviour
         foreach (Light light in spotLights)
         {
             light.enabled = !light.enabled;
+        }
+    }
+
+    public void OnSpotIntensitySliderChange(float value)
+    {
+        pointLight.intensity = value;       
+    }
+    public void OnPointIntensitySliderChange(float value)
+    {
+        foreach (Light light in spotLights)
+        {
+            light.intensity = value;
         }
     }
 
