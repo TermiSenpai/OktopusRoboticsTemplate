@@ -9,6 +9,7 @@ public class GeneralLightManager : MonoBehaviour
     [SerializeField] private Light diagonalSpot;
 
     [SerializeField] private Light ambientLight;
+    [SerializeField] private Light centralLight;
 
     [SerializeField] private GameObject UI;
 
@@ -35,6 +36,11 @@ public class GeneralLightManager : MonoBehaviour
     public void OnAmbientIntensitySliderChange(float value)
     {
         ambientLight.intensity = value;
+    }
+
+    public void OnCentralIntensitySliderChange(float value)
+    {
+        centralLight.intensity = value;
     }
 
     public void OnMainSpotIntensitySliderChange(float value)
