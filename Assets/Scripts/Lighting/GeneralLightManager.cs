@@ -11,6 +11,7 @@ public class GeneralLightManager : MonoBehaviour
     [SerializeField] private Light centralLight;
 
     [SerializeField] private GameObject UI;
+    [SerializeField] private RectTransform panelRect;
 
     private void Awake()
     {
@@ -60,6 +61,27 @@ public class GeneralLightManager : MonoBehaviour
     public void ToggleColorPicker(GameObject colorPicker)
     {
         colorPicker.SetActive(!colorPicker.activeInHierarchy);
+        CheckPanelHeight(colorPicker);
+    }
+
+    private void CheckPanelHeight(GameObject colorPicker)
+    {
+        if (colorPicker.activeInHierarchy)
+        {
+            Rect rect = panelRect.rect;
+            rect.height = 750f;
+
+            // Asigna el rect modificado de nuevo al RectTransform
+            panelRect.sizeDelta = new Vector2(rect.width, 750f);
+        }
+        else
+        {
+            Rect rect = panelRect.rect;
+            rect.height = 450f;
+
+            // Asigna el rect modificado de nuevo al RectTransform
+            panelRect.sizeDelta = new Vector2(rect.width, 450f);
+        }
     }
 
     private void ToggleUI()
