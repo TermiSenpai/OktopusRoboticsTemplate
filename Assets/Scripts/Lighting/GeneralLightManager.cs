@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GeneralLightManager : MonoBehaviour
 {
@@ -56,6 +55,11 @@ public class GeneralLightManager : MonoBehaviour
     public void OnDiagonalIntensitySliderChange(float value)
     {
         diagonalSpot.intensity = value;
+    }
+
+    public void ToggleColorPicker()
+    {
+       
     }
 
     private void ToggleUI()
