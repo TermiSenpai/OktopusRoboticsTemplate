@@ -57,9 +57,9 @@ public class GeneralLightManager : MonoBehaviour
         diagonalSpot.intensity = value;
     }
 
-    public void ToggleColorPicker()
+    public void ToggleColorPicker(GameObject colorPicker)
     {
-       
+        colorPicker.SetActive(!colorPicker.activeInHierarchy);
     }
 
     private void ToggleUI()
