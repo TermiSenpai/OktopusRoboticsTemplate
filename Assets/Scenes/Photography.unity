@@ -11318,7 +11318,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dda233eaa062e434cae0d844b2310202, type: 3}
   - {fileID: 21300000, guid: 7f7bf995d8f4ffc489061658bbbe371d, type: 3}
   - {fileID: 21300000, guid: 70f194dd3b5bc754d9a1153445b604f4, type: 3}
-  startingColor: {r: 0, g: 0.14117648, b: 1, a: 1}
+  startingColor: {r: 1, g: 1, b: 1, a: 1}
   staticMode: 0
   multiInstance: 1
   onColorChange:
@@ -27389,7 +27389,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dda233eaa062e434cae0d844b2310202, type: 3}
   - {fileID: 21300000, guid: 7f7bf995d8f4ffc489061658bbbe371d, type: 3}
   - {fileID: 21300000, guid: 70f194dd3b5bc754d9a1153445b604f4, type: 3}
-  startingColor: {r: 0, g: 0.14117648, b: 1, a: 1}
+  startingColor: {r: 1, g: 1, b: 1, a: 1}
   staticMode: 0
   multiInstance: 1
   onColorChange:
@@ -32420,7 +32420,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dda233eaa062e434cae0d844b2310202, type: 3}
   - {fileID: 21300000, guid: 7f7bf995d8f4ffc489061658bbbe371d, type: 3}
   - {fileID: 21300000, guid: 70f194dd3b5bc754d9a1153445b604f4, type: 3}
-  startingColor: {r: 0, g: 0.14117648, b: 1, a: 1}
+  startingColor: {r: 1, g: 1, b: 1, a: 1}
   staticMode: 0
   multiInstance: 1
   onColorChange:
@@ -38190,7 +38190,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dda233eaa062e434cae0d844b2310202, type: 3}
   - {fileID: 21300000, guid: 7f7bf995d8f4ffc489061658bbbe371d, type: 3}
   - {fileID: 21300000, guid: 70f194dd3b5bc754d9a1153445b604f4, type: 3}
-  startingColor: {r: 0, g: 0.14117648, b: 1, a: 1}
+  startingColor: {r: 1, g: 1, b: 1, a: 1}
   staticMode: 0
   multiInstance: 1
   onColorChange:
