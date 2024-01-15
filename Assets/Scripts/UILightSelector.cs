@@ -5,7 +5,11 @@ using UnityEngine;
 public class UILightSelector : MonoBehaviour
 {
     [SerializeField] GameObject[] lightOptions;
+    [SerializeField] RectTransform panel;
     GameObject currentLightOptions;
+    int currentIndex;
+
+    [SerializeField] float nullHeight;
 
     private void Start()
     {
@@ -23,10 +27,12 @@ public class UILightSelector : MonoBehaviour
         {
             case 0:
                 ChangeCurrentOptions();
+                currentIndex = value;
                 break;
 
             default:
                 ChangeCurrentOptions(lightOptions[value]);
+                currentIndex = value;
                 break;
         }
     }
@@ -42,6 +48,7 @@ public class UILightSelector : MonoBehaviour
     {
         if (currentLightOptions != null) currentLightOptions.SetActive(false);
         currentLightOptions.SetActive(false);
+        panel.sizeDelta = new Vector2(panel.sizeDelta.x, nullHeight);
         currentLightOptions = null;
     }
 
