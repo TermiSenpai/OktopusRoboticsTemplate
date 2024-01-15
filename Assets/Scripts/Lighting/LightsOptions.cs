@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static System.Net.WebRequestMethods;
 
 public class LightsOptions : MonoBehaviour
 {
@@ -57,14 +54,9 @@ public class LightsOptions : MonoBehaviour
         angleValueTxt.text = value.ToString("0.00");
     }
 
-    public void ToggleColorPicker(GameObject colorPicker)
+    public void OnToggleBtn(GameObject item)
     {
-        colorPicker.SetActive(!colorPicker.activeInHierarchy);
-    }
-
-    public void OnToggleBtn(GameObject light)
-    {
-        light.SetActive(!light.activeInHierarchy);
+        item.SetActive(!item.activeInHierarchy);
     }
 
     public void updateLightColor()
