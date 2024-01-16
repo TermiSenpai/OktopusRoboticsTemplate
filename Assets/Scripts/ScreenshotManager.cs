@@ -7,7 +7,8 @@ public class ScreenshotManager : MonoBehaviour
     [SerializeField, Tooltip("Tecla modificable para sacar captura de pantalla")] KeyCode screenshotKey;
     // Nombre del archivo
     [SerializeField, Tooltip("Nombre del archivo. Este nombre será modificado con la fecha para que las capturas no se sobreescriban")] string baseName = "CapturaDePantalla";
-    string extension = ".png";
+    // Extensión de archivo
+    const string extension = ".png";
     // busca el escritorio
     string desktopFolder;
 
