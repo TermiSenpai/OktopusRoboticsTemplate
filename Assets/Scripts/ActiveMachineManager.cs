@@ -1,4 +1,3 @@
-using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ public class ActiveMachineManager : MonoBehaviour
     Transform parent;
 
     // Se almacena una lista variable con los gameobjects para posterior modificación
-    List<GameObject> currentSceneMachines = new();
+    readonly List<GameObject> currentSceneMachines = new();
 
     // Se almacena el gameobject activo
     GameObject activeMachine;
