@@ -26,13 +26,11 @@ public class ActiveCameraManager : MonoBehaviour
     // Inicia con la cámara seleccionada en el inspector
     private void Start() => EnableStarterCamera();
 
-
     private void Update()
     {
         // Cada frame espera a que se pulse la tecla para cambiar de camara
-        if (Input.GetKeyDown(alternateCameraKey))        
+        if (Input.GetKeyDown(alternateCameraKey))
             CheckState();
-        
     }
 
     // Camara de inicio seleccionable en el inspector
@@ -74,7 +72,7 @@ public class ActiveCameraManager : MonoBehaviour
         // Se comprueba que la camara que se intenta desactivar exista
         if (currentCamera != null)
             currentCamera.gameObject.SetActive(false);
-        
+
         // Se asigna la nueva camara
         currentCamera = camera;
         // Se activa para que comience la transición
