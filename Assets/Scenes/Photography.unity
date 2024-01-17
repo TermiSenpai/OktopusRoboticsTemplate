@@ -22925,7 +22925,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -22973,7 +22973,6 @@ MonoBehaviour:
   - {fileID: 124843143}
   - {fileID: 947965749}
   panel: {fileID: 241957335}
-  nullHeight: 60
 --- !u!1 &995756949
 GameObject:
   m_ObjectHideFlags: 0
@@ -23613,6 +23612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenshotKey: 9
+  baseName: CapturaDePantalla
 --- !u!114 &1025005525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23642,7 +23642,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 995620663}
-  panelRect: {fileID: 241957335}
 --- !u!1 &1026133570
 GameObject:
   m_ObjectHideFlags: 0
