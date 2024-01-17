@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class UIItem : MonoBehaviour
 {
+    // Referencia al contenedor
     [SerializeField] private RectTransform panel;
-    public float panelHeight;
+    // Tamaño del contenedor (A mano)
+    [SerializeField] float panelHeight;
 
-    private void OnEnable()
-    {
-        changePanelHeight(panelHeight);
-    }
+    // Cuando se activa, cambia el tamaño del panel
+    private void OnEnable() => ChangePanelHeight(panelHeight);
 
-    public void changePanelHeight(float height)
-    {
-
-        panel.sizeDelta = new Vector2(panel.sizeDelta.x, height);
-    }
+    // Solo es necesario cambiar la altura del contenedor, por lo que el ancho será el mismo
+    public void ChangePanelHeight(float height) => panel.sizeDelta = new Vector2(panel.sizeDelta.x, height);
 
 }
