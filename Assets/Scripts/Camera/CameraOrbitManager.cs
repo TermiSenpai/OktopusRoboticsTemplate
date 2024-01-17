@@ -24,7 +24,6 @@ public class CameraOrbitManager : MonoBehaviour
         // Modifica el radio de todas las orbitas para mantener la relación esférica entre todas
         for (int i = 0; i < orbits.Length; i++)     
             // Se suma el movimiento del ratón por la velocidad al valor actual
-            orbits[i].m_Radius += currentMouseAxis * wheelSpeed;
-        
+            orbits[i].m_Radius += currentMouseAxis * wheelSpeed;        
     }
 }
