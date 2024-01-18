@@ -24017,6 +24017,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenshotKey: 9
   baseName: CapturaDePantalla
+  pathPlaceholder: {fileID: 1874832559}
+  pathInput: {fileID: 1759143876}
 --- !u!114 &1025005525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41642,7 +41644,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1706958560}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1025005524}
+        m_TargetAssemblyTypeName: ScreenshotManager, Assembly-CSharp
+        m_MethodName: OnBrowseBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1706958560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43227,7 +43241,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1025005524}
+        m_TargetAssemblyTypeName: ScreenshotManager, Assembly-CSharp
+        m_MethodName: OnInputFieldEndEdit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -45432,7 +45458,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter text...
+  m_text: folder path
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
