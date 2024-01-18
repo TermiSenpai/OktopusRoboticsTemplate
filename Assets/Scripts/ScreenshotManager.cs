@@ -1,4 +1,6 @@
 using UnityEngine;
+using SFB;
+using TMPro;
 
 
 public class ScreenshotManager : MonoBehaviour
@@ -7,15 +9,20 @@ public class ScreenshotManager : MonoBehaviour
     [SerializeField, Tooltip("Tecla modificable para sacar captura de pantalla")] KeyCode screenshotKey;
     // Nombre del archivo
     [SerializeField, Tooltip("Nombre del archivo. Este nombre será modificado con la fecha para que las capturas no se sobreescriban")] string baseName = "CapturaDePantalla";
+
+    [SerializeField] private TextMeshProUGUI pathPlaceholder;
+    [SerializeField] private TMP_InputField pathInput;
+
     // Extensión de archivo
     const string extension = ".png";
     // busca el escritorio
-    string desktopFolder;
+    string pathFolder;
 
     private void Start()
-    {        
+    {
         //Busca la ruta al escritorio (Debug)
-        desktopFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+        pathFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+        pathPlaceholder.text = pathFolder;
     }
 
     private void Update()
@@ -36,9 +43,34 @@ public class ScreenshotManager : MonoBehaviour
         string fileName = $"{baseName}-{timeData}{extension}";
 
         // Se combina la ruta con el nombre
-        string screenshotPath = System.IO.Path.Combine(desktopFolder, fileName);
+        string screenshotPath = System.IO.Path.Combine(pathFolder, fileName);
 
         // Capturar la pantalla y guardar la imagen en un archivo
         ScreenCapture.CaptureScreenshot(screenshotPath);
+    }
+
+    public void OnBrowseBtn()
+    {
+        // Abre el cuadro de diálogo de selección de carpeta.
+        string[] paths = StandaloneFileBrowser.OpenFolderPanel("Seleccionar Carpeta", "", false);
+
+        // Verifica si se seleccionó una carpeta antes de actualizar la interfaz de usuario.
+        if (paths.Length > 0)
+        {
+            
+            pathFolder = paths[0];
+            pathPlaceholder.text = pathFolder;
+        }
+        else
+        {
+            Debug.Log("No se seleccionó ninguna carpeta.");
+        }
+    }
+
+    public void OnInputFieldEndEdit(string txt)
+    {
+        pathFolder = txt;
+        pathPlaceholder.text = txt;
+        pathInput.text = string.Empty;
     }
 }

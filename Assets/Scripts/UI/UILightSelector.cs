@@ -6,14 +6,9 @@ public class UILightSelector : MonoBehaviour
 {
     // Opciones en el dropdown
     [SerializeField] GameObject[] lightOptions;
-    // Componente transform en canvas
-    [SerializeField] RectTransform panel;
 
     // Opción seleccionada visible
     GameObject currentLightOptions;
-
-    // Constante del tamaño del contenedor vacio
-    const float NULLHEIGHT = 60f;
 
     private void Start()
     {
@@ -60,9 +55,6 @@ public class UILightSelector : MonoBehaviour
     {
         // Comprobación para que no oculte algo que no hay
         if (currentLightOptions != null) currentLightOptions.SetActive(false);
-
-        // Se modifica el tamaño del contenedor a uno ajustado 
-        panel.sizeDelta = new Vector2(panel.sizeDelta.x, NULLHEIGHT);
 
         // Nos aseguramos de que no haya ningun menú activo
         currentLightOptions = null;
