@@ -46,7 +46,9 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
 #endif
 
     private IEnumerator OutputRoutine(string url) {
+#pragma warning disable CS0618 // El tipo o el miembro están obsoletos
         var loader = new WWW(url);
+#pragma warning restore CS0618 // El tipo o el miembro están obsoletos
         yield return loader;
         output.texture = loader.texture;
     }
