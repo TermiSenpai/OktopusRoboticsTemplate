@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MachinesParent
   - OrbitCamera
+  - UI
   layers:
   - Default
   - TransparentFX
