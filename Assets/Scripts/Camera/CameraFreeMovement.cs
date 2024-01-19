@@ -34,6 +34,8 @@ public class CameraFreeMovement : MonoBehaviour
 
     private void OnDisable() => MouseVisibilityManager.MouseRelease -= AlternateCinemachine;
 
+    private void AlternateCinemachine() => virtualCamera.enabled = !virtualCamera.enabled;
+
     private void MovementSpeedModify()
     {
         // Obtiene el movimiento de la rueda del ratón
@@ -45,6 +47,7 @@ public class CameraFreeMovement : MonoBehaviour
 
     private bool CanRotate()
     {
+        // Si el cinemachine está desactivado, se cancela
         if (!virtualCamera.enabled) return false;
 
         // Chequea si se está pulsando el click derecho
@@ -81,6 +84,9 @@ public class CameraFreeMovement : MonoBehaviour
 
     private void MoveCamera()
     {
+        // Si el cinemachine está desactivado, se cancela
+        if (!virtualCamera.enabled) return;
+
         // Obtiene los inputs del movimiento del ratón
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -97,9 +103,6 @@ public class CameraFreeMovement : MonoBehaviour
         transform.Translate(movementSpeed * Time.deltaTime * worldDirection, Space.World);
     }
 
-    private void AlternateCinemachine()
-    {
-        virtualCamera.enabled = !virtualCamera.enabled;
-    }
+
 
 }
