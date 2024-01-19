@@ -39,7 +39,6 @@ public class ScreenshotManager : MonoBehaviour
         // Cada frame comprueba si se ha pulsado la tecla configurada
         if (Input.GetKeyDown(screenshotKey))
             TakeScreenshot();
-
     }
 
 
@@ -98,10 +97,12 @@ public class ScreenshotManager : MonoBehaviour
         SavePath(pathFolder);
     }
 
+    // Desactiva el canvas
     void DisableCanvas() => CanvasObj.SetActive(false);
+    // Activa el canvas
     void EnableCanvas() => CanvasObj.SetActive(true);
 
-
+    // Espera a que la captura finalice al final del frame
     private IEnumerator WaitToEnable()
     {
         yield return new WaitForEndOfFrame();
