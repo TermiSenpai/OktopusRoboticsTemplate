@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using UnityEngine;
 
@@ -11,6 +12,13 @@ public class CameraFreeMovement : MonoBehaviour
     [SerializeField, Range(0.1f, 10f)] float scrollWheelSpeed = 2.5f;
     // Movimiento actual del ratón
     private float currentMouseAxis;
+    // Referencia a la cámara virutal de cinemachine
+    private CinemachineVirtualCamera virtualCamera;
+
+
+
+    // Obtener referencia de virtualCamera
+    private void Start() => virtualCamera = GetComponent<CinemachineVirtualCamera>();
 
     private void Update()
     {
@@ -21,6 +29,10 @@ public class CameraFreeMovement : MonoBehaviour
         // Permite modificar la velocidad de movimiento de la camara
         MovementSpeedModify();
     }
+
+    private void OnEnable() => MouseVisibilityManager.MouseRelease += AlternateCinemachine;
+
+    private void OnDisable() => MouseVisibilityManager.MouseRelease -= AlternateCinemachine;
 
     private void MovementSpeedModify()
     {
@@ -33,6 +45,8 @@ public class CameraFreeMovement : MonoBehaviour
 
     private bool CanRotate()
     {
+        if (!virtualCamera.enabled) return false;
+
         // Chequea si se está pulsando el click derecho
         if (Input.GetKey(KeyCode.Mouse1))
             return true;
@@ -51,7 +65,7 @@ public class CameraFreeMovement : MonoBehaviour
             // // Calcula la rotación en el eje X basada en la entrada vertical del ratón y se invierte
             float rotationX = mouseY * rotateSpeed * -1;
             // Calcula la rotación en el eje Y basada en la entrada horizontal del ratón
-            float rotationY = mouseX * rotateSpeed ;
+            float rotationY = mouseX * rotateSpeed;
 
             // Aplicar rotación al objeto
             transform.Rotate(rotationX, rotationY, 0);
@@ -64,7 +78,6 @@ public class CameraFreeMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(eulerRotation);
         }
     }
-
 
     private void MoveCamera()
     {
@@ -82,6 +95,11 @@ public class CameraFreeMovement : MonoBehaviour
 
         // Se aplica el movimiento
         transform.Translate(movementSpeed * Time.deltaTime * worldDirection, Space.World);
+    }
+
+    private void AlternateCinemachine()
+    {
+        virtualCamera.enabled = !virtualCamera.enabled;
     }
 
 }
