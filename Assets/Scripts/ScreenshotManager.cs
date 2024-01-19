@@ -1,6 +1,8 @@
 using UnityEngine;
 using SFB;
 using TMPro;
+using System.Collections;
+using System.IO;
 
 
 public class ScreenshotManager : MonoBehaviour
@@ -10,18 +12,25 @@ public class ScreenshotManager : MonoBehaviour
     // Nombre del archivo
     [SerializeField, Tooltip("Nombre del archivo. Este nombre será modificado con la fecha para que las capturas no se sobreescriban")] string baseName = "CapturaDePantalla";
 
+    // Placeholder
     [SerializeField] private TextMeshProUGUI pathPlaceholder;
+    // User input
     [SerializeField] private TMP_InputField pathInput;
 
     // Extensión de archivo
     const string extension = ".png";
     // busca el escritorio
     string pathFolder;
+    // Referencia al canvas
+    GameObject CanvasObj;
 
     private void Start()
     {
-        //Busca la ruta al escritorio (Debug)
-        pathFolder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+        // Referencia al canvas
+        CanvasObj = GameObject.FindGameObjectWithTag("UI");
+        //Carga la ultima ruta usada, si no existe, añade el escritorio
+        pathFolder = PlayerPrefs.GetString("Path", System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop));
+        // La ruta del escritorio se guarda
         pathPlaceholder.text = pathFolder;
     }
 
@@ -30,12 +39,15 @@ public class ScreenshotManager : MonoBehaviour
         // Cada frame comprueba si se ha pulsado la tecla configurada
         if (Input.GetKeyDown(screenshotKey))
             TakeScreenshot();
+
     }
 
 
     // Realiza la captura de pantalla
     public void TakeScreenshot()
     {
+        DisableCanvas();
+
         // Se añade el tiempo para que el nombre del archivo siempre sea diferente ( Año-mes-dia-horas-minutos-segundos)
         string timeData = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
 
@@ -43,10 +55,17 @@ public class ScreenshotManager : MonoBehaviour
         string fileName = $"{baseName}-{timeData}{extension}";
 
         // Se combina la ruta con el nombre
-        string screenshotPath = System.IO.Path.Combine(pathFolder, fileName);
+        string screenshotPath = Path.Combine(pathFolder, fileName);
+
+        // Comprueba que exista la carpeta, en caso contrario, se crea
+        if (!Directory.Exists(pathFolder))
+            Directory.CreateDirectory(pathFolder);
+
 
         // Capturar la pantalla y guardar la imagen en un archivo
         ScreenCapture.CaptureScreenshot(screenshotPath);
+        // Espera a realizar la captura antes de habilitar la UI de nuevo
+        StartCoroutine(WaitToEnable());
     }
 
     public void OnBrowseBtn()
@@ -57,20 +76,38 @@ public class ScreenshotManager : MonoBehaviour
         // Verifica si se seleccionó una carpeta antes de actualizar la interfaz de usuario.
         if (paths.Length > 0)
         {
-            
+            // Toma la carpeta seleccionada
             pathFolder = paths[0];
+            // Añade la ruta al placeholder de la UI
             pathPlaceholder.text = pathFolder;
-        }
-        else
-        {
-            Debug.Log("No se seleccionó ninguna carpeta.");
+            // Guarda la ruta por defecto
+            SavePath(pathFolder);
         }
     }
 
+    // Posibilidad de escribir la ruta en vez de buscarse
     public void OnInputFieldEndEdit(string txt)
     {
+        // Guarda la ruta escrita por el usuario
         pathFolder = txt;
+        // Lo añade al placeholder
         pathPlaceholder.text = txt;
+        // Se elimina lo escrito para dejar a la vista el placeholder
         pathInput.text = string.Empty;
+        // Guarda la ruta por defecto
+        SavePath(pathFolder);
     }
+
+    void DisableCanvas() => CanvasObj.SetActive(false);
+    void EnableCanvas() => CanvasObj.SetActive(true);
+
+
+    private IEnumerator WaitToEnable()
+    {
+        yield return new WaitForEndOfFrame();
+        EnableCanvas();
+    }
+    // Guarda la ruta por defecto
+    private void SavePath(string save) => PlayerPrefs.SetString("Path", save);
+
 }
