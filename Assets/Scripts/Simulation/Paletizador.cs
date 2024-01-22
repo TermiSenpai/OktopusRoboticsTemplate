@@ -71,6 +71,25 @@ public class Paletizador : MonoBehaviour
 
         // Aplicar el cambio de posición local al objeto
         ejeZ.localPosition = new Vector3(ejeZ.localPosition.x, ejeZ.localPosition.y, nuevaPosicionZ);
-    }    
+    }
+
+    void MoverEjeZHaciaObjeto()
+    {
+        // Información de la colisión
+
+        // Lanzar un rayo hacia adelante desde la posición del ejeZ
+        if (Physics.Raycast(ejeZ.position, ejeZ.forward, out RaycastHit hit, Mathf.Infinity, capaObjeto))
+        {
+            // Calcular la posición del objeto detectado
+            Vector3 posicionObjeto = hit.point;
+
+            // Mover el ejeZ hacia la posición del objeto detectado
+            ejeZ.position = new Vector3(
+                Mathf.Clamp(posicionObjeto.x, limiteXMin, limiteXMax),
+                Mathf.Clamp(posicionObjeto.y, limiteYMin, limiteYMax),
+                Mathf.Clamp(posicionObjeto.z, limiteZMin, limiteZMax)
+            );
+        }
+    }
 }
 

@@ -361,6 +361,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SimPaletizador
       objectReference: {fileID: 0}
+    - target: {fileID: 7372114740750252052, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: m_Name
+      value: PARTE2_ROTABLE_CT-19-21_Ensamblaje GR-PS-30-V1_3811
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
