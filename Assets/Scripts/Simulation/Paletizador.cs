@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum Axis
+{
+    x, y, z
+}
+
 public class Paletizador : MonoBehaviour
 {
     public float velocidadMovimiento = 2.0f;
@@ -24,11 +29,14 @@ public class Paletizador : MonoBehaviour
     public float limiteZMin = -0.7f;
     public float limiteZMax = 0.9f;
 
+
+
     void Update()
     {
         // Mover el objetoEjeX
         float movimientoX = Input.GetAxis("Horizontal");
-        MoverEjeX(movimientoX);
+        //MoverEjeX(movimientoX);
+        MoverEje(ejeX, movimientoX, velocidadMovimiento, limiteXMin, limiteXMax, Axis.x);
 
         // Mover el ejeY localmente con respecto al ejeX
         float movimientoY = Input.GetAxis("Vertical");
@@ -43,7 +51,7 @@ public class Paletizador : MonoBehaviour
 
     void SensorDetector()
     {
-        if(Physics.Raycast(sensor.position, sensor.forward, out RaycastHit hit, Mathf.Infinity, capaObjeto))
+        if (Physics.Raycast(sensor.position, sensor.forward, out RaycastHit hit, Mathf.Infinity, capaObjeto))
         {
             sensorDetected = true;
             Debug.Log("Detección");
@@ -55,17 +63,38 @@ public class Paletizador : MonoBehaviour
         }
     }
 
-    void MoverEjeX(float inputMovimiento)
+    void MoverEje(Transform eje, float input, float speed, float min, float max, Axis type)
     {
-        // Calcular el cambio en la posición local basado en la entrada del teclado
-        float deltaMovimiento = inputMovimiento * velocidadMovimiento * Time.deltaTime;
+        float deltaMove = input * speed * Time.deltaTime;
 
-        // Calcular la nueva posición local limitada
-        float nuevaPosicionX = Mathf.Clamp(ejeX.localPosition.x + deltaMovimiento, limiteXMin, limiteXMax);
-
-        // Aplicar el cambio de posición local al objeto
-        ejeX.localPosition = new Vector3(nuevaPosicionX, ejeX.localPosition.y, ejeX.localPosition.z);
+        switch (type)
+        {
+            case Axis.x:
+                float newPosX = Mathf.Clamp(eje.localPosition.x + deltaMove, min, max);
+                eje.localPosition = new Vector3(newPosX, eje.localPosition.y, eje.localPosition.z);
+                break;
+            case Axis.y:
+                float newPosY = Mathf.Clamp(eje.localPosition.x + deltaMove, min, max);
+                eje.localPosition = new Vector3(eje.localPosition.x, newPosY, eje.localPosition.z);
+                break;
+            case Axis.z:
+                float newPosZ = Mathf.Clamp(eje.localPosition.x + deltaMove, min, max);
+                eje.localPosition = new Vector3(eje.localPosition.x, eje.localPosition.z, newPosZ);
+                break;
+        }
     }
+
+    //void MoverEjeX(float inputMovimiento)
+    //{
+    //    // Calcular el cambio en la posición local basado en la entrada del teclado
+    //    float deltaMovimiento = inputMovimiento * velocidadMovimiento * Time.deltaTime;
+
+    //    // Calcular la nueva posición local limitada
+    //    float nuevaPosicionX = Mathf.Clamp(ejeX.localPosition.x + deltaMovimiento, limiteXMin, limiteXMax);
+
+    //    // Aplicar el cambio de posición local al objeto
+    //    ejeX.localPosition = new Vector3(nuevaPosicionX, ejeX.localPosition.y, ejeX.localPosition.z);
+    //}
 
     void MoverEjeY(float inputMovimiento)
     {
@@ -89,25 +118,6 @@ public class Paletizador : MonoBehaviour
 
         // Aplicar el cambio de posición local al objeto
         ejeZ.localPosition = new Vector3(ejeZ.localPosition.x, ejeZ.localPosition.y, nuevaPosicionZ);
-    }
-
-    void MoverEjeZHaciaObjeto()
-    {
-        // Información de la colisión
-
-        // Lanzar un rayo hacia adelante desde la posición del ejeZ
-        if (Physics.Raycast(ejeZ.position, ejeZ.forward, out RaycastHit hit, Mathf.Infinity, capaObjeto))
-        {
-            // Calcular la posición del objeto detectado
-            Vector3 posicionObjeto = hit.point;
-
-            // Mover el ejeZ hacia la posición del objeto detectado
-            ejeZ.position = new Vector3(
-                Mathf.Clamp(posicionObjeto.x, limiteXMin, limiteXMax),
-                Mathf.Clamp(posicionObjeto.y, limiteYMin, limiteYMax),
-                Mathf.Clamp(posicionObjeto.z, limiteZMin, limiteZMax)
-            );
-        }
     }
 }
 
