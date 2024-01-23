@@ -7,6 +7,10 @@ TagManager:
   - MachinesParent
   - OrbitCamera
   - UI
+  - Box
+  - X
+  - Y
+  - Z
   layers:
   - Default
   - TransparentFX
@@ -15,7 +19,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Caja
   - 
   - 
   - 
