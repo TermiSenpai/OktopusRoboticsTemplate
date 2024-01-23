@@ -41977,6 +41977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 240121122401178814}
   - component: {fileID: 701311823952299750}
+  - component: {fileID: 631681057648105587}
   m_Layer: 0
   m_Name: SimPaletizador
   m_TagString: Untagged
@@ -42008,7 +42009,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5005292451911520799}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7047f4417cef4c458b092b473022686, type: 3}
   m_Name: 
@@ -42029,6 +42030,18 @@ MonoBehaviour:
   limiteYMax: 1.7
   limiteZMin: -0.7
   limiteZMax: 0.9
+--- !u!114 &631681057648105587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005292451911520799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c42e85f4cfdae74c842f86cd0ab00eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5019302150239460327
 GameObject:
   m_ObjectHideFlags: 0
