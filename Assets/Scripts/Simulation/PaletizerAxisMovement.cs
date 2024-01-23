@@ -16,10 +16,6 @@ public class PaletizerAxisMovement : MonoBehaviour
         zAxis = GameObject.FindGameObjectWithTag("Z").transform;
     }
 
-    private void Start()
-    {
-    }
-
     public void OnSliderX(float value)
     {
         xAxis.localPosition = new Vector3(value, xAxis.localPosition.y, xAxis.localPosition.z);
