@@ -835,6 +835,37 @@ Transform:
   - {fileID: 229940268680503181}
   m_Father: {fileID: 6835480459908139361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &110159775647881157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6442884269195551105}
+  m_Layer: 0
+  m_Name: RaycastOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6442884269195551105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110159775647881157}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0585, y: -0.0138, z: 0.232}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1369518388491299962}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &116120878936756014
 GameObject:
   m_ObjectHideFlags: 0
@@ -14934,6 +14965,8 @@ GameObject:
   - component: {fileID: 9043415491303723851}
   - component: {fileID: 1980726954951432149}
   - component: {fileID: 3080599119748629643}
+  - component: {fileID: 8024688915451410301}
+  - component: {fileID: 4823695044622062284}
   m_Layer: 0
   m_Name: "Extruir-L\xE1mina1"
   m_TagString: Untagged
@@ -15006,6 +15039,54 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &8024688915451410301
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726262528518719087}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!65 &4823695044622062284
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726262528518719087}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.4931792, y: 0.10800001, z: 0.39999992}
+  m_Center: {x: 0.00041019908, y: 0.09, z: -0.00000011920929}
 --- !u!1 &1732396877784847173
 GameObject:
   m_ObjectHideFlags: 0
@@ -41977,6 +42058,7 @@ GameObject:
   m_Component:
   - component: {fileID: 240121122401178814}
   - component: {fileID: 631681057648105587}
+  - component: {fileID: 7257743145437735932}
   m_Layer: 0
   m_Name: SimPaletizador
   m_TagString: Untagged
@@ -42013,6 +42095,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c42e85f4cfdae74c842f86cd0ab00eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7257743145437735932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005292451911520799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 842a99ce5b786894097b96e55cbbcf5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxParent: {fileID: 3983066978853132447}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  currentBox: {fileID: 0}
+  raycastDistance: 0.05
+  origin: {fileID: 6442884269195551105}
 --- !u!1 &5019302150239460327
 GameObject:
   m_ObjectHideFlags: 0
@@ -63110,6 +63211,7 @@ Transform:
   m_Children:
   - {fileID: 2397823780936102027}
   - {fileID: 3983066978853132447}
+  - {fileID: 6442884269195551105}
   m_Father: {fileID: 4915510457874605186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7375272403995801019
