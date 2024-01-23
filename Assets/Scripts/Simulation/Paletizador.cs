@@ -7,7 +7,9 @@ public class Paletizador : MonoBehaviour
     public float velocidadMovimiento = 2.0f;
     public float velocidadMovimientoRaton = 10.0f;
 
-    LayerMask capaObjeto;
+    public LayerMask capaObjeto;
+    public Transform sensor;
+    public bool sensorDetected;
 
     public Transform ejeZ;
     public Transform ejeX;
@@ -35,6 +37,22 @@ public class Paletizador : MonoBehaviour
         // Mover el objetoEjeZ
         float movimientoZ = Input.GetAxis("Mouse ScrollWheel");
         MoverEjeZ(movimientoZ);
+
+        SensorDetector();
+    }
+
+    void SensorDetector()
+    {
+        if(Physics.Raycast(sensor.position, sensor.forward, out RaycastHit hit, Mathf.Infinity, capaObjeto))
+        {
+            sensorDetected = true;
+            Debug.Log("Detección");
+        }
+        else
+        {
+            sensorDetected = false;
+            Debug.Log("Nada");
+        }
     }
 
     void MoverEjeX(float inputMovimiento)

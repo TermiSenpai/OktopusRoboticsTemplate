@@ -41943,6 +41943,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidadMovimiento: 2
   velocidadMovimientoRaton: 10
+  capaObjeto:
+    serializedVersion: 2
+    m_Bits: 128
+  sensor: {fileID: 0}
+  sensorDetected: 0
   ejeZ: {fileID: 7610602535500347672}
   ejeX: {fileID: 4812216283041649912}
   ejeY: {fileID: 4915510457874605186}
