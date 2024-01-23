@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 18562620}
   - component: {fileID: 18562619}
   - component: {fileID: 18562618}
+  - component: {fileID: 18562623}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -241,6 +242,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &18562623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18562617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386075c272afc7b42ac3e160768fc4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &98831319
 GameObject:
   m_ObjectHideFlags: 0
@@ -2351,6 +2364,14 @@ PrefabInstance:
     - target: {fileID: 5005292451911520799, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_Name
       value: SimPaletizador
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257743145437735932, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: btnTxt
+      value: 
+      objectReference: {fileID: 1579495227}
+    - target: {fileID: 7257743145437735932, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: currentBox
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
