@@ -462,25 +462,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 908357257396683977, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_TagString
-      value: X
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793664646653734049, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_TagString
-      value: Y
-      objectReference: {fileID: 0}
     - target: {fileID: 5005292451911520799, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_Name
       value: SimPaletizador
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142255094627891657, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_TagString
-      value: Z
-      objectReference: {fileID: 0}
-    - target: {fileID: 7610602535500347672, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.95
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

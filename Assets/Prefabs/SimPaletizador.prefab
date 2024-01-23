@@ -7070,7 +7070,7 @@ GameObject:
   - component: {fileID: 4812216283041649912}
   m_Layer: 0
   m_Name: EJE_X-Ensamblaje1^Portico eje Y1300 - 8024306_YXCR-4_C2660459 _3894
-  m_TagString: Untagged
+  m_TagString: X
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32257,7 +32257,7 @@ GameObject:
   - component: {fileID: 4915510457874605186}
   m_Layer: 0
   m_Name: EJE_Y-8082407_ELCC-TB-KF-90-1700-0H-P0-CR---_1000_high__3809
-  m_TagString: Untagged
+  m_TagString: Y
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42449,7 +42449,7 @@ GameObject:
   - component: {fileID: 7610602535500347672}
   m_Layer: 0
   m_Name: EJE_Z-Portico eje Y1300 - 8024306_YXCR-4_C2660459 _3808
-  m_TagString: Untagged
+  m_TagString: Z
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42463,7 +42463,7 @@ Transform:
   m_GameObject: {fileID: 5142255094627891657}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.045175925, z: 0}
+  m_LocalPosition: {x: 0, y: -0.045175925, z: 0.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
