@@ -1,51 +1,96 @@
 using UnityEngine;
 using S7.Net;
+using System;
 
 public class PLCControl : MonoBehaviour
 {
     Plc plc;
     [SerializeField] PLCOptions plcData;
 
+    MachineLights startedLight;
+    MachineLights stoppedLight;
+    MachineLights emergencyLight;
+
+    private void Awake()
+    {
+        startedLight = GameObject.Find("StartedLight").GetComponent<MachineLights>();
+        stoppedLight = GameObject.Find("StopLight").GetComponent<MachineLights>();
+        emergencyLight = GameObject.Find("EmergencyLight").GetComponent<MachineLights>();
+    }
+
     private void Start()
     {
-        plc = new (plcData.CPU, plcData.IP, plcData.racks,plcData.racks);
+        plc = new(plcData.CPU, plcData.IP, plcData.racks, plcData.racks);
         plc.Open();
+
+        ResetLights();
+
+    }
+
+    private void ResetLights()
+    {
+        startedLight.Off();
+        stoppedLight.Off();
+        emergencyLight.Off();
     }
 
     private void Update()
     {
         // Read data
-        bool db1Bool1 = (bool)plc.Read("DB1.DBX0.0");
-        if (db1Bool1 == true)
+        bool machineWorking = (bool)plc.Read("DB1.DBX0.3");
+        if (machineWorking == true)
         {
+            startedLight.On();
+            stoppedLight.Off();
         }
         else
-        {           
+        {
+            startedLight.Off();
+            stoppedLight.On();
         }
 
-        bool db1Bool2 = (bool)plc.Read("DB1.DBX0.1");
-        if (db1Bool2 == true)
+        bool emergency = (bool)plc.Read("DB1.DBX1.0");
+        if (emergency)
         {
-        }
-        else
-        {
+            startedLight.Off();
+            stoppedLight.Off();
+            emergencyLight.On();
         }
     }
 
     // Write data
     // Buttons
-    public void Btn1()
+    public void StartBtn()
     {
-        plc.Write("DB1.DBX0.0", true);
+        plc.Write("DB1.DBX0.6", true);
+        plc.Write("DB1.DBX0.7", false);
+    }
+
+    public void StopBtn()
+    {
+        plc.Write("DB1.DBX0.7", true);
+        plc.Write("DB1.DBX0.6", false);
+    }
+
+    public void EmergencyStop()
+    {
+        bool currentState = (bool)plc.Read("DB1.DBX1.0");
+        switch (currentState)
+        {
+            case true:
+                plc.Write("DB1.DBX1.0", false);
+                emergencyLight.Off();
+                break;
+            case false:
+                plc.Write("DB1.DBX1.0", true);
+                emergencyLight.On();
+                break;
+
+        }
     }
     public void Btn1_end()
     {
         plc.Write("DB1.DBX0.0", false);
-    }
-
-    public void Btn2()
-    {
-        plc.Write("DB1.DBX0.1", true);
     }
     public void Btn2_end()
     {
