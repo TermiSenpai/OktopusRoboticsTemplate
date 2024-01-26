@@ -4,10 +4,11 @@ using S7.Net;
 public class PLCControl : MonoBehaviour
 {
     Plc plc;
+    [SerializeField] PLCOptions plcData;
 
     private void Start()
     {
-        plc = new (CpuType.S71200, "127.0.0.1", 0, 1);
+        plc = new (plcData.CPU, plcData.IP, plcData.racks,plcData.racks);
         plc.Open();
     }
 
@@ -17,11 +18,9 @@ public class PLCControl : MonoBehaviour
         bool db1Bool1 = (bool)plc.Read("DB1.DBX0.0");
         if (db1Bool1 == true)
         {
-
         }
         else
-        {
-           
+        {           
         }
 
         bool db1Bool2 = (bool)plc.Read("DB1.DBX0.1");
