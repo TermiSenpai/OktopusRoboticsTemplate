@@ -4,7 +4,7 @@ public class PaletizerAxisMovement : MonoBehaviour
 {
     public static PaletizerAxisMovement Instance;
 
-    Transform xAxis;
+    public static Transform xAxis;
     Transform yAxis;
     Transform zAxis;
 

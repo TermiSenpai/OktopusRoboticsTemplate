@@ -11,6 +11,7 @@ public class PLCControl : MonoBehaviour
     MachineLights stoppedLight;
     MachineLights emergencyLight;
 
+
     private void Awake()
     {
         startedLight = GameObject.Find("StartedLight").GetComponent<MachineLights>();
@@ -56,6 +57,10 @@ public class PLCControl : MonoBehaviour
             stoppedLight.Off();
             emergencyLight.On();
         }
+
+        // Write current x pos
+        plc.Write("DB1.DBD6", PaletizerAxisMovement.xAxis.position.x);
+        Debug.Log(PaletizerAxisMovement.xAxis.position.x);
     }
 
     // Write data
