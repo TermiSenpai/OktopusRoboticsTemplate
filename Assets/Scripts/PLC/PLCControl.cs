@@ -28,10 +28,6 @@ public class PLCControl : MonoBehaviour
         emergencyLight.Off();
     }
 
-    public void OnSensorDetection(string code, bool value)
-    {
-        PLCConexion.plc.Write(code, value);
-    }
 
     private void Update()
     {
@@ -101,5 +97,11 @@ public class PLCControl : MonoBehaviour
     public void Btn2_end()
     {
         PLCConexion.plc.Write("DB1.DBX0.1", false);
+    }
+
+    //Sensors
+    public void OnSensorDetection(string code, bool value)
+    {
+        PLCConexion.plc.Write(code, value);
     }
 }
