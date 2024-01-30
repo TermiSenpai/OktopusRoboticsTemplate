@@ -29,6 +29,8 @@ public class PLCConexion : MonoBehaviour
         cpuDropdown.ClearOptions();
         cpuDropdown.AddOptions(new List<string>(enumNames));
         cpuDropdown.onValueChanged.AddListener(OnCpuDropdownChange);
+
+        LoadDefaults();
     }
     #region Buttons
 
@@ -42,11 +44,7 @@ public class PLCConexion : MonoBehaviour
     }
     public void OnDefaultBtn()
     {
-        int index = (int)defaultOptions.CPU;
-        cpuDropdown.value = index;
-        ipInput.text = defaultOptions.IP;
-        racksInput.text = defaultOptions.racks.ToString();
-        slotsInput.text = defaultOptions.slots.ToString();
+        LoadDefaults();
     }
     public void OnCancelBtn()
     {
@@ -106,5 +104,14 @@ public class PLCConexion : MonoBehaviour
     void OpenMenu()
     {
         conexionMenu.SetActive(true);
+    }
+
+    void LoadDefaults()
+    {
+        int index = (int)defaultOptions.CPU;
+        cpuDropdown.value = index;
+        ipInput.text = defaultOptions.IP;
+        racksInput.text = defaultOptions.racks.ToString();
+        slotsInput.text = defaultOptions.slots.ToString();
     }
 }

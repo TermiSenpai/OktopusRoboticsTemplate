@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PLCControl : MonoBehaviour
 {
+    public static PLCControl Instance;
+
     MachineLights startedLight;
     MachineLights stoppedLight;
     MachineLights emergencyLight;
@@ -24,6 +26,11 @@ public class PLCControl : MonoBehaviour
         startedLight.Off();
         stoppedLight.Off();
         emergencyLight.Off();
+    }
+
+    public void OnSensorDetection(string code, bool value)
+    {
+        PLCConexion.plc.Write(code, value);
     }
 
     private void Update()
