@@ -22,11 +22,13 @@ public class Sensor : MonoBehaviour
 
             //TODO
             // Llamar al controlador del PLC para su activación
+            PLCControl.Instance.OnSensorDetection(PLCCode, true);
         }
         else
         {
             // El Raycast no golpeó nada
             Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.green);
+            PLCControl.Instance.OnSensorDetection(PLCCode, false);
         }
     }
 }
