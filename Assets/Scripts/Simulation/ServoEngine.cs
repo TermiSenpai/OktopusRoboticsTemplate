@@ -1,5 +1,12 @@
 using UnityEngine;
 
+public enum AxisMovement
+{
+    X,
+    Y,
+    Z
+}
+
 public class ServoEngine : MonoBehaviour
 {
     [SerializeField] string rightCode;
@@ -10,6 +17,11 @@ public class ServoEngine : MonoBehaviour
     [SerializeField] GameObject axis;
     [SerializeField] bool debugR;
     [SerializeField] bool debugL;
+
+    [SerializeField] float posMin;
+    [SerializeField] float posMax;
+
+    [SerializeField] AxisMovement axisToLimit;
     private void Update()
     {
 
@@ -19,6 +31,28 @@ public class ServoEngine : MonoBehaviour
 
         if (debugL)
             axis.transform.localPosition -= direction * speed;
+
+        Vector3 currentPosition = axis.transform.localPosition;
+        float clampedValue;
+
+        switch (axisToLimit)
+        {
+            case AxisMovement.X:
+                clampedValue = Mathf.Clamp(currentPosition.x, posMin, posMax);
+                Debug.Log(clampedValue);
+                axis.transform.localPosition = new Vector3(clampedValue, currentPosition.y, currentPosition.z);
+                break;
+            case AxisMovement.Y:
+                clampedValue = Mathf.Clamp(currentPosition.y, posMin, posMax);
+                Debug.Log(clampedValue);
+                axis.transform.localPosition = new Vector3(currentPosition.x, clampedValue, currentPosition.z);
+                break;
+            case AxisMovement.Z:
+                clampedValue = Mathf.Clamp(currentPosition.z, posMin, posMax);
+                Debug.Log(clampedValue);
+                axis.transform.localPosition = new Vector3(currentPosition.x, currentPosition.y, clampedValue);
+                break;
+        }
 
         if (PLCConexion.plc == null || !PLCConexion.plc.IsConnected) return;
 
@@ -32,5 +66,9 @@ public class ServoEngine : MonoBehaviour
         {
             axis.transform.localPosition += direction * speed;
         }
+        
+
+        
+
     }
 }
