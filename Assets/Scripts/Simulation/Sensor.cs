@@ -54,8 +54,6 @@ public class Sensor : MonoBehaviour
     }
 
     // Dibuja el rayo de depuración
-    private void DebugDrawRay(Vector3 origin, Vector3 direction, Color color)
-    {
-        Debug.DrawRay(origin, direction, color);
-    }
+    private void DebugDrawRay(Vector3 origin, Vector3 direction, Color color) => Debug.DrawRay(origin, direction, color);
+
 }
