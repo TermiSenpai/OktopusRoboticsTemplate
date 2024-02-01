@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PLCControl : MonoBehaviour
+public class PLCControl : MonoBehaviour, ISensorEventHandler
 {
     public static PLCControl Instance;
 
@@ -100,8 +100,9 @@ public class PLCControl : MonoBehaviour
     }
 
     //Sensors
-    public void OnSensorDetection(string code, bool value)
+    public void OnSensorDetected(string plcCode, bool detectionResult)
     {
-        PLCConexion.plc.Write(code, value);
+        if (PLCConexion.plc == null || !PLCConexion.plc.IsConnected) return;
+        PLCConexion.plc.Write(plcCode, detectionResult);
     }
 }
