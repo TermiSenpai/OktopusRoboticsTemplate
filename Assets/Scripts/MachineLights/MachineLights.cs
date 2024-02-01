@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MachineLights : MonoBehaviour
+public class MachineLights : MonoBehaviour, ILight
 {
     private MeshRenderer mesh;
     private Material material;
@@ -27,12 +27,12 @@ public class MachineLights : MonoBehaviour
         }
     }
 
-    public void On()
+    public void TurnOn()
     {
         material.color = onColor;
     }
 
-    public void Off()
+    public void TurnOff()
     {
         material.color = offColor;
     }

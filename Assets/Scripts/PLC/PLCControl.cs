@@ -23,9 +23,9 @@ public class PLCControl : MonoBehaviour, ISensorEventHandler
 
     private void ResetLights()
     {
-        startedLight.Off();
-        stoppedLight.Off();
-        emergencyLight.Off();
+        startedLight.TurnOff();
+        stoppedLight.TurnOff();
+        emergencyLight.TurnOff();
     }
 
 
@@ -36,30 +36,43 @@ public class PLCControl : MonoBehaviour, ISensorEventHandler
 
         // Read data
         bool machineWorking = (bool)PLCConexion.plc.Read("DB1.DBX0.3");
-        if (machineWorking == true)
-        {
-            startedLight.On();
-            stoppedLight.Off();
-        }
-        else
-        {
-            startedLight.Off();
-            stoppedLight.On();
-        }
+        UpdateLights(machineWorking);
 
         bool emergency = (bool)PLCConexion.plc.Read("DB1.DBX1.0");
-        if (emergency)
-        {
-            startedLight.Off();
-            stoppedLight.Off();
-            emergencyLight.On();
-        }
+        UpdateEmergencyLight(emergency);
 
         // Write current x pos
         PLCConexion.plc.Write("DB1.DBD6", PaletizerAxisMovement.xAxis.position.x);
         Debug.Log(PaletizerAxisMovement.xAxis.position.x);
     }
 
+    private void UpdateLights(bool machineWorking)
+    {
+        if (machineWorking)
+        {
+            startedLight.TurnOn();
+            stoppedLight.TurnOff();
+        }
+        else
+        {
+            startedLight.TurnOff();
+            stoppedLight.TurnOn();
+        }
+    }
+
+    private void UpdateEmergencyLight(bool emergency)
+    {
+        if (emergency)
+        {
+            startedLight.TurnOff();
+            stoppedLight.TurnOff();
+            emergencyLight.TurnOn();
+        }
+        else
+        {
+            emergencyLight.TurnOff();
+        }
+    }
     // Write data
     // Buttons
     public void StartBtn()
@@ -81,11 +94,11 @@ public class PLCControl : MonoBehaviour, ISensorEventHandler
         {
             case true:
                 PLCConexion.plc.Write("DB1.DBX1.0", false);
-                emergencyLight.Off();
+                emergencyLight.TurnOff();
                 break;
             case false:
                 PLCConexion.plc.Write("DB1.DBX1.0", true);
-                emergencyLight.On();
+                emergencyLight.TurnOn();
                 break;
 
         }
