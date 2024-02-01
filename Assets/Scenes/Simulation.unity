@@ -1214,6 +1214,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &210820828 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1726262528518719087, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+  m_PrefabInstance: {fileID: 2124894136}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &210820834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210820828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa692dfd4327de46ba7a659875e0e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &211330581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2691,11 +2708,11 @@ MonoBehaviour:
   speed: 0.1
   direction: {x: -0.1, y: 0, z: 0}
   axis: {fileID: 974690127}
-  debugR: 0
-  debugL: 0
   posMin: -0.8
   posMax: 0.5
   axisToLimit: 0
+  debugR: 0
+  debugL: 0
 --- !u!65 &596527161
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3136,11 +3153,11 @@ MonoBehaviour:
   speed: 0.1
   direction: {x: 0, y: 0, z: -0.1}
   axis: {fileID: 1044081857}
-  debugR: 0
-  debugL: 0
   posMin: -0.8
   posMax: 0.95
   axisToLimit: 2
+  debugR: 0
+  debugL: 0
 --- !u!65 &733034720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4322,11 +4339,11 @@ MonoBehaviour:
   speed: 0.1
   direction: {x: 0, y: -0.1, z: 0}
   axis: {fileID: 2136284043}
-  debugR: 0
-  debugL: 0
   posMin: 0
   posMax: 1.7
   axisToLimit: 1
+  debugR: 0
+  debugL: 0
 --- !u!65 &982286555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6190,9 +6207,10 @@ GameObject:
   - component: {fileID: 1329734228}
   - component: {fileID: 1329734227}
   - component: {fileID: 1329734231}
+  - component: {fileID: 1329734232}
   m_Layer: 7
-  m_Name: Cube
-  m_TagString: Untagged
+  m_Name: Box
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6310,6 +6328,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1329734232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329734226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 569800799e756914cac79d63555096d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1334776754
 GameObject:
   m_ObjectHideFlags: 0
@@ -8794,6 +8824,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8201714138184902365, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       insertIndex: -1
       addedObject: {fileID: 801025238}
+    - targetCorrespondingSourceObject: {fileID: 1726262528518719087, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 210820834}
     - targetCorrespondingSourceObject: {fileID: 6819678698980350087, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2124894142}
