@@ -9,14 +9,14 @@ public class Sensor : MonoBehaviour
 
     private void Start()
     {
-        // Inicializar la implementación de ISensorEventHandler (podría ser un singleton o inyección desde fuera)
+        // Inicializar la implementacion de ISensorEventHandler
         sensorEventHandler = PLCControl.Instance;
     }
 
     // Método llamado en cada frame para actualizar el estado del sensor
     private void Update()
     {
-        // Obtener la posición y la dirección del eje y local del sensor
+        // Obtener la posicion y la direccion del eje y local del sensor
         Vector3 raycastOrigin = transform.position;
         Vector3 raycastDirection = transform.up;
 
@@ -30,30 +30,30 @@ public class Sensor : MonoBehaviour
         // Lanzar el Raycast
         if (Physics.Raycast(origin, direction, out RaycastHit hit, raycastDistance))
         {
-            // El Raycast golpeó algo
+            // El Raycast golpeo algo
             DebugDrawRay(origin, direction * hit.distance, Color.red);
-            Debug.Log("Golpeó: " + hit.collider.gameObject.name);
+            Debug.Log("GolpeE " + hit.collider.gameObject.name);
             HandleDetectionResult(true);
         }
         else
         {
-            // El Raycast no golpeó nada
+            // El Raycast no golpeo nada
             DebugDrawRay(origin, direction * raycastDistance, Color.green);
             HandleDetectionResult(false);
         }
     }
 
-    // Actúa según el resultado de la detección
+    // Actua segun el resultado de la deteccion
     private void HandleDetectionResult(bool detectionResult)
     {
-        // Verificar la conexión al PLC antes de realizar acciones
+        // Verificar la conexion al PLC antes de realizar acciones
         if (PLCConexion.plc == null || !PLCConexion.plc.IsConnected) return;
 
-        // Activar/desactivar el PLC asociado al sensor según el resultado de la detección
+        // Activar/desactivar el PLC asociado al sensor segun el resultado de la deteccion
         sensorEventHandler.OnSensorDetected(PLCCode, detectionResult);
     }
 
-    // Dibuja el rayo de depuración
+    // Dibuja el rayo de depuracion
     private void DebugDrawRay(Vector3 origin, Vector3 direction, Color color) => Debug.DrawRay(origin, direction, color);
 
 }
