@@ -5,14 +5,21 @@ using UnityEngine;
 public class Box : MonoBehaviour
 {
     [SerializeField] private float currentSpeed = 0f;
+    GameObject conveyorBelt;
+    ConveyorBelt belt;
+
+    private void Start()
+    {
+        conveyorBelt = GameObject.FindGameObjectWithTag("Belt");
+        belt = conveyorBelt.GetComponent<ConveyorBelt>();
+    }
+
 
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Belt"))
         {
-
-            collision.gameObject.TryGetComponent<ConveyorBelt>(out var belt);
             currentSpeed = belt.GetSpeed();
         }
     }
@@ -21,11 +28,10 @@ public class Box : MonoBehaviour
     {
         if (collision.collider.CompareTag("Belt"))
         {
-            collision.gameObject.TryGetComponent<ConveyorBelt>(out var belt);
+            //collision.gameObject.TryGetComponent<ConveyorBelt>(out var belt);
             //if (currentSpeed == belt.GetSpeed())
             //    return;
 
-            currentSpeed = belt.GetSpeed();
         }
     }
 
@@ -33,6 +39,9 @@ public class Box : MonoBehaviour
     {
         // Mover el GameObject en la dirección positiva del eje X
         MoveGameObject();
+
+        currentSpeed = belt.GetSpeed();
+
     }
 
     private void MoveGameObject()
