@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +21,7 @@ public class Box : MonoBehaviour
     {
         if (collision.collider.CompareTag("Belt"))
         {
-            //collision.gameObject.TryGetComponent<ConveyorBelt>(out var belt);
+            collision.gameObject.TryGetComponent<ConveyorBelt>(out var belt);
             //if (currentSpeed == belt.GetSpeed())
             //    return;
 
@@ -31,19 +31,19 @@ public class Box : MonoBehaviour
 
     private void Update()
     {
-        // Mover el GameObject en la direcci?n positiva del eje X
+        // Mover el GameObject en la dirección positiva del eje X
         MoveGameObject();
     }
 
     private void MoveGameObject()
     {
-        // Obtener la posici?n actual
+        // Obtener la posición actual
         Vector3 currentPosition = transform.position;
 
-        // Calcular la nueva posici?n en funci?n de la velocidad y el tiempo
+        // Calcular la nueva posición en función de la velocidad y el tiempo
         float newXPosition = currentPosition.x + currentSpeed * Time.deltaTime;
 
-        // Asignar la nueva posici?n al GameObject
+        // Asignar la nueva posición al GameObject
         transform.position = new Vector3(newXPosition, currentPosition.y, currentPosition.z);
     }
 }
