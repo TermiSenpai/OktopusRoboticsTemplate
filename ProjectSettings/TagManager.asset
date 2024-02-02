@@ -11,6 +11,7 @@ TagManager:
   - X
   - Y
   - Z
+  - Belt
   layers:
   - Default
   - TransparentFX

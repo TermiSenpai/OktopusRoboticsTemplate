@@ -15,11 +15,6 @@ public class ConveyorBelt : MonoBehaviour
         return currentSpeed;
     }
 
-    private void Update()
-    {
-        
-    }
-
     public void GetSensorState(bool sensorState)
     {
         switch (sensorState)
