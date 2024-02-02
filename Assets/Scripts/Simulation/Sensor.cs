@@ -7,7 +7,7 @@ public class Sensor : MonoBehaviour
     [SerializeField] private float raycastDistance = 0.5f;
 
     private ISensorEventHandler sensorEventHandler;
-    [SerializeField] private UnityEvent handler;
+    [SerializeField] private UnityEvent<bool> handler;
     private bool currentstate = false;
 
     private void Start()
@@ -36,7 +36,7 @@ public class Sensor : MonoBehaviour
             // El Raycast golpeo algo
             DebugDrawRay(origin, direction * hit.distance, Color.red);
             Debug.Log("GolpeÅE " + hit.collider.gameObject.name);
-            HandleDetectionResult(true);            
+            HandleDetectionResult(true);
         }
         else
         {
@@ -49,6 +49,7 @@ public class Sensor : MonoBehaviour
     // Actua segun el resultado de la deteccion
     private void HandleDetectionResult(bool detectionResult)
     {
+        handler?.Invoke(detectionResult);
         // Verificar la conexion al PLC antes de realizar acciones
         if (PLCConexion.plc == null || !PLCConexion.plc.IsConnected) return;
 
@@ -56,7 +57,6 @@ public class Sensor : MonoBehaviour
         sensorEventHandler.OnSensorDetected(PLCCode, detectionResult);
 
         currentstate = detectionResult;
-        handler?.Invoke();
     }
 
     public bool GetCurrentState()
