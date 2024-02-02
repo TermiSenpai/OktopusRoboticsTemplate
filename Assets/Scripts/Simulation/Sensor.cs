@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Sensor : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class Sensor : MonoBehaviour
     [SerializeField] private float raycastDistance = 0.5f;
 
     private ISensorEventHandler sensorEventHandler;
+    [SerializeField] private UnityEvent handler;
+    private bool currentstate = false;
 
     private void Start()
     {
@@ -33,7 +36,7 @@ public class Sensor : MonoBehaviour
             // El Raycast golpeo algo
             DebugDrawRay(origin, direction * hit.distance, Color.red);
             Debug.Log("GolpeÅE " + hit.collider.gameObject.name);
-            HandleDetectionResult(true);
+            HandleDetectionResult(true);            
         }
         else
         {
@@ -51,6 +54,14 @@ public class Sensor : MonoBehaviour
 
         // Activar/desactivar el PLC asociado al sensor segun el resultado de la deteccion
         sensorEventHandler.OnSensorDetected(PLCCode, detectionResult);
+
+        currentstate = detectionResult;
+        handler?.Invoke();
+    }
+
+    public bool GetCurrentState()
+    {
+        return currentstate;
     }
 
     // Dibuja el rayo de depuracion
