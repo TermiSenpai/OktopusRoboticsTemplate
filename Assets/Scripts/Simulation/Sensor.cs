@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.Events;
 
 public class Sensor : MonoBehaviour
@@ -16,7 +16,7 @@ public class Sensor : MonoBehaviour
         sensorEventHandler = PLCControl.Instance;
     }
 
-    // MÈtodo llamado en cada frame para actualizar el estado del sensor
+    // MÈ®Åodo llamado en cada frame para actualizar el estado del sensor
     private void Update()
     {
         // Obtener la posicion y la direccion del eje y local del sensor
@@ -35,7 +35,7 @@ public class Sensor : MonoBehaviour
         {
             // El Raycast golpeo algo
             DebugDrawRay(origin, direction * hit.distance, Color.red);
-            Debug.Log("GolpeÅE " + hit.collider.gameObject.name);
+            Debug.Log("Golpeo: " + hit.collider.gameObject.name);
             HandleDetectionResult(true);
         }
         else
@@ -49,6 +49,7 @@ public class Sensor : MonoBehaviour
     // Actua segun el resultado de la deteccion
     private void HandleDetectionResult(bool detectionResult)
     {
+        // En caso de que exista un evento y una llamada, se realizar√° la llamada
         handler?.Invoke(detectionResult);
         // Verificar la conexion al PLC antes de realizar acciones
         if (PLCConexion.plc == null || !PLCConexion.plc.IsConnected) return;
@@ -57,11 +58,6 @@ public class Sensor : MonoBehaviour
         sensorEventHandler.OnSensorDetected(PLCCode, detectionResult);
 
         currentstate = detectionResult;
-    }
-
-    public bool GetCurrentState()
-    {
-        return currentstate;
     }
 
     // Dibuja el rayo de depuracion
