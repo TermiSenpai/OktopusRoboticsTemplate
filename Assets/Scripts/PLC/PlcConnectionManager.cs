@@ -17,8 +17,7 @@ public class PlcConnectionManager : MonoBehaviour
         // Singleton: Garantiza que solo haya una instancia de la clase en la aplicación
         if (InstanceManager == null)
         {
-            InstanceManager = this;
-            DontDestroyOnLoad(gameObject); // No destruir el objeto al cargar nuevas escenas
+            InstanceManager = this;            
         }
         else
         {
