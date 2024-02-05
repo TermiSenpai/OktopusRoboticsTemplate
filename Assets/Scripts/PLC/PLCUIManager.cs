@@ -70,35 +70,6 @@ public class PLCUIManager : MonoBehaviour
 
     #endregion
 
-    short TryParseTxt(string txt)
-    {
-
-        if (Int16.TryParse(txt, out short result))
-            return result;
-
-        Debug.LogError("Error al convertir a short");
-        return 0;
-    }
-
-    void CloseMenu()
-    {
-        conexionMenu.SetActive(false);
-    }
-
-    void OpenMenu()
-    {
-        conexionMenu.SetActive(true);
-    }
-
-    void LoadDefaults()
-    {
-        int index = (int)defaultOptions.CPU;
-        cpuDropdown.value = index;
-        ipInput.text = defaultOptions.IP;
-        racksInput.text = defaultOptions.racks.ToString();
-        slotsInput.text = defaultOptions.slots.ToString();
-    }
-
     #region Inputs
 
     public void OnIpInputChange(string ipInput)
@@ -117,4 +88,30 @@ public class PLCUIManager : MonoBehaviour
     }
 
     #endregion
+
+    short TryParseTxt(string txt)
+    {
+
+        if (Int16.TryParse(txt, out short result))
+            return result;
+
+        Debug.LogError("Error al convertir a short");
+        return 0;
+    }
+
+    void CloseMenu() => conexionMenu.SetActive(false);
+
+
+    void OpenMenu() => conexionMenu.SetActive(true);
+
+
+    void LoadDefaults()
+    {
+        int index = (int)defaultOptions.CPU;
+        cpuDropdown.value = index;
+        ipInput.text = defaultOptions.IP;
+        racksInput.text = defaultOptions.racks.ToString();
+        slotsInput.text = defaultOptions.slots.ToString();
+    }
+
 }
