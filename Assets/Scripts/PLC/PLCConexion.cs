@@ -1,117 +1,71 @@
 using S7.Net;
 using System;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 public class PLCConexion : MonoBehaviour
 {
-    public static Plc plc;
-    [SerializeField] GameObject conexionMenu;
+    public static PLCConexion Instance;
 
-    [SerializeField] PLCOptions defaultOptions;
+    private Plc plc;
 
-    // UI
-    [SerializeField] TMP_Dropdown cpuDropdown;
-    [SerializeField] TMP_InputField ipInput;
-    [SerializeField] TMP_InputField racksInput;
-    [SerializeField] TMP_InputField slotsInput;
-
-    // PLC Data
-    CpuType currentCpu;
-    string IP;
-    short racks;
-    short slots;
-
-    private void Start()
+    // Singleton
+    private void Awake()
     {
-        string[] enumNames = System.Enum.GetNames(typeof(CpuType));
-
-        cpuDropdown.ClearOptions();
-        cpuDropdown.AddOptions(new List<string>(enumNames));
-        cpuDropdown.onValueChanged.AddListener(OnCpuDropdownChange);
-
-        LoadDefaults();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    #region Buttons
 
-    public void OnConnectBtn()
+    public void StartConexion(CpuType cpu, string ip, short racks, short slots)
     {
-        plc = new(currentCpu, IP, racks, slots);
+        plc = new(cpu, ip, racks, slots);
         plc.Open();
-
-        if (plc.IsConnected) CloseMenu();
-
-    }
-    public void OnDefaultBtn()
-    {
-        LoadDefaults();
-    }
-    public void OnCancelBtn()
-    {
-        CloseMenu();
-    }
-    #endregion
-
-    #region Inputs
-
-    public void OnIpInputChange(string ipInput)
-    {
-        IP = ipInput;
     }
 
-    public void OnRacksInputChange(string racksInput)
+    public bool CheckPLCConnection()
     {
-        racks = TryParseTxt(racksInput);
+        return plc == null || !plc.IsConnected;
     }
 
-    public void OnslotsInputChange(string slotsInput)
+    public T ReadVariable<T>(string address)
     {
-        slots = TryParseTxt(slotsInput);
+        if (CheckPLCConnection())
+        {
+            Debug.LogError("PLC is not connected.");
+            return default;
+        }
+
+        try
+        {
+            return (T)plc.Read(address);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error reading variable at {address}: {ex.Message}");
+            return default;
+        }
     }
 
-    #endregion
-
-    #region Dropdown
-
-    void OnCpuDropdownChange(int index)
+    public void WriteVariable(string address, object value)
     {
-        // Accede al valor seleccionado del enum
-        CpuType selectedEnumValue = (CpuType)System.Enum.Parse(typeof(CpuType), cpuDropdown.options[index].text);
+        if (CheckPLCConnection())
+        {
+            Debug.LogError("PLC is not connected.");
+            return;
+        }
 
-        currentCpu = selectedEnumValue;
-
-        // Puedes hacer algo con el valor seleccionado aquí
-        Debug.Log("Seleccionaste: " + selectedEnumValue);
-    }
-
-    #endregion
-
-    short TryParseTxt(string txt)
-    {
-
-        if (Int16.TryParse(txt, out short result))
-            return result;
-
-        Debug.LogError("Error al convertir a short");
-        return 0;
-    }
-
-    void CloseMenu()
-    {
-        conexionMenu.SetActive(false);
-    }
-
-    void OpenMenu()
-    {
-        conexionMenu.SetActive(true);
-    }
-
-    void LoadDefaults()
-    {
-        int index = (int)defaultOptions.CPU;
-        cpuDropdown.value = index;
-        ipInput.text = defaultOptions.IP;
-        racksInput.text = defaultOptions.racks.ToString();
-        slotsInput.text = defaultOptions.slots.ToString();
+        try
+        {
+            plc.Write(address, value);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error writing variable at {address}: {ex.Message}");
+        }
     }
 }

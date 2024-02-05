@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7686639}
   - component: {fileID: 7686638}
+  - component: {fileID: 7686640}
   m_Layer: 0
   m_Name: PLC
   m_TagString: Untagged
@@ -167,6 +168,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7686640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2d815ac63f35d45b94865af064ce7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &18562617
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +194,6 @@ GameObject:
   - component: {fileID: 18562619}
   - component: {fileID: 18562618}
   - component: {fileID: 18562623}
-  - component: {fileID: 18562624}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -298,19 +310,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 18562617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 386075c272afc7b42ac3e160768fc4bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &18562624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 18562617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f2d815ac63f35d45b94865af064ce7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3491b87d05f02da47b2f1820ded1500b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   conexionMenu: {fileID: 1205897337}
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 18562624}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PLCConexion, Assembly-CSharp
         m_MethodName: OnDefaultBtn
         m_Mode: 1
@@ -3081,7 +3081,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 18562624}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PLCConexion, Assembly-CSharp
         m_MethodName: OnRacksInputChange
         m_Mode: 0
@@ -3946,7 +3946,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 18562624}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PLCConexion, Assembly-CSharp
         m_MethodName: OnConnectBtn
         m_Mode: 1
@@ -5055,7 +5055,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 18562624}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PLCConexion, Assembly-CSharp
         m_MethodName: OnIpInputChange
         m_Mode: 0
@@ -5206,7 +5206,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 18562624}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PLCConexion, Assembly-CSharp
         m_MethodName: OnCancelBtn
         m_Mode: 1
@@ -5885,7 +5885,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 18562624}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PLCConexion, Assembly-CSharp
         m_MethodName: OnslotsInputChange
         m_Mode: 0
