@@ -8,10 +8,15 @@ public class BoxManager : MonoBehaviour
     public GameObject currentBox;
     public float raycastDistance = 1f;
 
-    [SerializeField] TextMeshProUGUI btnTxt;
+    TextMeshProUGUI btnTxt;
 
     [SerializeField] Transform origin;
     Vector3 dir = Vector3.down;
+
+    private void Start()
+    {
+        btnTxt = GameObject.FindGameObjectWithTag("TakeDropTxt").GetComponent<TextMeshProUGUI>();
+    }
 
     private void Update()
     {

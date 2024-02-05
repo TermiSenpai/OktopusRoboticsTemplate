@@ -12,6 +12,7 @@ TagManager:
   - Y
   - Z
   - Belt
+  - TakeDropTxt
   layers:
   - Default
   - TransparentFX
