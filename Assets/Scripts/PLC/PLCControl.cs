@@ -31,14 +31,14 @@ public class PLCControl : MonoBehaviour, ISensorEventHandler
 
     private void Update()
     {
-        if (PLCConexion.Instance.CheckPLCConnection())
+        if (PlcConnectionManager.InstanceManager.IsPLCConnected())
             return;
 
         // Read data
-        bool machineWorking = PLCConexion.Instance.ReadVariable<bool>("DB1.DBX0.3");
+        bool machineWorking = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX0.3");
         UpdateLights(machineWorking);
 
-        bool emergency = PLCConexion.Instance.ReadVariable<bool>("DB1.DBX1.0");
+        bool emergency = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX1.0");
         UpdateEmergencyLight(emergency);
 
     }
@@ -74,27 +74,27 @@ public class PLCControl : MonoBehaviour, ISensorEventHandler
     // Buttons
     public void StartBtn()
     {
-        PLCConexion.Instance.WriteVariable("DB1.DBX0.6", true);
-        PLCConexion.Instance.WriteVariable("DB1.DBX0.7", false);
+        PlcConnectionManager.InstanceManager.WriteVariableValue("DB1.DBX0.6", true);
+        PlcConnectionManager.InstanceManager.WriteVariableValue("DB1.DBX0.7", false);
     }
 
     public void StopBtn()
     {
-        PLCConexion.Instance.WriteVariable("DB1.DBX0.7", true);
-        PLCConexion.Instance.WriteVariable("DB1.DBX0.6", false);
+        PlcConnectionManager.InstanceManager.WriteVariableValue("DB1.DBX0.7", true);
+        PlcConnectionManager.InstanceManager.WriteVariableValue("DB1.DBX0.6", false);
     }
 
     public void EmergencyStop()
     {
-        bool currentState = PLCConexion.Instance.ReadVariable<bool>("DB1.DBX1.0");
+        bool currentState = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX1.0");
         switch (currentState)
         {
             case true:
-                PLCConexion.Instance.WriteVariable("DB1.DBX1.0", false);
+                PlcConnectionManager.InstanceManager.WriteVariableValue("DB1.DBX1.0", false);
                 emergencyLight.TurnOff();
                 break;
             case false:
-                PLCConexion.Instance.WriteVariable("DB1.DBX1.0", true);
+                PlcConnectionManager.InstanceManager.WriteVariableValue("DB1.DBX1.0", true);
                 emergencyLight.TurnOn();
                 break;
 
@@ -102,17 +102,17 @@ public class PLCControl : MonoBehaviour, ISensorEventHandler
     }
     public void Btn1_end()
     {
-        PLCConexion.Instance.WriteVariable("DB1.DBX0.0", false);
+        PlcConnectionManager.InstanceManager.WriteVariableValue("DB1.DBX0.0", false);
     }
     public void Btn2_end()
     {
-        PLCConexion.Instance.WriteVariable("DB1.DBX0.1", false);
+        PlcConnectionManager.InstanceManager.WriteVariableValue("DB1.DBX0.1", false);
     }
 
     //Sensors
     public void OnSensorDetected(string plcCode, bool detectionResult)
     {
-        if (PLCConexion.Instance.CheckPLCConnection()) return;
-        PLCConexion.Instance.WriteVariable(plcCode, detectionResult);
+        if (PlcConnectionManager.InstanceManager.IsPLCConnected()) return;
+        PlcConnectionManager.InstanceManager.WriteVariableValue(plcCode, detectionResult);
     }
 }

@@ -49,9 +49,9 @@ public class PLCUIManager : MonoBehaviour
 
     public void OnConnectBtn()
     {
-        PLCConexion.Instance.StartConexion(selectedCPU, IP, racks, slots);
+        PlcConnectionManager.InstanceManager.InitializeConnection(selectedCPU, IP, racks, slots);
 
-        if (PLCConexion.Instance.CheckPLCConnection()) CloseMenu();
+        if (PlcConnectionManager.InstanceManager.IsPLCConnected()) CloseMenu();
     }
     #endregion
 
