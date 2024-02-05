@@ -15,14 +15,12 @@ public class PlcConnectionManager : MonoBehaviour
     private void Awake()
     {
         // Singleton: Garantiza que solo haya una instancia de la clase en la aplicación
-        if (InstanceManager == null)
-        {
+        if (InstanceManager == null)        
             InstanceManager = this;            
-        }
-        else
-        {
+        
+        else        
             Destroy(gameObject); // Destruir el objeto si ya existe una instancia
-        }
+        
     }
 
     // Método para iniciar la conexión con el PLC
