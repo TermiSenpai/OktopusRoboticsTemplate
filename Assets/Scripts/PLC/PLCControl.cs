@@ -31,7 +31,7 @@ public class PLCControl : MonoBehaviour, ISensorEventHandler
 
     private void Update()
     {
-        if (PlcConnectionManager.InstanceManager.IsPLCDisconnect())
+        if (PlcConnectionManager.InstanceManager.IsPLCDisconnected())
             return;
 
         // Read data
@@ -112,7 +112,7 @@ public class PLCControl : MonoBehaviour, ISensorEventHandler
     //Sensors
     public void OnSensorDetected(string plcCode, bool detectionResult)
     {
-        if (PlcConnectionManager.InstanceManager.IsPLCDisconnect()) return;
+        if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
         PlcConnectionManager.InstanceManager.WriteVariableValue(plcCode, detectionResult);
     }
 }

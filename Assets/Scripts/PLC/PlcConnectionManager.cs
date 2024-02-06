@@ -32,7 +32,7 @@ public class PlcConnectionManager : MonoBehaviour
     }
 
     // Método para verificar si la conexión con el PLC está activa
-    public bool IsPLCDisconnect()
+    public bool IsPLCDisconnected()
     {
         // Devuelve true si el PLC no está conectado o si el objeto Plc es nulo
         return plc == null || !plc.IsConnected;
@@ -42,7 +42,7 @@ public class PlcConnectionManager : MonoBehaviour
     public T ReadVariableValue<T>(string address)
     {
         // Verificar la conexión antes de intentar leer la variable
-        if (IsPLCDisconnect())
+        if (IsPLCDisconnected())
         {
             Debug.LogError("PLC is not connected.");
             return default; // Devolver el valor predeterminado del tipo T
@@ -65,7 +65,7 @@ public class PlcConnectionManager : MonoBehaviour
     public void WriteVariableValue(string address, object value)
     {
         // Verificar la conexión antes de intentar escribir en la variable
-        if (IsPLCDisconnect())
+        if (IsPLCDisconnected())
         {
             Debug.LogError("PLC is not connected.");
             return;
