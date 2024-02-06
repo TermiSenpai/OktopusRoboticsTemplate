@@ -3317,7 +3317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09d6564d6805404191e98e3cc1f8d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightCode: DB1.DBX2.2
+  rightCode: DB1.DBX2.1
   leftCode: DB1.DBX2.2
   speed: 0.1
   direction: {x: 0, y: 0, z: -0.1}
