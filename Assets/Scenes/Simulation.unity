@@ -148,7 +148,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7686637}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95b8494799d1d9248bdc5caa59c25187, type: 3}
   m_Name: 
@@ -8905,10 +8905,6 @@ PrefabInstance:
     - target: {fileID: 240121122401178814, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3837244041154055008, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: PLCCode
-      value: DB1.DBX0.0
       objectReference: {fileID: 0}
     - target: {fileID: 5005292451911520799, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_Name

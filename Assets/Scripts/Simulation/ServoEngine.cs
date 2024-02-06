@@ -39,13 +39,15 @@ public class ServoEngine : MonoBehaviour
     private void Update()
     {
         // Movimiento manual del servo durante la depuración
-        HandleDebugMovements();
+        if (PlcConnectionManager.InstanceManager.IsPLCDisconnected())
+            HandleDebugMovements();
+
+        // Realizar movimientos controlados por PLC
+        else
+            HandlePLCMovements();
 
         // Limitar la posición del eje según la configuración especificada
         LimitAxisPosition();
-
-        // Realizar movimientos controlados por PLC
-        HandlePLCMovements();
     }
 
     // Manejar movimientos manuales durante la depuración
@@ -86,13 +88,13 @@ public class ServoEngine : MonoBehaviour
         if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
 
         bool rightMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(rightCode);
-        if (rightMove)
-            MoveAxis(direction * speed);
-        
-
         bool leftMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(leftCode);
-        if (leftMove)
-            MoveAxis(-direction * speed);
+
+        if (rightMove || leftMove)
+        {
+            int totalMovement = (rightMove ? 1 : 0) - (leftMove ? 1 : 0);
+            MoveAxis(totalMovement * direction * speed);
+        }
     }
 
     // Mover el eje del servo manualmente
