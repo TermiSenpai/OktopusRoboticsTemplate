@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 // Enumeración que representa los ejes de movimiento posibles
@@ -83,12 +84,18 @@ public class ServoEngine : MonoBehaviour
     }
 
     // Realizar movimientos controlados por PLC
-    private void HandlePLCMovements()
+    private async void HandlePLCMovements()
     {
         if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
 
-        bool rightMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(rightCode);
-        bool leftMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(leftCode);
+        Task<bool> rightTask = PlcConnectionManager.InstanceManager.ReadVariableValueAsync<bool>(rightCode);
+        Task<bool> leftTask = PlcConnectionManager.InstanceManager.ReadVariableValueAsync<bool>(leftCode);
+
+        // Esperar a que ambas tareas de lectura se completen
+        await Task.WhenAll(rightTask, leftTask);
+
+        bool rightMove = rightTask.Result;
+        bool leftMove = leftTask.Result;
 
         if (rightMove || leftMove)
         {

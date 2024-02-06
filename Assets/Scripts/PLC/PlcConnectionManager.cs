@@ -1,5 +1,6 @@
 using S7.Net;
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 // Clase que gestiona la conexión y operaciones con el PLC
@@ -15,12 +16,12 @@ public class PlcConnectionManager : MonoBehaviour
     private void Awake()
     {
         // Singleton: Garantiza que solo haya una instancia de la clase en la aplicación
-        if (InstanceManager == null)        
-            InstanceManager = this;            
-        
-        else        
+        if (InstanceManager == null)
+            InstanceManager = this;
+
+        else
             Destroy(gameObject); // Destruir el objeto si ya existe una instancia
-        
+
     }
 
     // Método para iniciar la conexión con el PLC
@@ -60,6 +61,32 @@ public class PlcConnectionManager : MonoBehaviour
             return default; // Devolver el valor predeterminado del tipo T
         }
     }
+
+
+
+    // Método asincrónico para leer el valor de una variable del PLC
+    public async Task<T> ReadVariableValueAsync<T>(string address)
+    {
+        // Verificar la conexión antes de intentar leer la variable
+        if (IsPLCDisconnected())
+        {
+            Debug.LogError("PLC is not connected.");
+            return default; // Devolver el valor predeterminado del tipo T
+        }
+
+        try
+        {
+            // Intentar leer la variable del PLC de forma asíncrona
+            return await Task.Run(() => (T)plc.Read(address));
+        }
+        catch (Exception ex)
+        {
+            // Manejar cualquier excepción que pueda ocurrir al intentar leer la variable
+            Debug.LogError($"Error reading variable at {address}: {ex.Message}");
+            return default; // Devolver el valor predeterminado del tipo T
+        }
+    }
+
 
     // Método para escribir en una variable del PLC
     public void WriteVariableValue(string address, object value)
