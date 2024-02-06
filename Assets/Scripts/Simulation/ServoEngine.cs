@@ -83,7 +83,7 @@ public class ServoEngine : MonoBehaviour
     // Realizar movimientos controlados por PLC
     private void HandlePLCMovements()
     {
-        if (PlcConnectionManager.InstanceManager.IsPLCConnected()) return;
+        if (PlcConnectionManager.InstanceManager.IsPLCDisconnect()) return;
 
         bool rightMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(rightCode);
         if (rightMove)

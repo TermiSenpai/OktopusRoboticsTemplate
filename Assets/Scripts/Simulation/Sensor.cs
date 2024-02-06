@@ -52,7 +52,7 @@ public class Sensor : MonoBehaviour
         // En caso de que exista un evento y una llamada, se realizará la llamada
         handler?.Invoke(detectionResult);
         // Verificar la conexion al PLC antes de realizar acciones
-        if (PlcConnectionManager.InstanceManager.IsPLCConnected()) return;
+        if (PlcConnectionManager.InstanceManager.IsPLCDisconnect()) return;
 
         // Activar/desactivar el PLC asociado al sensor segun el resultado de la deteccion
         sensorEventHandler.OnSensorDetected(PLCCode, detectionResult);

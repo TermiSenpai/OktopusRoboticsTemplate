@@ -55,7 +55,7 @@ public class PLCUIManager : MonoBehaviour
         {
             PlcConnectionManager.InstanceManager.InitializeConnection(selectedCPU, IP, racks, slots);
 
-            if (PlcConnectionManager.InstanceManager.IsPLCConnected())
+            if (PlcConnectionManager.InstanceManager.IsPLCDisconnect())
                 CloseMenu();
             else
                 Debug.LogError("No se pudo establecer la conexión con el PLC. Verifica la configuración.");
