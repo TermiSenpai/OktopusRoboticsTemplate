@@ -6,15 +6,9 @@ public class Sensor : MonoBehaviour
     [SerializeField] private string PLCCode;
     [SerializeField] private float raycastDistance = 0.5f;
 
-    private ISensorEventHandler sensorEventHandler;
     [SerializeField] private UnityEvent<bool> handler;
     private bool currentstate = false;
 
-    private void Start()
-    {
-        // Inicializar la implementacion de ISensorEventHandler
-        sensorEventHandler = PLCControl.Instance;
-    }
 
     // M騁odo llamado en cada frame para actualizar el estado del sensor
     private void Update()
