@@ -88,6 +88,7 @@ public class ServoEngine : MonoBehaviour
         bool rightMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(rightCode);
         if (rightMove)
             MoveAxis(direction * speed);
+        
 
         bool leftMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(leftCode);
         if (leftMove)

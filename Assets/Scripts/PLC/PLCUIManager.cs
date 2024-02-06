@@ -55,7 +55,7 @@ public class PLCUIManager : MonoBehaviour
         {
             PlcConnectionManager.InstanceManager.InitializeConnection(selectedCPU, IP, racks, slots);
 
-            if (PlcConnectionManager.InstanceManager.IsPLCDisconnected())
+            if (!PlcConnectionManager.InstanceManager.IsPLCDisconnected())
                 CloseMenu();
             else
                 Debug.LogError("No se pudo establecer la conexión con el PLC. Verifica la configuración.");
@@ -71,7 +71,7 @@ public class PLCUIManager : MonoBehaviour
     #region Dropdown
 
     // Método llamado cuando cambia el valor del dropdown de la CPU
-    void OnCpuDropdownChange(int index)
+    public void OnCpuDropdownChange(int index)
     {
         // Accede al valor seleccionado del enum
         CpuType selectedEnumValue = (CpuType)System.Enum.Parse(typeof(CpuType), cpuDropdown.options[index].text);
