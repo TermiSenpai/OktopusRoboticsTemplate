@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-// Enumeración que representa los ejes de movimiento posibles
+// Enumeraciï¿½n que representa los ejes de movimiento posibles
 public enum AxisMovement
 {
     X,
@@ -9,49 +9,47 @@ public enum AxisMovement
     Z
 }
 
-// Clase que controla el movimiento de un motor servo en un eje específico
+// Clase que controla el movimiento de un motor servo en un eje especï¿½fico
 public class ServoEngine : MonoBehaviour
 {
-    // Códigos asociados a movimientos a la derecha e izquierda (editable desde el Inspector)
+    // Cï¿½digos asociados a movimientos a la derecha e izquierda (editable desde el Inspector)
     [SerializeField] private string rightCode;
     [SerializeField] private string leftCode;
 
     // Velocidad de movimiento del servo (editable desde el Inspector)
     [SerializeField] private float speed;
 
-    // Dirección del movimiento del servo (editable desde el Inspector)
+    // Direcciï¿½n del movimiento del servo (editable desde el Inspector)
     [SerializeField] private Vector3 direction;
 
     // Objeto que representa el eje del servo (editable desde el Inspector)
     [SerializeField] private GameObject axis;
 
-    // Límites de posición para el eje del servo (editable desde el Inspector)
+    // Lï¿½mites de posiciï¿½n para el eje del servo (editable desde el Inspector)
     [SerializeField] private float posMin;
     [SerializeField] private float posMax;
 
-    // Eje que se limitará en posición (editable desde el Inspector)
+    // Eje que se limitarï¿½ en posiciï¿½n (editable desde el Inspector)
     [SerializeField] private AxisMovement axisToLimit;
 
-    // Opciones de depuración (editable desde el Inspector)
+    // Opciones de depuraciï¿½n (editable desde el Inspector)
     [SerializeField] private bool debugR;
     [SerializeField] private bool debugL;
 
-    // Método llamado en cada frame para actualizar el estado del motor servo
+    // Mï¿½todo llamado en cada frame para actualizar el estado del motor servo
     private void Update()
     {
-        // Movimiento manual del servo durante la depuración
-        if (PlcConnectionManager.InstanceManager.IsPLCDisconnected())
-            HandleDebugMovements();
+        // Movimiento manual del servo durante la depuraciï¿½n
+        HandleDebugMovements();
+
+        // Limitar la posiciï¿½n del eje segï¿½n la configuraciï¿½n especificada
+        LimitAxisPosition();
 
         // Realizar movimientos controlados por PLC
-        else
-            HandlePLCMovements();
-
-        // Limitar la posición del eje según la configuración especificada
-        LimitAxisPosition();
+        HandlePLCMovements();
     }
 
-    // Manejar movimientos manuales durante la depuración
+    // Manejar movimientos manuales durante la depuraciï¿½n
     private void HandleDebugMovements()
     {
         if (debugR)
@@ -60,7 +58,7 @@ public class ServoEngine : MonoBehaviour
             MoveAxisManually(-direction);
     }
 
-    // Limitar la posición del eje según la configuración especificada
+    // Limitar la posiciï¿½n del eje segï¿½n la configuraciï¿½n especificada
     private void LimitAxisPosition()
     {
         Vector3 currentPosition = axis.transform.localPosition;
@@ -88,20 +86,14 @@ public class ServoEngine : MonoBehaviour
     {
         if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
 
-        Task<bool> rightTask = PlcConnectionManager.InstanceManager.ReadVariableValueAsync<bool>(rightCode);
-        Task<bool> leftTask = PlcConnectionManager.InstanceManager.ReadVariableValueAsync<bool>(leftCode);
+        bool rightMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(rightCode);
+        if (rightMove)
+            MoveAxis(direction * speed);
+        
 
-        // Esperar a que ambas tareas de lectura se completen
-        await Task.WhenAll(rightTask, leftTask);
-
-        bool rightMove = rightTask.Result;
-        bool leftMove = leftTask.Result;
-
-        if (rightMove || leftMove)
-        {
-            int totalMovement = (rightMove ? 1 : 0) - (leftMove ? 1 : 0);
-            MoveAxis(totalMovement * direction * speed);
-        }
+        bool leftMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(leftCode);
+        if (leftMove)
+            MoveAxis(-direction * speed);
     }
 
     // Mover el eje del servo manualmente

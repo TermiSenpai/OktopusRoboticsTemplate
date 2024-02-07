@@ -42126,6 +42126,7 @@ MonoBehaviour:
     m_Bits: 128
   currentBox: {fileID: 0}
   raycastDistance: 0.05
+  btnTxt: {fileID: 0}
   origin: {fileID: 6442884269195551105}
 --- !u!1 &5019302150239460327
 GameObject:
@@ -78784,10 +78785,6 @@ PrefabInstance:
     - target: {fileID: 661551371843653230, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
-      propertyPath: PLCCode
-      value: DB1.DBX0.0
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: handler.m_PersistentCalls.m_Calls.Array.data[0].m_Target
