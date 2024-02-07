@@ -7,7 +7,6 @@ public class Sensor : MonoBehaviour
     [SerializeField] private float raycastDistance = 0.5f;
 
     [SerializeField] private UnityEvent<bool> handler;
-    private bool currentState = false;
     private bool lastState = false;
 
     // Obtener la posicion y la direccion del eje y local del sensor
@@ -33,16 +32,14 @@ public class Sensor : MonoBehaviour
     private void HandleRaycast(Vector3 origin, Vector3 direction)
     {
         // Lanzar el Raycast
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, raycastDistance))
+        if (Physics.Raycast(origin, direction, raycastDistance))
         {
             // El Raycast golpeo algo
-            //DebugDrawRay(origin, direction * hit.distance, Color.red);
             HandleDetectionResult(true);
         }
         else
         {
             // El Raycast no golpeo nada
-            //DebugDrawRay(origin, direction * raycastDistance, Color.green);
             HandleDetectionResult(false);
         }
         //Invoke(nameof(HandleRaycast), updateTime);
@@ -62,11 +59,6 @@ public class Sensor : MonoBehaviour
 
         // Activar/desactivar el PLC asociado al sensor segun el resultado de la deteccion
         PlcConnectionManager.InstanceManager.WriteVariableValue(PLCCode, detectionResult);
-
-        currentState = detectionResult;
     }
-
-    // Dibuja el rayo de depuracion
-    private void DebugDrawRay(Vector3 origin, Vector3 direction, Color color) => Debug.DrawRay(origin, direction, color);
 
 }
