@@ -148,7 +148,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7686637}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95b8494799d1d9248bdc5caa59c25187, type: 3}
   m_Name: 
@@ -2882,6 +2882,7 @@ MonoBehaviour:
   axisToLimit: 0
   debugR: 0
   debugL: 0
+  updateTime: 0.02
 --- !u!65 &596527161
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3327,6 +3328,7 @@ MonoBehaviour:
   axisToLimit: 2
   debugR: 0
   debugL: 0
+  updateTime: 0.02
 --- !u!65 &733034720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4487,6 +4489,7 @@ MonoBehaviour:
   axisToLimit: 1
   debugR: 0
   debugL: 0
+  updateTime: 0.02
 --- !u!65 &982286555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8910,6 +8913,10 @@ PrefabInstance:
       propertyPath: PLCCode
       value: DB1.DBX0.0
       objectReference: {fileID: 0}
+    - target: {fileID: 3837244041154055008, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: updateTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5005292451911520799, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_Name
       value: SimPaletizador
@@ -8937,5 +8944,5 @@ SceneRoots:
   - {fileID: 7686639}
   - {fileID: 733034723}
   - {fileID: 596527164}
-  - {fileID: 299135599}
   - {fileID: 982286558}
+  - {fileID: 299135599}
