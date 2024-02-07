@@ -110,9 +110,6 @@ public class PLCUIManager : MonoBehaviour
     // Oculta el menú de conexión
     void CloseMenu() => conexionMenu.SetActive(false);
 
-    // Muestra el menú de conexión
-    void OpenMenu() => conexionMenu.SetActive(true);
-
     // Carga los valores predeterminados en la interfaz de usuario
     void LoadDefaults()
     {
