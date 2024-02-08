@@ -3,19 +3,19 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-// Clase que gestiona la conexiï¿½n y operaciones con el PLC
+// Clase que gestiona la conexión y operaciones con el PLC
 public class PlcConnectionManager : MonoBehaviour
 {
-    // Instancia ï¿½nica de la clase (Singleton)
+    // Instancia única de la clase (Singleton)
     public static PlcConnectionManager InstanceManager;
 
-    // Objeto que representa la conexiï¿½n con el PLC
+    // Objeto que representa la conexión con el PLC
     private Plc plc;
 
-    // Mï¿½todo que se llama cuando se crea la instancia del script
+    // Método que se llama cuando se crea la instancia del script
     private void Awake()
     {
-        // Singleton: Garantiza que solo haya una instancia de la clase en la aplicaciï¿½n
+        // Singleton: Garantiza que solo haya una instancia de la clase en la aplicación
         if (InstanceManager == null)
             InstanceManager = this;
 
@@ -24,25 +24,25 @@ public class PlcConnectionManager : MonoBehaviour
 
     }
 
-    // Mï¿½todo para iniciar la conexiï¿½n con el PLC
+    // Método para iniciar la conexión con el PLC
     public void InitializeConnection(CpuType cpu, string ip, short racks, short slots)
     {
-        // Crear una nueva instancia de Plc con los parï¿½metros proporcionados
+        // Crear una nueva instancia de Plc con los parámetros proporcionados
         plc = new(cpu, ip, racks, slots);
-        plc.Open(); // Abrir la conexiï¿½n con el PLC
+        plc.Open(); // Abrir la conexión con el PLC
     }
 
-    // Mï¿½todo para verificar si la conexiï¿½n con el PLC estï¿½ activa
+    // Método para verificar si la conexión con el PLC está activa
     public bool IsPLCDisconnected()
     {
-        // Devuelve true si el PLC no estï¿½ conectado o si el objeto Plc es nulo
+        // Devuelve true si el PLC no está conectado o si el objeto Plc es nulo
         return plc == null || !plc.IsConnected;
     }
 
-    //// Mï¿½todo para leer el valor de una variable del PLC
+    //// Método para leer el valor de una variable del PLC
     //public T ReadVariableValue<T>(string address)
     //{
-    //    // Verificar la conexiï¿½n antes de intentar leer la variable
+    //    // Verificar la conexión antes de intentar leer la variable
     //    if (IsPLCDisconnected())
     //    {
     //        Debug.LogError("PLC is not connected.");
@@ -56,16 +56,16 @@ public class PlcConnectionManager : MonoBehaviour
     //    }
     //    catch (Exception ex)
     //    {
-    //        // Manejar cualquier excepciï¿½n que pueda ocurrir al intentar leer la variable
+    //        // Manejar cualquier excepción que pueda ocurrir al intentar leer la variable
     //        Debug.LogError($"Error reading variable at {address}: {ex.Message}");
     //        return default; // Devolver el valor predeterminado del tipo T
     //    }
     //}
 
-    // Mï¿½todo para leer el valor de una variable del PLC
+    // Método para leer el valor de una variable del PLC
     public async Task<T> ReadVariableAsync<T>(string address)
     {
-        // Verificar la conexiï¿½n antes de intentar leer la variable
+        // Verificar la conexión antes de intentar leer la variable
         if (IsPLCDisconnected())
         {
             Debug.LogError("PLC is not connected.");
@@ -74,7 +74,7 @@ public class PlcConnectionManager : MonoBehaviour
 
         try
         {
-            // Intentar leer la variable del PLC de forma asï¿½ncrona
+            // Intentar leer la variable del PLC de forma asíncrona
             object result = await plc.ReadAsync(address);
 
             // Si el resultado es nulo, devolver el valor predeterminado del tipo T
@@ -89,17 +89,16 @@ public class PlcConnectionManager : MonoBehaviour
         }
         catch (Exception ex)
         {
-            // Manejar cualquier excepciï¿½n que pueda ocurrir al intentar leer la variable
+            // Manejar cualquier excepción que pueda ocurrir al intentar leer la variable
             Debug.LogError($"Error reading variable at {address}: {ex.Message}");
             return default; // Devolver el valor predeterminado del tipo T
         }
     }
 
-
-    // Mï¿½todo para escribir en una variable del PLC
-    public void WriteVariableValue(string address, object value)
+    // Método para escribir en una variable del PLC
+    public void WriteVariableAsync(string address, object value)
     {
-        // Verificar la conexiï¿½n antes de intentar escribir en la variable
+        // Verificar la conexión antes de intentar escribir en la variable
         if (IsPLCDisconnected())
         {
             Debug.LogError("PLC is not connected.");
@@ -109,11 +108,11 @@ public class PlcConnectionManager : MonoBehaviour
         try
         {
             // Intentar escribir en la variable del PLC
-            plc.Write(address, value);
+            plc.WriteAsync(address, value);
         }
         catch (Exception ex)
         {
-            // Manejar cualquier excepciï¿½n que pueda ocurrir al intentar escribir en la variable
+            // Manejar cualquier excepción que pueda ocurrir al intentar escribir en la variable
             Debug.LogError($"Error writing variable at {address}: {ex.Message}");
         }
     }
