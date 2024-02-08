@@ -36,25 +36,17 @@ public class ServoEngine : MonoBehaviour
     [SerializeField] private bool debugR;
     [SerializeField] private bool debugL;
 
-    [SerializeField, Range(0f, 0.5f)] float updateTime;
-
-    private void Start()
-    {
-        InvokeRepeating(nameof(HandleDebugMovements), 0, updateTime);
-        InvokeRepeating(nameof(HandlePLCMovements), 0, updateTime);
-    }
 
     // M�todo llamado en cada frame para actualizar el estado del motor servo
     private void Update()
     {
         // Movimiento manual del servo durante la depuraci�n
-        //HandleDebugMovements();
-
-        // Limitar la posici�n del eje seg�n la configuraci�n especificada
-        LimitAxisPosition();
+        HandleDebugMovements();
 
         // Realizar movimientos controlados por PLC
-        //HandlePLCMovements();
+        HandlePLCMovements();
+
+        
     }
 
     // Manejar movimientos manuales durante la depuraci�n
