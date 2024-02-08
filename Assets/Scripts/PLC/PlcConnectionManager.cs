@@ -20,7 +20,7 @@ public class PlcConnectionManager : MonoBehaviour
     /// Objeto que representa la conexión con el PLC.
     /// </summary>
     // Objeto que representa la conexión con el PLC
-    private static Plc plc;
+    private Plc plc;
 
     /// <summary>
     /// Método que se llama cuando se crea la instancia del script.
@@ -46,7 +46,7 @@ public class PlcConnectionManager : MonoBehaviour
     public void InitializeConnection(CpuType cpu, string ip, short racks, short slots)
     {
         // Si ya está conectado, no hace nada
-        if (plc.IsConnected) return;
+        if (!IsPLCDisconnected()) return;
 
         // Crear una nueva instancia de Plc con los parámetros proporcionados
         plc = new(cpu, ip, racks, slots);
@@ -105,7 +105,6 @@ public class PlcConnectionManager : MonoBehaviour
         {
             // Intentar leer la variable del PLC de forma asíncrona
             object result = await plc.ReadAsync(address);
-
             // Si el resultado es nulo, devolver el valor predeterminado del tipo T
             if (result == null)
             {
