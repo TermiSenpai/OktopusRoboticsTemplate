@@ -3,16 +3,28 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// Clase que gestiona la conexión y operaciones con el PLC en un entorno de Unity.
+/// </summary>
+
 // Clase que gestiona la conexión y operaciones con el PLC
 public class PlcConnectionManager : MonoBehaviour
 {
+    /// <summary>
+    /// Instancia única de la clase (Singleton).
+    /// </summary>
     // Instancia única de la clase (Singleton)
     public static PlcConnectionManager InstanceManager;
 
+    /// <summary>
+    /// Objeto que representa la conexión con el PLC.
+    /// </summary>
     // Objeto que representa la conexión con el PLC
-    private Plc plc;
+    private static Plc plc;
 
-    // Método que se llama cuando se crea la instancia del script
+    /// <summary>
+    /// Método que se llama cuando se crea la instancia del script.
+    /// </summary>
     private void Awake()
     {
         // Singleton: Garantiza que solo haya una instancia de la clase en la aplicación
@@ -24,15 +36,27 @@ public class PlcConnectionManager : MonoBehaviour
 
     }
 
-    // Método para iniciar la conexión con el PLC
+    /// <summary>
+    /// Método para iniciar la conexión con el PLC.
+    /// </summary>
+    /// <param name="cpu">Tipo de CPU del PLC.</param>
+    /// <param name="ip">Dirección IP del PLC.</param>
+    /// <param name="racks">Número de racks del PLC.</param>
+    /// <param name="slots">Número de slots del PLC.</param>
     public void InitializeConnection(CpuType cpu, string ip, short racks, short slots)
     {
+        // Si ya está conectado, no hace nada
+        if (plc.IsConnected) return;
+
         // Crear una nueva instancia de Plc con los parámetros proporcionados
         plc = new(cpu, ip, racks, slots);
         plc.Open(); // Abrir la conexión con el PLC
     }
 
-    // Método para verificar si la conexión con el PLC está activa
+    /// <summary>
+    /// Método para verificar si la conexión con el PLC está activa.
+    /// </summary>
+    /// <returns>True si el PLC no está conectado o si el objeto Plc es nulo, de lo contrario False.</returns>
     public bool IsPLCDisconnected()
     {
         // Devuelve true si el PLC no está conectado o si el objeto Plc es nulo
@@ -62,7 +86,12 @@ public class PlcConnectionManager : MonoBehaviour
     //    }
     //}
 
-    // Método para leer el valor de una variable del PLC
+    /// <summary>
+    /// Método para leer el valor de una variable del PLC de forma asíncrona.
+    /// </summary>
+    /// <typeparam name="T">Tipo de datos del valor a leer.</typeparam>
+    /// <param name="address">Dirección de la variable a leer.</param>
+    /// <returns>Valor de la variable leída de tipo T.</returns>
     public async Task<T> ReadVariableAsync<T>(string address)
     {
         // Verificar la conexión antes de intentar leer la variable
@@ -95,7 +124,11 @@ public class PlcConnectionManager : MonoBehaviour
         }
     }
 
-    // Método para escribir en una variable del PLC
+    /// <summary>
+    /// Método para escribir en una variable del PLC de forma asíncrona.
+    /// </summary>
+    /// <param name="address">Dirección de la variable a escribir.</param>
+    /// <param name="value">Valor a escribir en la variable.</param>
     public void WriteVariableAsync(string address, object value)
     {
         // Verificar la conexión antes de intentar escribir en la variable
