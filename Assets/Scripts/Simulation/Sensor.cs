@@ -6,20 +6,17 @@ public class Sensor : MonoBehaviour
     [SerializeField] private string PLCCode;
     [SerializeField] private float raycastDistance = 0.5f;
 
-    [SerializeField] private UnityEvent<bool> handler;
+    [SerializeField] private UnityEvent<bool> eventHandler;
     private bool lastState = false;
 
     // Obtener la posicion y la direccion del eje y local del sensor
     Vector3 raycastOrigin;
     Vector3 raycastDirection;
 
-    [SerializeField, Range(0f, 0.5f)] float updateTime;
-
     private void Start()
     {
         raycastOrigin = transform.position;
         raycastDirection = transform.up;
-        //Invoke(nameof(HandleRaycast), 0);
     }
     // M騁odo llamado en cada frame para actualizar el estado del sensor
     private void Update()
@@ -42,7 +39,6 @@ public class Sensor : MonoBehaviour
             // El Raycast no golpeo nada
             HandleDetectionResult(false);
         }
-        //Invoke(nameof(HandleRaycast), updateTime);
     }
 
     // Actua segun el resultado de la deteccion
@@ -53,7 +49,8 @@ public class Sensor : MonoBehaviour
 
         lastState = detectionResult;
         // En caso de que exista un evento y una llamada, se realizará la llamada
-        handler?.Invoke(detectionResult);
+        eventHandler?.Invoke(detectionResult);
+
         // Verificar la conexion al PLC antes de realizar acciones
         if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
 
