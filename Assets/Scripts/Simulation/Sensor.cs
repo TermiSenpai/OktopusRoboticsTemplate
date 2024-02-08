@@ -55,7 +55,7 @@ public class Sensor : MonoBehaviour
         if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
 
         // Activar/desactivar el PLC asociado al sensor segun el resultado de la deteccion
-        PlcConnectionManager.InstanceManager.WriteVariableValue(PLCCode, detectionResult);
+        PlcConnectionManager.InstanceManager.WriteVariableAsync(PLCCode, detectionResult);
     }
 
 }

@@ -42126,7 +42126,6 @@ MonoBehaviour:
     m_Bits: 128
   currentBox: {fileID: 0}
   raycastDistance: 0.05
-  btnTxt: {fileID: 0}
   origin: {fileID: 6442884269195551105}
 --- !u!1 &5019302150239460327
 GameObject:
@@ -42562,7 +42561,7 @@ Transform:
   m_GameObject: {fileID: 5142255094627891657}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.045175925, z: -0.797}
+  m_LocalPosition: {x: 0, y: -0.045175925, z: 20.78338}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -78787,9 +78786,37 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: PLCCode
+      value: DB1.DBX0.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: handler.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6135616438954511935}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6135616438954511935}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GetSensorState
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ConveyorBelt, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8880764487494250151, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: m_Name
       value: Sensor
