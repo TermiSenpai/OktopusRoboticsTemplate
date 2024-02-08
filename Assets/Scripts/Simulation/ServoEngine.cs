@@ -82,18 +82,20 @@ public class ServoEngine : MonoBehaviour
     }
 
     // Realizar movimientos controlados por PLC
-    private void HandlePLCMovements()
+    private async void HandlePLCMovements()
     {
         if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
 
-        bool rightMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(rightCode);
+        bool rightMove = await PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightCode);
         if (rightMove)
             MoveAxis(direction * speed);
 
 
-        bool leftMove = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>(leftCode);
+        bool leftMove = await PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftCode);
         if (leftMove)
             MoveAxis(-direction * speed);
+        // Limitar la posici�n del eje seg�n la configuraci�n especificada
+        LimitAxisPosition();
     }
 
     // Mover el eje del servo manualmente
