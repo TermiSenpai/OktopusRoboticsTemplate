@@ -63,32 +63,7 @@ public class PlcConnectionManager : MonoBehaviour
     //}
 
     // M�todo para leer el valor de una variable del PLC
-    public T ReadVariableValue<T>(string address)
-    {
-        // Verificar la conexi�n antes de intentar leer la variable
-        if (IsPLCDisconnected())
-        {
-            Debug.LogError("PLC is not connected.");
-            return default; // Devolver el valor predeterminado del tipo T
-        }
-
-        try
-        {
-            // Intentar leer la variable del PLC y convertirla al tipo T
-            return (T)plc.Read(address);
-        }
-        catch (Exception ex)
-        {
-            // Manejar cualquier excepci�n que pueda ocurrir al intentar leer la variable
-            Debug.LogError($"Error reading variable at {address}: {ex.Message}");
-            return default; // Devolver el valor predeterminado del tipo T
-        }
-    }
-
-
-
-    // M�todo asincr�nico para leer el valor de una variable del PLC
-    public async Task<T> ReadVariableValueAsync<T>(string address)
+    public async Task<T> ReadVariableAsync<T>(string address)
     {
         // Verificar la conexi�n antes de intentar leer la variable
         if (IsPLCDisconnected())
@@ -100,7 +75,17 @@ public class PlcConnectionManager : MonoBehaviour
         try
         {
             // Intentar leer la variable del PLC de forma as�ncrona
-            return await Task.Run(() => (T)plc.Read(address));
+            object result = await plc.ReadAsync(address);
+
+            // Si el resultado es nulo, devolver el valor predeterminado del tipo T
+            if (result == null)
+            {
+                Debug.LogError($"Variable at {address} returned null.");
+                return default;
+            }
+
+            // Convertir el resultado al tipo T
+            return (T)Convert.ChangeType(result, typeof(T));
         }
         catch (Exception ex)
         {
