@@ -108,32 +108,32 @@ public class ServoEngine : MonoBehaviour
         switch (axisToLimit)
         {
             case AxisMovement.X:
-                MoveX();
+                AxisToPlcX();
                 break;
             case AxisMovement.Y:
-                MoveY();
+                AxisToPlcY();
                 break;
             case AxisMovement.Z:
-                MoveZ();
+                AxisToPlcZ();
                 break;
         }
     }
 
-    void MoveX()
+    void AxisToPlcX()
     {
         bool derInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX1.3");
         bool leftInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX1.4");
         if (derInput || leftInput)
             PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axis.transform.localPosition.x);
     }
-    void MoveY()
+    void AxisToPlcY()
     {
         bool derInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX1.7");
         bool leftInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX2.0");
         if (derInput || leftInput)
             PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axis.transform.localPosition.y);
     }
-    void MoveZ()
+    void AxisToPlcZ()
     {
         bool derInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX2.3");
         bool leftInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX2.4");
