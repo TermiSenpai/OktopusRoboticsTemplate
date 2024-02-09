@@ -15,6 +15,8 @@ public class ServoEngine : MonoBehaviour
     // C�digos asociados a movimientos a la derecha e izquierda (editable desde el Inspector)
     [SerializeField] private string rightCode;
     [SerializeField] private string leftCode;
+    [SerializeField] private string rightInputCode;
+    [SerializeField] private string leftInputCode;
     [SerializeField] private string positionCode;
 
     // Velocidad de movimiento del servo (editable desde el Inspector)
@@ -83,7 +85,7 @@ public class ServoEngine : MonoBehaviour
     }
 
     // Realizar movimientos controlados por PLC
-    private async void HandlePLCMovements()
+    private async Task HandlePLCMovements()
     {
         if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
 
@@ -91,54 +93,23 @@ public class ServoEngine : MonoBehaviour
         if (rightMove)
             MoveAxis(direction * speed);
 
-
         bool leftMove = await PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftCode);
         if (leftMove)
             MoveAxis(-direction * speed);
 
-        // Limitar la posici�n del eje seg�n la configuraci�n especificada
-        LimitAxisPosition();
-
-        // Enviar la posición del eje actual, basado en el eje que mueva
         SendCurrentPosToPLC();
+
+        isTaskRunning = false;
     }
 
-    private void SendCurrentPosToPLC()
+    private async void SendCurrentPosToPLC()
     {
-        switch (axisToLimit)
-        {
-            case AxisMovement.X:
-                AxisToPlcX();
-                break;
-            case AxisMovement.Y:
-                AxisToPlcY();
-                break;
-            case AxisMovement.Z:
-                AxisToPlcZ();
-                break;
-        }
-    }
-
-    void AxisToPlcX()
-    {
-        bool derInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX1.3");
-        bool leftInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX1.4");
+        derInput = await PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightInputCode);
+        leftInput = await PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftInputCode);
         if (derInput || leftInput)
             PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axis.transform.localPosition.x);
-    }
-    void AxisToPlcY()
-    {
-        bool derInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX1.7");
-        bool leftInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX2.0");
-        if (derInput || leftInput)
-            PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axis.transform.localPosition.y);
-    }
-    void AxisToPlcZ()
-    {
-        bool derInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX2.3");
-        bool leftInput = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX2.4");
-        if (derInput || leftInput)
-            PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axis.transform.localPosition.z);
+
+        isTaskRunning = false;
     }
 
     // Mover el eje del servo manualmente
