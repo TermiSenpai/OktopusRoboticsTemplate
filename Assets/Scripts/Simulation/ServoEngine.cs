@@ -39,17 +39,23 @@ public class ServoEngine : MonoBehaviour
     [SerializeField] private bool debugR;
     [SerializeField] private bool debugL;
 
+    bool derInput;
+    bool leftInput;
+
+    private bool isTaskRunning = false;
 
     // M�todo llamado en cada frame para actualizar el estado del motor servo
     private void Update()
     {
-        // Movimiento manual del servo durante la depuraci�n
         HandleDebugMovements();
 
-        // Realizar movimientos controlados por PLC
-        HandlePLCMovements();
+        if (!isTaskRunning)
+        {
+            isTaskRunning = true;
+            Task.Run(async () => await HandlePLCMovements());
+        }
 
-
+        LimitAxisPosition();
     }
 
     // Manejar movimientos manuales durante la depuraci�n
