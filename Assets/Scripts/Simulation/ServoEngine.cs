@@ -13,34 +13,34 @@ public enum AxisMovement
 // Clase que controla el movimiento de un motor servo en un eje espec�fico
 public class ServoEngine : MonoBehaviour
 {
-    // C�digos asociados a movimientos a la derecha e izquierda (editable desde el Inspector)
-    [Header("Códigos del PLC")]
+    // Codes associated with right and left movements (editable from the Inspector)
+    [Header("PLC Codes")]
     [SerializeField] private string rightCode;
     [SerializeField] private string leftCode;
     [SerializeField] private string rightInputCode;
     [SerializeField] private string leftInputCode;
     [SerializeField] private string positionCode;
-    
-    [Header("Referencias")]
-    // Velocidad de movimiento del servo (editable desde el Inspector)
+
+    [Header("References")]
+    // Servo movement speed (editable from the Inspector)
     [SerializeField] private float speed;
-    // Direcci�n del movimiento del servo (editable desde el Inspector)
+    // Direction of servo movement (editable from the Inspector)
     [SerializeField] private Vector3 direction;
-    // Objeto que representa el eje del servo (editable desde el Inspector)
+    // Object representing the servo axis (editable from the Inspector)
     [SerializeField] private GameObject axis;
-    // Eje que se limitar� en posici�n (editable desde el Inspector)
+    // Axis to be limited in position (editable from the Inspector)
     [SerializeField] private AxisMovement axisToLimit;
 
-    [Header("Depuración")]
-    // Opciones de depuraci�n (editable desde el Inspector)
-    // L�mites de posici�n para el eje del servo (editable desde el Inspector)
+    [Header("Debugging")]
+    // Debugging options (editable from the Inspector)
+    // Position limits for the servo axis (editable from the Inspector)
     [SerializeField] private float posMin;
     [SerializeField] private float posMax;
 
     [SerializeField] private bool debugR;
     [SerializeField] private bool debugL;
 
-    // Privadas
+    // Private
     float axisPos;
     float lastAxisPos;
     bool isTaskActive = false;
