@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Enumeraci�n que representa los ejes de movimiento posibles
@@ -39,23 +40,28 @@ public class ServoEngine : MonoBehaviour
     [SerializeField] private bool debugR;
     [SerializeField] private bool debugL;
 
-    bool derInput;
+    float axisPos;
+
+    bool rightInput;
     bool leftInput;
 
-    private bool isTaskRunning = false;
+    bool isTaskActive = false;
+
 
     // M�todo llamado en cada frame para actualizar el estado del motor servo
     private void Update()
     {
         HandleDebugMovements();
-
-        if (!isTaskRunning)
-        {
-            isTaskRunning = true;
-            Task.Run(async () => await HandlePLCMovements());
-        }
-
         LimitAxisPosition();
+
+        if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
+
+        if (isTaskActive) return;
+
+        isTaskActive = true;
+        HandlePLCMovements();
+        SendCurrentPosToPLC();
+
     }
 
     // Manejar movimientos manuales durante la depuraci�n
@@ -78,44 +84,55 @@ public class ServoEngine : MonoBehaviour
             case AxisMovement.X:
                 clampedValue = Mathf.Clamp(currentPosition.x, posMin, posMax);
                 axis.transform.localPosition = new Vector3(clampedValue, currentPosition.y, currentPosition.z);
+                axisPos = axis.transform.localPosition.x;
                 break;
             case AxisMovement.Y:
                 clampedValue = Mathf.Clamp(currentPosition.y, posMin, posMax);
                 axis.transform.localPosition = new Vector3(currentPosition.x, clampedValue, currentPosition.z);
+                axisPos = axis.transform.localPosition.y;
                 break;
             case AxisMovement.Z:
                 clampedValue = Mathf.Clamp(currentPosition.z, posMin, posMax);
                 axis.transform.localPosition = new Vector3(currentPosition.x, currentPosition.y, clampedValue);
+                axisPos = axis.transform.localPosition.z;
                 break;
         }
     }
 
     // Realizar movimientos controlados por PLC
-    private async Task HandlePLCMovements()
+    private async void HandlePLCMovements()
     {
-        if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
 
-        bool rightMove = await PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightCode);
+        Task<bool> rightMoveTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightCode);
+        Task<bool> leftMoveTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftCode);
+
+        await Task.WhenAll(rightMoveTask, leftMoveTask);
+
+        bool rightMove = rightMoveTask.Result;
+        bool leftMove = leftMoveTask.Result;
+
         if (rightMove)
             MoveAxis(direction * speed);
 
-        bool leftMove = await PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftCode);
         if (leftMove)
             MoveAxis(-direction * speed);
-
-        SendCurrentPosToPLC();
-
-        isTaskRunning = false;
     }
+
 
     private async void SendCurrentPosToPLC()
     {
-        derInput = await PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightInputCode);
-        leftInput = await PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftInputCode);
-        if (derInput || leftInput)
-            PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axis.transform.localPosition.x);
+        Task<bool> rightInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightInputCode);
+        Task<bool> leftInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftInputCode);
 
-        isTaskRunning = false;
+        await Task.WhenAll(rightInputTask, leftInputTask);
+
+        leftInput = leftInputTask.Result;
+        rightInput = leftInputTask.Result;
+
+        if (rightInput || leftInput)
+            PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
+
+        isTaskActive = false;
     }
 
     // Mover el eje del servo manualmente
