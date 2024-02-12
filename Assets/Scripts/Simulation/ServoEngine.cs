@@ -73,6 +73,7 @@ public class ServoEngine : MonoBehaviour
                 SendCurrentPosToPLC();
                 break;
         }
+        UpdateAxisPos();
     }
 
 
@@ -108,8 +109,6 @@ public class ServoEngine : MonoBehaviour
                 clampedValue = Mathf.Clamp(currentPosition.x, posMin, posMax);
                 // Update the local position of the axis with the clamped x-coordinate
                 axis.transform.localPosition = new Vector3(clampedValue, currentPosition.y, currentPosition.z);
-                // Update the axis position variable with the clamped x-coordinate
-                axisPos = axis.transform.localPosition.x;
                 break;
 
             // Case for limiting movement along the Y axis
@@ -118,8 +117,6 @@ public class ServoEngine : MonoBehaviour
                 clampedValue = Mathf.Clamp(currentPosition.y, posMin, posMax);
                 // Update the local position of the axis with the clamped y-coordinate
                 axis.transform.localPosition = new Vector3(currentPosition.x, clampedValue, currentPosition.z);
-                // Update the axis position variable with the clamped y-coordinate
-                axisPos = axis.transform.localPosition.y;
                 break;
 
             // Case for limiting movement along the Z axis
@@ -128,6 +125,23 @@ public class ServoEngine : MonoBehaviour
                 clampedValue = Mathf.Clamp(currentPosition.z, posMin, posMax);
                 // Update the local position of the axis with the clamped z-coordinate
                 axis.transform.localPosition = new Vector3(currentPosition.x, currentPosition.y, clampedValue);
+                break;
+        }
+    }
+
+    void UpdateAxisPos()
+    {
+        switch (axisToLimit)
+        {
+            case AxisMovement.X:
+                // Update the axis position variable with the clamped x-coordinate
+                axisPos = axis.transform.localPosition.x;
+                break;
+            case AxisMovement.Y:
+                // Update the axis position variable with the clamped y-coordinate
+                axisPos = axis.transform.localPosition.y;
+                break;
+            case AxisMovement.Z:
                 // Update the axis position variable with the clamped z-coordinate
                 axisPos = axis.transform.localPosition.z;
                 break;
@@ -160,25 +174,25 @@ public class ServoEngine : MonoBehaviour
 
 
     // No borrar todavia
-        //Task<bool> rightInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightInputCode);
-        //Task<bool> leftInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftInputCode);
+    //Task<bool> rightInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightInputCode);
+    //Task<bool> leftInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftInputCode);
 
-        //await Task.WhenAll(rightInputTask, leftInputTask);
+    //await Task.WhenAll(rightInputTask, leftInputTask);
 
-        //leftInput = leftInputTask.Result;
-        //rightInput = leftInputTask.Result;
+    //leftInput = leftInputTask.Result;
+    //rightInput = leftInputTask.Result;
 
-        //if (rightInput || leftInput)
+    //if (rightInput || leftInput)
 
     // Send the current position to PLC
     private void SendCurrentPosToPLC()
     {
+        PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
         // Check if the current axis position has changed since the last update
         if (lastAxisPos != axisPos)
         {
             // If the position has changed, update the last known position and send it to the PLC
             lastAxisPos = axisPos;
-            PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
         }
 
         // Reset the task activity flag to indicate that the task is no longer active
