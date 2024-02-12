@@ -41,6 +41,7 @@ public class ServoEngine : MonoBehaviour
     [SerializeField] private bool debugL;
 
     float axisPos;
+    float lastAxisPos;
 
     bool rightInput;
     bool leftInput;
@@ -119,20 +120,25 @@ public class ServoEngine : MonoBehaviour
     }
 
 
-    private async void SendCurrentPosToPLC()
+    private void SendCurrentPosToPLC()
     {
-        Task<bool> rightInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightInputCode);
-        Task<bool> leftInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftInputCode);
+        //Task<bool> rightInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightInputCode);
+        //Task<bool> leftInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftInputCode);
 
-        await Task.WhenAll(rightInputTask, leftInputTask);
+        //await Task.WhenAll(rightInputTask, leftInputTask);
 
-        leftInput = leftInputTask.Result;
-        rightInput = leftInputTask.Result;
+        //leftInput = leftInputTask.Result;
+        //rightInput = leftInputTask.Result;
 
-        if (rightInput || leftInput)
+        //if (rightInput || leftInput)
+
+        if (lastAxisPos != axisPos)
+        {
+            lastAxisPos = axisPos;
             PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
-
+        }
         isTaskActive = false;
+
     }
 
     // Mover el eje del servo manualmente
