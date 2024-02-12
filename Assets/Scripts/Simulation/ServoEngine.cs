@@ -14,39 +14,38 @@ public enum AxisMovement
 public class ServoEngine : MonoBehaviour
 {
     // C�digos asociados a movimientos a la derecha e izquierda (editable desde el Inspector)
+    [Header("Códigos del PLC")]
     [SerializeField] private string rightCode;
     [SerializeField] private string leftCode;
     [SerializeField] private string rightInputCode;
     [SerializeField] private string leftInputCode;
     [SerializeField] private string positionCode;
-
+    
+    [Header("Referencias")]
     // Velocidad de movimiento del servo (editable desde el Inspector)
     [SerializeField] private float speed;
-
     // Direcci�n del movimiento del servo (editable desde el Inspector)
     [SerializeField] private Vector3 direction;
-
     // Objeto que representa el eje del servo (editable desde el Inspector)
     [SerializeField] private GameObject axis;
+    // Eje que se limitar� en posici�n (editable desde el Inspector)
+    [SerializeField] private AxisMovement axisToLimit;
 
+    [Header("Depuración")]
+    // Opciones de depuraci�n (editable desde el Inspector)
     // L�mites de posici�n para el eje del servo (editable desde el Inspector)
     [SerializeField] private float posMin;
     [SerializeField] private float posMax;
 
-    // Eje que se limitar� en posici�n (editable desde el Inspector)
-    [SerializeField] private AxisMovement axisToLimit;
-
-    // Opciones de depuraci�n (editable desde el Inspector)
     [SerializeField] private bool debugR;
     [SerializeField] private bool debugL;
 
+    // Privadas
     float axisPos;
     float lastAxisPos;
-
-    bool rightInput;
-    bool leftInput;
-
     bool isTaskActive = false;
+    //bool rightInput;
+    //bool leftInput;
 
 
     // M�todo llamado en cada frame para actualizar el estado del motor servo
@@ -137,6 +136,7 @@ public class ServoEngine : MonoBehaviour
             lastAxisPos = axisPos;
             PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
         }
+
         isTaskActive = false;
 
     }
