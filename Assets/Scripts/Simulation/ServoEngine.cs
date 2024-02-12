@@ -51,17 +51,19 @@ public class ServoEngine : MonoBehaviour
     // M�todo llamado en cada frame para actualizar el estado del motor servo
     private void Update()
     {
-        HandleDebugMovements();
-        LimitAxisPosition();
-
-        if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
-
-        if (isTaskActive) return;
-
-        isTaskActive = true;
-        HandlePLCMovements();
-        SendCurrentPosToPLC();
-
+        switch (PlcConnectionManager.InstanceManager.IsPLCDisconnected())
+        {
+            case true:
+                HandleDebugMovements();
+                LimitAxisPosition();
+                break;
+            case false:
+                if (isTaskActive) return;
+                isTaskActive = true;
+                HandlePLCMovements();
+                SendCurrentPosToPLC();
+                break;
+        }
     }
 
     // Manejar movimientos manuales durante la depuraci�n
