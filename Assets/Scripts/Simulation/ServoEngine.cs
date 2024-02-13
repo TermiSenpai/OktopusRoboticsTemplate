@@ -45,7 +45,6 @@ public class ServoEngine : MonoBehaviour
     [SerializeField] private bool debugL;
     [SerializeField] private float debugSpeed = 0.1f;
 
-    [SerializeField] float currentpos;
     // Private
     float axisPos;
     float lastAxisPos;
@@ -206,8 +205,6 @@ public class ServoEngine : MonoBehaviour
 
         // Reset the task activity flag to indicate that the task is no longer active
         isTaskActive = false;
-
-        currentpos = PlcConnectionManager.InstanceManager.ReadVariableValue<float>(positionCode);
     }
 
     private void ReceiveSpeed()
