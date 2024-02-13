@@ -211,7 +211,7 @@ public class ServoEngine : MonoBehaviour
     {
         try
         {
-            // Attempt to read the speed value from the PLC
+            // Attempt to read the speed value from the PLC (PLC Use uint to real values)
             var valorFloat = PlcConnectionManager.InstanceManager.ReadVariableValue<uint>(speedCode);
 
             // Convert the read value to float type
