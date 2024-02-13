@@ -1,5 +1,7 @@
+using S7.Net;
+using S7.Net.Types;
+using System;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // Enumeraci�n que representa los ejes de movimiento posibles
@@ -20,6 +22,7 @@ public class ServoEngine : MonoBehaviour
     [SerializeField] private string rightInputCode;
     [SerializeField] private string leftInputCode;
     [SerializeField] private string positionCode;
+    [SerializeField] private string speedCode;
 
     [Header("References")]
     // Servo movement speed (editable from the Inspector)
@@ -30,6 +33,7 @@ public class ServoEngine : MonoBehaviour
     [SerializeField] private GameObject axis;
     // Axis to be limited in position (editable from the Inspector)
     [SerializeField] private AxisMovement axisToLimit;
+    [SerializeField] private bool speedDebugControler = false;
 
     [Header("Debugging")]
     // Debugging options (editable from the Inspector)
@@ -39,6 +43,7 @@ public class ServoEngine : MonoBehaviour
 
     [SerializeField] private bool debugR;
     [SerializeField] private bool debugL;
+    [SerializeField] private float debugSpeed = 0.1f;
 
     // Private
     float axisPos;
@@ -67,10 +72,13 @@ public class ServoEngine : MonoBehaviour
                 if (isTaskActive) return;
                 // Set the task as active
                 isTaskActive = true;
+                ReceiveSpeed();
                 // Handle movements based on PLC instructions
                 HandlePLCMovements();
                 // Send the current position of the servo to the PLC
                 SendCurrentPosToPLC();
+                // If debug, change and send speed to plc
+                if (speedDebugControler) SendDebugSpeedToPLC();
                 break;
         }
         UpdateAxisPos();
@@ -198,6 +206,38 @@ public class ServoEngine : MonoBehaviour
         // Reset the task activity flag to indicate that the task is no longer active
         isTaskActive = false;
     }
+
+    private void ReceiveSpeed()
+    {
+        try
+        {
+            // Attempt to read the speed value from the PLC (PLC Use uint to real values)
+            var valorFloat = PlcConnectionManager.InstanceManager.ReadVariableValue<uint>(speedCode);
+
+            // Convert the read value to float type
+            float result = valorFloat.ConvertToFloat();
+
+            // Store the converted speed value in the 'speed' variable
+            speed = result;
+        }
+        catch (Exception ex)
+        {
+            // Handle any exceptions that may occur during reading or conversion
+            Debug.LogError($"Error while reading float value: {ex.Message}");
+        }
+    }
+
+    private void SendDebugSpeedToPLC()
+    {
+        // Convert the debug speed value to UInt (unsigned integer)
+        var convert = debugSpeed.ConvertToUInt();
+
+        // Write the converted debug speed value to the PLC
+        // using the PlcConnectionManager instance
+        // The 'speedCode' is used as the identifier for the variable to write to
+        PlcConnectionManager.InstanceManager.WriteVariableValue(speedCode, convert);
+    }
+
 
 
     // Mover el eje del servo manualmente
