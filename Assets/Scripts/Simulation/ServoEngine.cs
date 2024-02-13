@@ -33,6 +33,7 @@ public class ServoEngine : MonoBehaviour
     [SerializeField] private GameObject axis;
     // Axis to be limited in position (editable from the Inspector)
     [SerializeField] private AxisMovement axisToLimit;
+    [SerializeField] private bool speedDebugControler = false;
 
     [Header("Debugging")]
     // Debugging options (editable from the Inspector)
@@ -77,9 +78,8 @@ public class ServoEngine : MonoBehaviour
                 HandlePLCMovements();
                 // Send the current position of the servo to the PLC
                 SendCurrentPosToPLC();
-                var convert = debugSpeed.ConvertToUInt();
-                PlcConnectionManager.InstanceManager.WriteVariableValue(speedCode, convert);
-                Debug.Log(debugSpeed);
+                // If debug, change and send speed to plc
+                if (speedDebugControler) SendDebugSpeedToPLC();
                 break;
         }
         UpdateAxisPos();
@@ -228,6 +228,12 @@ public class ServoEngine : MonoBehaviour
             // Handle any exceptions that may occur during reading or conversion
             Debug.LogError($"Error while reading float value: {ex.Message}");
         }
+    }
+
+    private void SendDebugSpeedToPLC()
+    {
+        var convert = debugSpeed.ConvertToUInt();
+        PlcConnectionManager.InstanceManager.WriteVariableValue(speedCode, convert);
     }
 
 
