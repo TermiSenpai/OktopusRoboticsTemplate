@@ -1,5 +1,7 @@
+using S7.Net;
+using S7.Net.Types;
+using System;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // Enumeraci�n que representa los ejes de movimiento posibles
@@ -20,6 +22,7 @@ public class ServoEngine : MonoBehaviour
     [SerializeField] private string rightInputCode;
     [SerializeField] private string leftInputCode;
     [SerializeField] private string positionCode;
+    [SerializeField] private string speedCode;
 
     [Header("References")]
     // Servo movement speed (editable from the Inspector)
@@ -39,7 +42,9 @@ public class ServoEngine : MonoBehaviour
 
     [SerializeField] private bool debugR;
     [SerializeField] private bool debugL;
+    [SerializeField] private float debugSpeed = 0.1f;
 
+    [SerializeField] float currentpos;
     // Private
     float axisPos;
     float lastAxisPos;
@@ -67,10 +72,14 @@ public class ServoEngine : MonoBehaviour
                 if (isTaskActive) return;
                 // Set the task as active
                 isTaskActive = true;
+                ReceiveSpeed();
                 // Handle movements based on PLC instructions
                 HandlePLCMovements();
                 // Send the current position of the servo to the PLC
                 SendCurrentPosToPLC();
+                var convert = debugSpeed.ConvertToUInt();
+                PlcConnectionManager.InstanceManager.WriteVariableValue(speedCode, convert);
+                Debug.Log(debugSpeed);
                 break;
         }
         UpdateAxisPos();
@@ -197,8 +206,24 @@ public class ServoEngine : MonoBehaviour
 
         // Reset the task activity flag to indicate that the task is no longer active
         isTaskActive = false;
+
+        currentpos = PlcConnectionManager.InstanceManager.ReadVariableValue<float>(positionCode);
     }
 
+    private void ReceiveSpeed()
+    {
+        try
+        {
+            var valorFloat = PlcConnectionManager.InstanceManager.ReadVariableValue<uint>(speedCode);
+            float result = valorFloat.ConvertToFloat();
+            speed = result;
+        }
+        catch (Exception ex)
+        {
+            // Manejar la excepción
+            Debug.LogError($"Error al leer el valor float: {ex.Message}");
+        }
+    }
 
     // Mover el eje del servo manualmente
     private void MoveAxisManually(Vector3 movementDirection)

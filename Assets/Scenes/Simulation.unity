@@ -2852,14 +2852,17 @@ MonoBehaviour:
   rightInputCode: DB1.DBX1.3
   leftInputCode: DB1.DBX1.4
   positionCode: DB1.DBD4
+  speedCode: DB1.DBD40
   speed: 0.1
   direction: {x: -0.1, y: 0, z: 0}
   axis: {fileID: 974690127}
+  axisToLimit: 0
   posMin: -0.8
   posMax: 0.5
-  axisToLimit: 0
   debugR: 0
   debugL: 0
+  debugSpeed: 0.1
+  currentpos: 0
 --- !u!65 &596527161
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3300,14 +3303,17 @@ MonoBehaviour:
   rightInputCode: DB1.DBX2.3
   leftInputCode: DB1.DBX2.4
   positionCode: DB1.DBD12
+  speedCode: DB1.DBD48
   speed: 0.1
   direction: {x: 0, y: 0, z: -0.1}
   axis: {fileID: 1044081857}
+  axisToLimit: 2
   posMin: -0.8
   posMax: 0.95
-  axisToLimit: 2
   debugR: 0
   debugL: 0
+  debugSpeed: 0.1
+  currentpos: 0
 --- !u!65 &733034720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4463,14 +4469,17 @@ MonoBehaviour:
   rightInputCode: DB1.DBX1.7
   leftInputCode: DB1.DBX2.0
   positionCode: DB1.DBD8
+  speedCode: DB1.DBD44
   speed: 0.1
   direction: {x: 0, y: -0.1, z: 0}
   axis: {fileID: 2136284043}
+  axisToLimit: 1
   posMin: 0
   posMax: 1.7
-  axisToLimit: 1
   debugR: 0
   debugL: 0
+  debugSpeed: 0.1
+  currentpos: 0
 --- !u!65 &982286555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8892,7 +8901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4812216283041649912, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.010000001
       objectReference: {fileID: 0}
     - target: {fileID: 4915510457874605186, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_LocalPosition.y
