@@ -1,5 +1,4 @@
 using S7.Net;
-using S7.Net.Types;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -52,7 +51,6 @@ public class ServoEngine : MonoBehaviour
     //bool rightInput;
     //bool leftInput;
 
-
     // Method called on each frame to update the state of the servo motor
     private void Update()
     {
@@ -84,7 +82,6 @@ public class ServoEngine : MonoBehaviour
         UpdateAxisPos();
     }
 
-
     // Handle manual movements during debugging
     private void HandleDebugMovements()
     {
@@ -98,7 +95,6 @@ public class ServoEngine : MonoBehaviour
             // Move the axis manually in the opposite direction to the specified direction
             MoveAxisManually(-direction);
     }
-
 
     // Limit the position of the axis according to the specified configuration
     private void LimitAxisPosition()
@@ -156,7 +152,6 @@ public class ServoEngine : MonoBehaviour
         }
     }
 
-
     // Perform movements controlled by PLC
     private async void HandlePLCMovements()
     {
@@ -180,7 +175,6 @@ public class ServoEngine : MonoBehaviour
             MoveAxis(-direction * speed);
     }
 
-
     // No borrar todavia
     //Task<bool> rightInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightInputCode);
     //Task<bool> leftInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftInputCode);
@@ -193,6 +187,7 @@ public class ServoEngine : MonoBehaviour
     //if (rightInput || leftInput)
 
     // Send the current position to PLC
+
     private void SendCurrentPosToPLC()
     {
         PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
@@ -237,8 +232,6 @@ public class ServoEngine : MonoBehaviour
         // The 'speedCode' is used as the identifier for the variable to write to
         PlcConnectionManager.InstanceManager.WriteVariableValue(speedCode, convert);
     }
-
-
 
     // Mover el eje del servo manualmente
     private void MoveAxisManually(Vector3 movementDirection)
