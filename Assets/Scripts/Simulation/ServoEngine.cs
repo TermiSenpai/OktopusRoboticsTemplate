@@ -232,9 +232,15 @@ public class ServoEngine : MonoBehaviour
 
     private void SendDebugSpeedToPLC()
     {
+        // Convert the debug speed value to UInt (unsigned integer)
         var convert = debugSpeed.ConvertToUInt();
+
+        // Write the converted debug speed value to the PLC
+        // using the PlcConnectionManager instance
+        // The 'speedCode' is used as the identifier for the variable to write to
         PlcConnectionManager.InstanceManager.WriteVariableValue(speedCode, convert);
     }
+
 
 
     // Mover el eje del servo manualmente
