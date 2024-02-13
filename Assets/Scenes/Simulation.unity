@@ -2849,6 +2849,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightCode: DB1.DBX1.1
   leftCode: DB1.DBX1.2
+  rightInputCode: DB1.DBX1.3
+  leftInputCode: DB1.DBX1.4
+  positionCode: DB1.DBD4
   speed: 0.1
   direction: {x: -0.1, y: 0, z: 0}
   axis: {fileID: 974690127}
@@ -2874,7 +2877,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -2885,7 +2888,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596527159}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3294,6 +3297,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightCode: DB1.DBX2.1
   leftCode: DB1.DBX2.2
+  rightInputCode: DB1.DBX2.3
+  leftInputCode: DB1.DBX2.4
+  positionCode: DB1.DBD12
   speed: 0.1
   direction: {x: 0, y: 0, z: -0.1}
   axis: {fileID: 1044081857}
@@ -3319,7 +3325,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -3330,7 +3336,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733034718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4454,6 +4460,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightCode: DB1.DBX1.5
   leftCode: DB1.DBX1.6
+  rightInputCode: DB1.DBX1.7
+  leftInputCode: DB1.DBX2.0
+  positionCode: DB1.DBD8
   speed: 0.1
   direction: {x: 0, y: -0.1, z: 0}
   axis: {fileID: 2136284043}
@@ -4479,7 +4488,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -4490,7 +4499,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982286553}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8881,13 +8890,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4812216283041649912, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4915510457874605186, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5005292451911520799, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_Name
       value: SimPaletizador
       objectReference: {fileID: 0}
     - target: {fileID: 7610602535500347672, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.95
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
