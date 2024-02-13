@@ -214,16 +214,22 @@ public class ServoEngine : MonoBehaviour
     {
         try
         {
+            // Attempt to read the speed value from the PLC
             var valorFloat = PlcConnectionManager.InstanceManager.ReadVariableValue<uint>(speedCode);
+
+            // Convert the read value to float type
             float result = valorFloat.ConvertToFloat();
+
+            // Store the converted speed value in the 'speed' variable
             speed = result;
         }
         catch (Exception ex)
         {
-            // Manejar la excepción
-            Debug.LogError($"Error al leer el valor float: {ex.Message}");
+            // Handle any exceptions that may occur during reading or conversion
+            Debug.LogError($"Error while reading float value: {ex.Message}");
         }
     }
+
 
     // Mover el eje del servo manualmente
     private void MoveAxisManually(Vector3 movementDirection)
