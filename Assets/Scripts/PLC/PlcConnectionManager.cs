@@ -77,6 +77,9 @@ public class PlcConnectionManager : MonoBehaviour
 
         try
         {
+            // Registrar el evento de escritura
+            Debug.Log($"Reading variable at {address}");
+
             object result = plc.Read(address);
             return (T)Convert.ChangeType(result, typeof(T));
             // Intentar leer la variable del PLC y convertirla al tipo T
@@ -106,6 +109,9 @@ public class PlcConnectionManager : MonoBehaviour
 
         try
         {
+            // Registrar el evento de escritura
+            Debug.Log($"Reading variable at {address}");
+
             // Intentar leer la variable del PLC de forma as�ncrona
             object result = await plc.ReadAsync(address);
             // Si el resultado es nulo, devolver el valor predeterminado del tipo T
@@ -142,6 +148,8 @@ public class PlcConnectionManager : MonoBehaviour
 
         try
         {
+            // Registrar el evento de escritura
+            Debug.Log($"Writing variable at {address} with value {value}");
             // Intentar escribir en la variable del PLC
             plc.WriteAsync(address, value);
         }
@@ -162,13 +170,20 @@ public class PlcConnectionManager : MonoBehaviour
 
         try
         {
+            // Registrar el evento de escritura
+            Debug.Log($"Writing variable at {address} with value {value}");
             // Intentar escribir en la variable del PLC
             plc.Write(address, value);
         }
+        catch (PlcException ex)
+        {
+            // Manejar la excepción específica de PLC
+            Debug.LogError($"Error writing variable at {address}: {ex.Message}");
+        }
         catch (Exception ex)
         {
-            // Manejar cualquier excepci�n que pueda ocurrir al intentar escribir en la variable
-            Debug.LogError($"Error writing variable at {address}: {ex.Message}");
+            // Manejar cualquier otra excepción genérica
+            Debug.LogError($"Unexpected error writing variable at {address}: {ex.Message}");
         }
     }
 }
