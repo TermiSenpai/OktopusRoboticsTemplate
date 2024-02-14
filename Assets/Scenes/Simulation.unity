@@ -2857,12 +2857,12 @@ MonoBehaviour:
   direction: {x: -0.1, y: 0, z: 0}
   axis: {fileID: 974690127}
   axisToLimit: 0
+  speedDebugControler: 0
   posMin: -0.8
   posMax: 0.5
   debugR: 0
   debugL: 0
   debugSpeed: 0.1
-  currentpos: 0
 --- !u!65 &596527161
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3308,12 +3308,12 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: -0.1}
   axis: {fileID: 1044081857}
   axisToLimit: 2
+  speedDebugControler: 0
   posMin: -0.8
   posMax: 0.95
   debugR: 0
   debugL: 0
   debugSpeed: 0.1
-  currentpos: 0
 --- !u!65 &733034720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4474,12 +4474,12 @@ MonoBehaviour:
   direction: {x: 0, y: -0.1, z: 0}
   axis: {fileID: 2136284043}
   axisToLimit: 1
+  speedDebugControler: 0
   posMin: 0
   posMax: 1.7
   debugR: 0
   debugL: 0
   debugSpeed: 0.1
-  currentpos: 0
 --- !u!65 &982286555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8899,21 +8899,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4812216283041649912, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.010000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4915510457874605186, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 5005292451911520799, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_Name
       value: SimPaletizador
-      objectReference: {fileID: 0}
-    - target: {fileID: 7610602535500347672, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
