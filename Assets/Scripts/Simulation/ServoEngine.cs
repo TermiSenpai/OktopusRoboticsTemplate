@@ -3,24 +3,9 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-// Enumeraci�n que representa los ejes de movimiento posibles
-public enum AxisMovement
-{
-    X,
-    Y,
-    Z
-}
-
 // Clase que controla el movimiento de un motor servo en un eje espec�fico
-public class ServoEngine : MonoBehaviour
+public class ServoEngine : Engine
 {
-    // Codes associated with right and left movements (editable from the Inspector)
-    [Header("PLC Codes")]
-    [SerializeField] private string rightCode;
-    [SerializeField] private string leftCode;
-    [SerializeField] private string positionCode;
-    [SerializeField] private string speedCode;
-
     [Header("References")]
     // Servo movement speed (editable from the Inspector)
     [SerializeField] private float speed;

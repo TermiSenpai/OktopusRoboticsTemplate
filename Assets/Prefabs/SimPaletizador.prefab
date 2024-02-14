@@ -32370,8 +32370,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 478729636317206409}
   - {fileID: 1369518388491299962}
+  - {fileID: 478729636317206409}
   - {fileID: 3016557452863889149}
   m_Father: {fileID: 4812216283041649912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -63218,7 +63218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1369518388491299962}
   m_Layer: 0
-  m_Name: PARTE2_ROTABLE_CT-19-21_Ensamblaje GR-PS-30-V1_3811
+  m_Name: Gripper_CT-19-21_Ensamblaje GR-PS-30-V1_3811
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
