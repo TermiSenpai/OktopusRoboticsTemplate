@@ -18,8 +18,6 @@ public class ServoEngine : MonoBehaviour
     [Header("PLC Codes")]
     [SerializeField] private string rightCode;
     [SerializeField] private string leftCode;
-    [SerializeField] private string rightInputCode;
-    [SerializeField] private string leftInputCode;
     [SerializeField] private string positionCode;
     [SerializeField] private string speedCode;
 
@@ -175,24 +173,12 @@ public class ServoEngine : MonoBehaviour
             MoveAxis(-direction * speed);
     }
 
-    // No borrar todavia
-    //Task<bool> rightInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightInputCode);
-    //Task<bool> leftInputTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftInputCode);
-
-    //await Task.WhenAll(rightInputTask, leftInputTask);
-
-    //leftInput = leftInputTask.Result;
-    //rightInput = leftInputTask.Result;
-
-    //if (rightInput || leftInput)
-
     // Send the current position to PLC
-
     private void SendCurrentPosToPLC()
     {
         PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
         // Check if the current axis position has changed since the last update
-        if (lastAxisPos != axisPos)
+        if (axisPos != lastAxisPos)
         {
             // If the position has changed, update the last known position and send it to the PLC
             lastAxisPos = axisPos;
