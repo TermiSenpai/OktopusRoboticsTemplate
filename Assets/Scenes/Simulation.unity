@@ -2852,13 +2852,13 @@ MonoBehaviour:
   speedCode: DB1.DBD40
   speed: 0.1
   direction: {x: -0.1, y: 0, z: 0}
-  axis: {fileID: 974690127}
+  objectToMove: {fileID: 0}
   axisToLimit: 0
-  speedDebugControler: 0
   posMin: -0.8
   posMax: 0.5
   debugR: 0
   debugL: 0
+  speedDebugControler: 0
   debugSpeed: 0.1
 --- !u!23 &596527162
 MeshRenderer:
@@ -3279,13 +3279,13 @@ MonoBehaviour:
   speedCode: DB1.DBD48
   speed: 0.1
   direction: {x: 0, y: 0, z: -0.1}
-  axis: {fileID: 1044081857}
+  objectToMove: {fileID: 0}
   axisToLimit: 2
-  speedDebugControler: 0
   posMin: -0.8
   posMax: 0.95
   debugR: 0
   debugL: 0
+  speedDebugControler: 0
   debugSpeed: 0.1
 --- !u!23 &733034721
 MeshRenderer:
@@ -4379,11 +4379,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935752271}
   m_CullTransparentMesh: 1
---- !u!1 &974690127 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 908357257396683977, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-  m_PrefabInstance: {fileID: 2124894136}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &982286553
 GameObject:
   m_ObjectHideFlags: 0
@@ -4421,13 +4416,13 @@ MonoBehaviour:
   speedCode: DB1.DBD44
   speed: 0.1
   direction: {x: 0, y: -0.1, z: 0}
-  axis: {fileID: 2136284043}
+  objectToMove: {fileID: 0}
   axisToLimit: 1
-  speedDebugControler: 0
   posMin: 0
   posMax: 1.7
   debugR: 0
   debugL: 0
+  speedDebugControler: 0
   debugSpeed: 0.1
 --- !u!23 &982286556
 MeshRenderer:
@@ -4494,11 +4489,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1044081857 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5142255094627891657, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-  m_PrefabInstance: {fileID: 2124894136}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1044710632
 GameObject:
   m_ObjectHideFlags: 0
@@ -5037,10 +5027,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e444129ab8f4c4492897f11d9dab3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightCode: 
-  leftCode: 
-  positionCode: 
-  speedCode: 
+  rightCode: DB1.DBX54.0
+  leftCode: DB1.DBX54.1
+  positionCode: DB1.DBD56
+  speedCode: DB1.DBD68
+  speed: 0
+  direction: {x: 0.1, y: 0, z: 0}
+  objectToMove: {fileID: 2124894137}
+  axisToLimit: 0
+  posMin: 0
+  posMax: 0
+  debugR: 0
+  debugL: 0
+  speedDebugControler: 0
+  debugSpeed: 0.1
 --- !u!23 &1157326326
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8936,9 +8936,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
---- !u!1 &2136284043 stripped
+--- !u!1 &2124894137 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3793664646653734049, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7372114740750252052, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
   m_PrefabInstance: {fileID: 2124894136}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
