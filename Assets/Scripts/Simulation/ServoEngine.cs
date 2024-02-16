@@ -92,7 +92,7 @@ public class ServoEngine : Engine
         }
     }
 
-    public override void UpdateAxisPos()
+    protected override void UpdateAxisPos()
     {
         switch (axisToLimit)
         {
@@ -112,7 +112,7 @@ public class ServoEngine : Engine
     }    
 
     // Send the current position to PLC
-    public override void SendCurrentPosToPLC()
+    protected override void SendCurrentPosToPLC()
     {
         PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
         // Check if the current axis position has changed since the last update
@@ -133,5 +133,5 @@ public class ServoEngine : Engine
     }
 
     // Mover el eje del servo con velocidad especificada
-    public override void MoveAxis(Vector3 movement) => objectToMove.transform.localPosition += movement * speed;
+    protected override void MoveAxis(Vector3 movement) => objectToMove.transform.localPosition += movement * speed;
 }

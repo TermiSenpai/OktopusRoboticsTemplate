@@ -104,9 +104,9 @@ public abstract class Engine : MonoBehaviour
             MoveAxis(-direction);
     }
 
-    public abstract void MoveAxis(Vector3 vector);
+    protected abstract void MoveAxis(Vector3 vector);
     // Send the current position to PLC
-    public abstract void SendCurrentPosToPLC();
+    protected abstract void SendCurrentPosToPLC();
 
-    public abstract void UpdateAxisPos();
+    protected abstract void UpdateAxisPos();
 }

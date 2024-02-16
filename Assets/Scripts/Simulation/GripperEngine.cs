@@ -107,9 +107,9 @@ public class GripperEngine : Engine
     private void RotateAxisManually(Vector3 rotationDirection) => objectToMove.transform.localRotation *= Quaternion.Euler(rotationDirection * speed);
 
     // Rotar el eje del servo con velocidad especificada
-    public override void MoveAxis(Vector3 rotation) => objectToMove.transform.localRotation *= Quaternion.Euler(rotation * speed);
+    protected override void MoveAxis(Vector3 rotation) => objectToMove.transform.localRotation *= Quaternion.Euler(rotation * speed);
 
-    public override void SendCurrentPosToPLC()
+    protected override void SendCurrentPosToPLC()
     {
         PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisRot);
         // Comprobar si la rotación actual del eje ha cambiado desde la última actualización
@@ -123,7 +123,7 @@ public class GripperEngine : Engine
         isTaskActive = false;
     }
 
-    public override void UpdateAxisPos()
+    protected override void UpdateAxisPos()
     {
         switch (axisToLimit)
         {
