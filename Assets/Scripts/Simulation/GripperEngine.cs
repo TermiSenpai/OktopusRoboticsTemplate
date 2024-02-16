@@ -1,7 +1,4 @@
-using System.Threading.Tasks;
 using UnityEngine;
-using static Cinemachine.CinemachineTargetGroup;
-using static UnityEngine.GridBrushBase;
 
 public class GripperEngine : Engine
 {
@@ -10,6 +7,7 @@ public class GripperEngine : Engine
 
     private void Start()
     {
+        // Establece la dirección del movimiento según el eje a limitar.
         switch (axisToLimit)
         {
             case AxisMovement.X: direction = Vector3.right; break;
@@ -18,52 +16,22 @@ public class GripperEngine : Engine
         }
     }
 
-    private void Update()
-    {
-        // Switch statement to handle different cases based on PLC connection status
-        switch (PlcConnectionManager.InstanceManager.IsPLCDisconnected())
-        {
-            // Case when PLC is disconnected
-            case true:
-                // Handle debugging movements
-                HandleDebugRotations();
-                // Limit the position of the servo axis
-                LimitAxisRotation();
-                break;
-            // Case when PLC is connected
-            case false:
-                // Check if a task is already active, if so, return without executing further code
-                if (isTaskActive) return;
-                // Set the task as active
-                isTaskActive = true;
-                ReceiveSpeed();
-                // Handle movements based on PLC instructions
-                HandlePLCMovements();
-                // Send the current position of the servo to the PLC
-                SendCurrentPosToPLC();
-                // If debug, change and send speed to plc
-                if (speedDebugControler) SendDebugSpeedToPLC();
-                break;
-        }
-        UpdateAxisPos();
-    }
-
     // Manejar rotaciones manuales durante la depuración
-    private void HandleDebugRotations()
+    protected override void HandleDebugMovements()
     {
         // Si la rotación hacia la derecha está habilitada para depuración
         if (debugR)
             // Rotar el eje manualmente en la dirección especificada
-            RotateAxisManually(direction);
+            MoveAxisManually(direction);
 
         // Si la rotación hacia la izquierda está habilitada para depuración
         if (debugL)
             // Rotar el eje manualmente en la dirección opuesta a la dirección especificada
-            RotateAxisManually(-direction);
+            MoveAxisManually(-direction);
     }
 
     // Limitar la rotación del eje según la configuración especificada
-    private void LimitAxisRotation()
+    protected override void LimitAxisPosition()
     {
         // Obtener la rotación local actual del eje
         Quaternion currentRotation = objectToMove.transform.localRotation;
@@ -87,7 +55,7 @@ public class GripperEngine : Engine
                 // Clamp the angle between minAngle and maxAngle
                 currentAxisY = Mathf.Clamp(currentAxisY, posMin, posMax);
                 // Construir una rotación con el ángulo restringido alrededor del eje X
-                objectToMove.transform.localEulerAngles = new Vector3(currentRotation.x, currentAxisY, currentRotation.z); 
+                objectToMove.transform.localEulerAngles = new Vector3(currentRotation.x, currentAxisY, currentRotation.z);
                 break;
 
             // Caso para limitar la rotación alrededor del eje Z
@@ -102,9 +70,8 @@ public class GripperEngine : Engine
         }
     }
 
-
     // Rotar el eje del servo manualmente
-    private void RotateAxisManually(Vector3 rotationDirection) => objectToMove.transform.localRotation *= Quaternion.Euler(rotationDirection * speed);
+    protected override void MoveAxisManually(Vector3 rotationDirection) => objectToMove.transform.localRotation *= Quaternion.Euler(rotationDirection * speed);
 
     // Rotar el eje del servo con velocidad especificada
     protected override void MoveAxis(Vector3 rotation) => objectToMove.transform.localRotation *= Quaternion.Euler(rotation * speed);

@@ -1,6 +1,3 @@
-using S7.Net;
-using System;
-using System.Threading.Tasks;
 using UnityEngine;
 
 // Clase que controla el movimiento de un motor servo en un eje espec�fico
@@ -10,39 +7,8 @@ public class ServoEngine : Engine
     float axisPos;
     float lastAxisPos;
 
-    // Method called on each frame to update the state of the servo motor
-    private void Update()
-    {
-        // Switch statement to handle different cases based on PLC connection status
-        switch (PlcConnectionManager.InstanceManager.IsPLCDisconnected())
-        {
-            // Case when PLC is disconnected
-            case true:
-                // Handle debugging movements
-                HandleDebugMovements();
-                // Limit the position of the servo axis
-                LimitAxisPosition();
-                break;
-            // Case when PLC is connected
-            case false:
-                // Check if a task is already active, if so, return without executing further code
-                if (isTaskActive) return;
-                // Set the task as active
-                isTaskActive = true;
-                ReceiveSpeed();
-                // Handle movements based on PLC instructions
-                HandlePLCMovements();
-                // Send the current position of the servo to the PLC
-                SendCurrentPosToPLC();
-                // If debug, change and send speed to plc
-                if (speedDebugControler) SendDebugSpeedToPLC();
-                break;
-        }
-        UpdateAxisPos();
-    }
-
     // Handle manual movements during debugging
-    private void HandleDebugMovements()
+    protected override void HandleDebugMovements()
     {
         // If debugging right movement is enabled
         if (debugR)
@@ -56,7 +22,7 @@ public class ServoEngine : Engine
     }
 
     // Limit the position of the axis according to the specified configuration
-    private void LimitAxisPosition()
+    protected override void LimitAxisPosition()
     {
         // Get the current local position of the axis
         Vector3 currentPosition = objectToMove.transform.localPosition;
@@ -127,10 +93,7 @@ public class ServoEngine : Engine
     }
 
     // Mover el eje del servo manualmente
-    private void MoveAxisManually(Vector3 movementDirection)
-    {
-        objectToMove.transform.localPosition += movementDirection * speed;
-    }
+    protected override void MoveAxisManually(Vector3 movementDirection) => objectToMove.transform.localPosition += movementDirection * speed;
 
     // Mover el eje del servo con velocidad especificada
     protected override void MoveAxis(Vector3 movement) => objectToMove.transform.localPosition += movement * speed;

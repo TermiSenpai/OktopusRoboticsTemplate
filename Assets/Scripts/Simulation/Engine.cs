@@ -45,24 +45,56 @@ public abstract class Engine : MonoBehaviour
 
     #endregion
 
+    private void Update()
+    {
+        // Switch statement to handle different cases based on PLC connection status
+        switch (PlcConnectionManager.InstanceManager.IsPLCDisconnected())
+        {
+            // Case when PLC is disconnected
+            case true:
+                // Handle debugging movements
+                HandleDebugMovements();
+                // Limit the position of the servo axis
+                LimitAxisPosition();
+                break;
+            // Case when PLC is connected
+            case false:
+                // Check if a task is already active, if so, return without executing further code
+                if (isTaskActive) return;
+                // Set the task as active
+                isTaskActive = true;
+                ReceiveSpeed();
+                // Handle movements based on PLC instructions
+                HandlePLCMovements();
+                // Send the current position of the servo to the PLC
+                SendCurrentPosToPLC();
+                // If debug, change and send speed to plc
+                if (speedDebugControler) SendDebugSpeedToPLC();
+                break;
+        }
+        // Actualiza la posición del eje.
+        UpdateAxisPos();
+    }
+
     // Receive speed from PLC
-    protected void ReceiveSpeed()
+    protected float ReceiveSpeed()
     {
         try
         {
             // Attempt to read the speed value from the PLC (PLC Use uint to real values)
-            var valorFloat = PlcConnectionManager.InstanceManager.ReadVariableValue<uint>(speedCode);
+            var readValue = PlcConnectionManager.InstanceManager.ReadVariableValue<uint>(speedCode);
 
             // Convert the read value to float type
-            float result = valorFloat.ConvertToFloat();
+            float result = readValue.ConvertToFloat();
 
             // Store the converted speed value in the 'speed' variable
-            speed = result;
+            return result;
         }
         catch (Exception ex)
         {
             // Handle any exceptions that may occur during reading or conversion
             Debug.LogError($"Error while reading float value: {ex.Message}");
+            return default;
         }
     }
 
@@ -92,9 +124,6 @@ public abstract class Engine : MonoBehaviour
         bool rightMove = rightMoveTask.Result;
         bool leftMove = leftMoveTask.Result;
 
-        Debug.Log(rightMove);
-        Debug.Log(leftMove);
-
         // If PLC signals a right movement, move the axis in the specified direction with a certain speed
         if (rightMove)
             MoveAxis(direction);
@@ -109,4 +138,10 @@ public abstract class Engine : MonoBehaviour
     protected abstract void SendCurrentPosToPLC();
 
     protected abstract void UpdateAxisPos();
+
+    protected abstract void MoveAxisManually(Vector3 rotationDirection);
+
+    protected abstract void LimitAxisPosition();
+
+    protected abstract void HandleDebugMovements();
 }
