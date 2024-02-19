@@ -1,6 +1,7 @@
 using S7.Net;
 using System;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Enumeracion que representa los ejes de movimiento posibles
@@ -77,24 +78,25 @@ public abstract class Engine : MonoBehaviour
     }
 
     // Receive speed from PLC
-    protected float ReceiveSpeed()
+    protected async void ReceiveSpeed()
     {
         try
         {
             // Attempt to read the speed value from the PLC (PLC Use uint to real values)
-            var readValue = PlcConnectionManager.InstanceManager.ReadVariableValue<uint>(speedCode);
-
+            Task<uint> readValue = PlcConnectionManager.InstanceManager.ReadVariableAsync<uint>(speedCode);
+            await Task.WhenAll(readValue);
+            uint taskResult = readValue.Result;
             // Convert the read value to float type
-            float result = readValue.ConvertToFloat();
+            float result = taskResult.ConvertToFloat();
 
             // Store the converted speed value in the 'speed' variable
-            return result;
+            speed = result;
         }
         catch (Exception ex)
         {
             // Handle any exceptions that may occur during reading or conversion
             Debug.LogError($"Error while reading float value: {ex.Message}");
-            return default;
+            return;
         }
     }
 

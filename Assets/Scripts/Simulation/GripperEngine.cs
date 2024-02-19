@@ -78,11 +78,12 @@ public class GripperEngine : Engine
 
     protected override void SendCurrentPosToPLC()
     {
-        PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisRot);
+        
         // Comprobar si la rotación actual del eje ha cambiado desde la última actualización
         if (axisRot != lastAxisRot)
         {
             // Si la rotación ha cambiado, actualizar la última posición conocida y enviarla al PLC
+            PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisRot);
             lastAxisRot = axisRot;
         }
 

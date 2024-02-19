@@ -8942,61 +8942,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1681419075665163900, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983066978853132447, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.0585
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983066978853132447, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.0138
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983066978853132447, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.232
-      objectReference: {fileID: 0}
-    - target: {fileID: 4783937606118073992, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5005292451911520799, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_Name
       value: SimPaletizador
-      objectReference: {fileID: 0}
-    - target: {fileID: 8003771442669135941, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.0045435727
-      objectReference: {fileID: 0}
-    - target: {fileID: 8003771442669135941, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.00019168852
-      objectReference: {fileID: 0}
-    - target: {fileID: 8003771442669135941, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.910383e-11
-      objectReference: {fileID: 0}
-    - target: {fileID: 8003771442669135941, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8003771442669135941, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8003771442669135941, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8003771442669135941, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8003771442669135941, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

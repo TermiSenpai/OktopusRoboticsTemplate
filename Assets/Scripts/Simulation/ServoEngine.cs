@@ -75,17 +75,17 @@ public class ServoEngine : Engine
                 axisPos = objectToMove.transform.localPosition.z;
                 break;
         }
-    }    
+    }
 
     // Send the current position to PLC
     protected override void SendCurrentPosToPLC()
     {
-        PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
         // Check if the current axis position has changed since the last update
         if (axisPos != lastAxisPos)
         {
             // If the position has changed, update the last known position and send it to the PLC
             lastAxisPos = axisPos;
+            PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
         }
 
         // Reset the task activity flag to indicate that the task is no longer active
