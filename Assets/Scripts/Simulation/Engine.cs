@@ -1,6 +1,8 @@
 using S7.Net;
 using System;
+using System.Collections;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Enumeracion que representa los ejes de movimiento posibles
@@ -41,6 +43,15 @@ public abstract class Engine : MonoBehaviour
     [SerializeField] protected bool speedDebugControler = false;
     [SerializeField] protected float debugSpeed = 0.1f;
 
+    bool rightMove;
+    bool leftMove;
+    uint speedValue;
+    uint lastSpeedValue;
+
+    float waitSecs = 0.1f;
+
+    Coroutine currentCoroutine;
+
     protected bool isTaskActive = false;
 
     #endregion
@@ -60,34 +71,91 @@ public abstract class Engine : MonoBehaviour
                 break;
             // Case when PLC is connected
             case false:
-                // Check if a task is already active, if so, return without executing further code
-                if (isTaskActive) return;
-                // Set the task as active
-                isTaskActive = true;
+                // Trigger asynchronous reading of PLC values without waiting for completion
+                //_ = ReadPLCValuesAsync();
+                // Receive speed from PLC
                 ReceiveSpeed();
                 // Handle movements based on PLC instructions
                 HandlePLCMovements();
                 // Send the current position of the servo to the PLC
                 SendCurrentPosToPLC();
-                // If debug, change and send speed to plc
+                // If debug mode is enabled, change and send speed to PLC
                 if (speedDebugControler) SendDebugSpeedToPLC();
                 break;
         }
-        // Actualiza la posición del eje.
+        // Update the axis position.
         UpdateAxisPos();
     }
 
-    // Receive speed from PLC
-    protected async void ReceiveSpeed()
+    private void OnEnable()
     {
+        PlcConnectionManager.OnPLCConnectedRelease += Call;
+    }
+
+    private void OnDisable()
+    {
+        PlcConnectionManager.OnPLCConnectedRelease -= Call;
+    }
+
+    void Call()
+    {
+        currentCoroutine = StartCoroutine(nameof(updateData));
+    }
+
+    IEnumerator updateData()
+    {
+        while (!PlcConnectionManager.InstanceManager.IsPLCDisconnected())
+        {
+            _ = ReadPLCValuesAsync();
+            yield return new WaitForSeconds(waitSecs);
+        }
+    }
+
+    protected async Task ReadPLCValuesAsync()
+    {
+        // Check if a task is already active, if so, return without executing further code
+        if (isTaskActive) return;
+
         try
         {
-            // Attempt to read the speed value from the PLC (PLC Use uint to real values)
-            Task<uint> readValue = PlcConnectionManager.InstanceManager.ReadVariableAsync<uint>(speedCode);
-            await Task.WhenAll(readValue);
-            uint taskResult = readValue.Result;
+            // Set the task as active
+            isTaskActive = true;
+
+            // Asynchronously read the values of PLC variables
+            Task<bool> rightMoveTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightCode);
+            Task<bool> leftMoveTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftCode);
+            Task<uint> speedTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<uint>(speedCode);
+
+            // Wait for all tasks to complete
+            await Task.WhenAll(rightMoveTask, leftMoveTask, speedTask);
+
+            // Handle the read values
+            rightMove = rightMoveTask.Result;
+            leftMove = leftMoveTask.Result;
+            speedValue = speedTask.Result;
+        }
+        catch (Exception ex)
+        {
+            // Handle any exceptions that may occur during PLC reading
+            Debug.LogError($"Error while reading PLC values: {ex.Message}");
+        }
+        finally
+        {
+            // Set the task as inactive
+            isTaskActive = false;
+        }
+    }
+
+
+    // Receive speed from PLC
+    protected void ReceiveSpeed()
+    {
+        if (lastSpeedValue == speedValue) return;
+
+        try
+        {
             // Convert the read value to float type
-            float result = taskResult.ConvertToFloat();
+            float result = speedValue.ConvertToFloat();
 
             // Store the converted speed value in the 'speed' variable
             speed = result;
@@ -113,19 +181,8 @@ public abstract class Engine : MonoBehaviour
     }
 
     // Perform movements controlled by PLC
-    protected async void HandlePLCMovements()
+    protected void HandlePLCMovements()
     {
-        // Asynchronously read variables from the PLC for right and left movements
-        Task<bool> rightMoveTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightCode);
-        Task<bool> leftMoveTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftCode);
-
-        // Wait for both tasks to complete
-        await Task.WhenAll(rightMoveTask, leftMoveTask);
-
-        // Get the results of the tasks
-        bool rightMove = rightMoveTask.Result;
-        bool leftMove = leftMoveTask.Result;
-
         // If PLC signals a right movement, move the axis in the specified direction with a certain speed
         if (rightMove)
             MoveAxis(direction);
