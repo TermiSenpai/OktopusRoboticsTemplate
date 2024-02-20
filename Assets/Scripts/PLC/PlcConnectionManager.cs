@@ -1,7 +1,6 @@
 using S7.Net;
-using S7.Net.Types;
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -23,6 +22,9 @@ public class PlcConnectionManager : MonoBehaviour
     /// </summary>
     // Objeto que representa la conexi�n con el PLC
     private Plc plc;
+
+    public delegate void OnPLCConnected();
+    public static OnPLCConnected OnPLCConnectedRelease;
 
     /// <summary>
     /// M�todo que se llama cuando se crea la instancia del script.
@@ -53,6 +55,7 @@ public class PlcConnectionManager : MonoBehaviour
         // Crear una nueva instancia de Plc con los par�metros proporcionados
         plc = new(cpu, ip, racks, slots);
         plc.Open(); // Abrir la conexi�n con el PLC
+        OnPLCConnectedRelease?.Invoke();
     }
 
     /// <summary>
