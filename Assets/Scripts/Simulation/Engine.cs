@@ -1,7 +1,6 @@
 using S7.Net;
 using System;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // Enumeracion que representa los ejes de movimiento posibles
@@ -45,7 +44,8 @@ public abstract class Engine : MonoBehaviour
     protected bool isTaskActive = false;
 
     #endregion
-
+    // TODO
+    // Modificar el update para que lea todas las variables de forma asíncrona y con su respectivo valor, realizar modificaciones
     private void Update()
     {
         // Switch statement to handle different cases based on PLC connection status
