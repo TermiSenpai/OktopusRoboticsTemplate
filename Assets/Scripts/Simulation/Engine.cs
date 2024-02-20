@@ -99,10 +99,10 @@ public abstract class Engine : MonoBehaviour
 
     void Call()
     {
-        currentCoroutine = StartCoroutine(nameof(updateData));
+        currentCoroutine = StartCoroutine(nameof(TimeUpdateData));
     }
 
-    IEnumerator updateData()
+    IEnumerator TimeUpdateData()
     {
         while (!PlcConnectionManager.InstanceManager.IsPLCDisconnected())
         {
