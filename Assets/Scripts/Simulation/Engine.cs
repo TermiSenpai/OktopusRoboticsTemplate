@@ -55,8 +55,6 @@ public abstract class Engine : MonoBehaviour
     protected bool isTaskActive = false;
 
     #endregion
-    // TODO
-    // Modificar el update para que lea todas las variables de forma asíncrona y con su respectivo valor, realizar modificaciones
     private void Update()
     {
         // Switch statement to handle different cases based on PLC connection status
@@ -71,8 +69,6 @@ public abstract class Engine : MonoBehaviour
                 break;
             // Case when PLC is connected
             case false:
-                // Trigger asynchronous reading of PLC values without waiting for completion
-                //_ = ReadPLCValuesAsync();
                 // Receive speed from PLC
                 ReceiveSpeed();
                 // Handle movements based on PLC instructions
@@ -87,25 +83,28 @@ public abstract class Engine : MonoBehaviour
         UpdateAxisPos();
     }
 
-    private void OnEnable()
-    {
-        PlcConnectionManager.OnPLCConnectedRelease += Call;
-    }
+    // Enable the script and subscribe to the OnPLCConnectedRelease event when the script is enabled
+    private void OnEnable() => PlcConnectionManager.OnPLCConnectedRelease += Call;
 
-    private void OnDisable()
-    {
-        PlcConnectionManager.OnPLCConnectedRelease -= Call;
-    }
+    // Disable the script and unsubscribe from the OnPLCConnectedRelease event when the script is disabled
+    private void OnDisable() => PlcConnectionManager.OnPLCConnectedRelease -= Call;
 
-    void Call()
+    // Method to be called when the OnPLCConnectedRelease event is triggered
+    private void Call()
     {
+        if (currentCoroutine != null)
+            StopCoroutine(currentCoroutine);
+
         currentCoroutine = StartCoroutine(nameof(TimeUpdateData));
     }
 
+    // Coroutine to update data over time
     IEnumerator TimeUpdateData()
     {
+        // Continue looping while the PLC is connected
         while (!PlcConnectionManager.InstanceManager.IsPLCDisconnected())
         {
+            // Trigger an asynchronous read of PLC values and wait for a specified amount of time
             _ = ReadPLCValuesAsync();
             yield return new WaitForSeconds(waitSecs);
         }
@@ -145,7 +144,6 @@ public abstract class Engine : MonoBehaviour
             isTaskActive = false;
         }
     }
-
 
     // Receive speed from PLC
     protected void ReceiveSpeed()
