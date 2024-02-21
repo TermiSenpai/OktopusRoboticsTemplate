@@ -6,6 +6,13 @@ TagManager:
   tags:
   - MachinesParent
   - OrbitCamera
+  - UI
+  - Box
+  - X
+  - Y
+  - Z
+  - Belt
+  - TakeDropTxt
   layers:
   - Default
   - TransparentFX
@@ -14,7 +21,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Caja
   - 
   - 
   - 
