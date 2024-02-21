@@ -7,20 +7,6 @@ public class ServoEngine : Engine
     float axisPos;
     float lastAxisPos;
 
-    // Handle manual movements during debugging
-    protected override void HandleDebugMovements()
-    {
-        // If debugging right movement is enabled
-        if (debugR)
-            // Move the axis manually in the specified direction
-            MoveAxis(direction);
-
-        // If debugging left movement is enabled
-        if (debugL)
-            // Move the axis manually in the opposite direction to the specified direction
-            MoveAxis(-direction);
-    }
-
     // Limit the position of the axis according to the specified configuration
     protected override void LimitAxisPosition()
     {

@@ -16,20 +16,6 @@ public class GripperEngine : Engine
         }
     }
 
-    // Manejar rotaciones manuales durante la depuración
-    protected override void HandleDebugMovements()
-    {
-        // Si la rotación hacia la derecha está habilitada para depuración
-        if (debugR)
-            // Rotar el eje manualmente en la dirección especificada
-            MoveAxis(direction);
-
-        // Si la rotación hacia la izquierda está habilitada para depuración
-        if (debugL)
-            // Rotar el eje manualmente en la dirección opuesta a la dirección especificada
-            MoveAxis(-direction);
-    }
-
     // Limitar la rotación del eje según la configuración especificada
     protected override void LimitAxisPosition()
     {
