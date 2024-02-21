@@ -48,11 +48,13 @@ public abstract class Engine : MonoBehaviour
     uint speedValue;
     uint lastSpeedValue;
 
-    float waitSecs = 0.1f;
+    readonly float waitSecs = 0.1f;
 
     Coroutine currentCoroutine;
 
     protected bool isTaskActive = false;
+
+    public uint LastSpeedValue { get => lastSpeedValue; set => lastSpeedValue = value; }
 
     #endregion
     private void Update()
@@ -148,7 +150,7 @@ public abstract class Engine : MonoBehaviour
     // Receive speed from PLC
     protected void ReceiveSpeed()
     {
-        if (lastSpeedValue == speedValue) return;
+        if (LastSpeedValue == speedValue) return;
 
         try
         {
