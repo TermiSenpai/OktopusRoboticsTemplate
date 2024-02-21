@@ -13,12 +13,12 @@ public class ServoEngine : Engine
         // If debugging right movement is enabled
         if (debugR)
             // Move the axis manually in the specified direction
-            MoveAxisManually(direction);
+            MoveAxis(direction);
 
         // If debugging left movement is enabled
         if (debugL)
             // Move the axis manually in the opposite direction to the specified direction
-            MoveAxisManually(-direction);
+            MoveAxis(-direction);
     }
 
     // Limit the position of the axis according to the specified configuration
@@ -91,9 +91,6 @@ public class ServoEngine : Engine
         // Reset the task activity flag to indicate that the task is no longer active
         isTaskActive = false;
     }
-
-    // Mover el eje del servo manualmente
-    protected override void MoveAxisManually(Vector3 movementDirection) => objectToMove.transform.localPosition += movementDirection * speed;
 
     // Mover el eje del servo con velocidad especificada
     protected override void MoveAxis(Vector3 movement) => objectToMove.transform.localPosition += movement * speed;

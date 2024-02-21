@@ -193,7 +193,6 @@ public abstract class Engine : MonoBehaviour
     protected abstract void MoveAxis(Vector3 vector);
     protected abstract void SendCurrentPosToPLC();
     protected abstract void UpdateAxisPos();
-    protected abstract void MoveAxisManually(Vector3 rotationDirection);
     protected abstract void LimitAxisPosition();
     protected abstract void HandleDebugMovements();
 }
