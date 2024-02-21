@@ -30,15 +30,11 @@ public class Sensor : MonoBehaviour
     {
         // Lanzar el Raycast
         if (Physics.Raycast(origin, direction, raycastDistance))
-        {
             // El Raycast golpeo algo
             HandleDetectionResult(true);
-        }
         else
-        {
             // El Raycast no golpeo nada
             HandleDetectionResult(false);
-        }
     }
 
     // Actua segun el resultado de la deteccion

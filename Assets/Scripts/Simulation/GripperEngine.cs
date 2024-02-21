@@ -16,20 +16,6 @@ public class GripperEngine : Engine
         }
     }
 
-    // Manejar rotaciones manuales durante la depuración
-    protected override void HandleDebugMovements()
-    {
-        // Si la rotación hacia la derecha está habilitada para depuración
-        if (debugR)
-            // Rotar el eje manualmente en la dirección especificada
-            MoveAxisManually(direction);
-
-        // Si la rotación hacia la izquierda está habilitada para depuración
-        if (debugL)
-            // Rotar el eje manualmente en la dirección opuesta a la dirección especificada
-            MoveAxisManually(-direction);
-    }
-
     // Limitar la rotación del eje según la configuración especificada
     protected override void LimitAxisPosition()
     {
@@ -69,9 +55,6 @@ public class GripperEngine : Engine
                 break;
         }
     }
-
-    // Rotar el eje del servo manualmente
-    protected override void MoveAxisManually(Vector3 rotationDirection) => objectToMove.transform.localRotation *= Quaternion.Euler(rotationDirection * speed);
 
     // Rotar el eje del servo con velocidad especificada
     protected override void MoveAxis(Vector3 rotation) => objectToMove.transform.localRotation *= Quaternion.Euler(rotation * speed);

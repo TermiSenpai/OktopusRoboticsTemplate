@@ -2,7 +2,6 @@ using S7.Net;
 using System;
 using System.Collections;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // Enumeracion que representa los ejes de movimiento posibles
@@ -48,11 +47,13 @@ public abstract class Engine : MonoBehaviour
     uint speedValue;
     uint lastSpeedValue;
 
-    float waitSecs = 0.1f;
+    readonly float waitSecs = 0.1f;
 
     Coroutine currentCoroutine;
 
     protected bool isTaskActive = false;
+
+    public uint LastSpeedValue { get => lastSpeedValue; set => lastSpeedValue = value; }
 
     #endregion
     private void Update()
@@ -148,7 +149,7 @@ public abstract class Engine : MonoBehaviour
     // Receive speed from PLC
     protected void ReceiveSpeed()
     {
-        if (lastSpeedValue == speedValue) return;
+        if (LastSpeedValue == speedValue) return;
 
         try
         {
@@ -190,10 +191,22 @@ public abstract class Engine : MonoBehaviour
             MoveAxis(-direction);
     }
 
+    // Handle manual movements during debugging
+    protected void HandleDebugMovements()
+    {
+        // If debugging right movement is enabled
+        if (debugR)
+            // Move the axis manually in the specified direction
+            MoveAxis(direction);
+
+        // If debugging left movement is enabled
+        if (debugL)
+            // Move the axis manually in the opposite direction to the specified direction
+            MoveAxis(-direction);
+    }
+
     protected abstract void MoveAxis(Vector3 vector);
     protected abstract void SendCurrentPosToPLC();
     protected abstract void UpdateAxisPos();
-    protected abstract void MoveAxisManually(Vector3 rotationDirection);
     protected abstract void LimitAxisPosition();
-    protected abstract void HandleDebugMovements();
 }
