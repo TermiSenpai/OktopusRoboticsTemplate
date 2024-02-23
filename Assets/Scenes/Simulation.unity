@@ -8942,13 +8942,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1726262528518719087, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
-      propertyPath: m_Name
-      value: CintaTransportadora
-      objectReference: {fileID: 0}
     - target: {fileID: 5005292451911520799, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_Name
       value: SimPaletizador
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135616438954511935, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: speedCode
+      value: DB1.DBD72.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135616438954511935, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: conveyorCode
+      value: DB1.DBX2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135616438954511935, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: currentSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135616438954511935, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: workingSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
