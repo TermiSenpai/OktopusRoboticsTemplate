@@ -15001,7 +15001,7 @@ GameObject:
   - component: {fileID: 4823695044622062284}
   - component: {fileID: 6135616438954511935}
   m_Layer: 0
-  m_Name: "Extruir-L\xE1mina1"
+  m_Name: CintaTransportadora
   m_TagString: Belt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15132,7 +15132,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa692dfd4327de46ba7a659875e0e42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  conveyorCode: 
+  speedCode: 
   currentSpeed: 0.5
+  stopSpeed: 0
+  workingSpeed: 0
 --- !u!1 &1732396877784847173
 GameObject:
   m_ObjectHideFlags: 0
