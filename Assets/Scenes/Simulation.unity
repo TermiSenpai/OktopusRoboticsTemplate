@@ -8942,6 +8942,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1726262528518719087, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
+      propertyPath: m_Name
+      value: CintaTransportadora
+      objectReference: {fileID: 0}
     - target: {fileID: 5005292451911520799, guid: 29bf03d457dbad046bec3abb4db81039, type: 3}
       propertyPath: m_Name
       value: SimPaletizador
