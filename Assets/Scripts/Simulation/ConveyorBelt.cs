@@ -2,8 +2,14 @@
 
 public class ConveyorBelt : MonoBehaviour
 {
+    [Header("PLC")]
+    [SerializeField] private string conveyorCode;
+    [SerializeField] private string speedCode;
+    [Header("Manual")]
     // Variable que almacena la velocidad actual de la cinta transportadora
     [SerializeField] private float currentSpeed;
+    [SerializeField] private float stopSpeed;
+    [SerializeField] private float workingSpeed;
     bool currentBeltState;
 
     // Método para establecer la velocidad de la cinta transportadora
