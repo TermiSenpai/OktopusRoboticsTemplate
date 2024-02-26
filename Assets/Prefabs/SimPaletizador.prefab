@@ -15134,7 +15134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conveyorCode: DB1.DBX2.5
   speedCode: DB1.DBD72.0
-  direction: {x: 0, y: 0, z: 1}
+  direction: {x: 1, y: 0, z: 0}
   currentSpeed: 0.5
   stopSpeed: 0
   workingSpeed: 0.5
