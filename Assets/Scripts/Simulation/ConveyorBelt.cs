@@ -12,6 +12,7 @@ public class ConveyorBelt : MonoBehaviour
     [SerializeField] private string speedCode;
     [Header("Manual")]
     // Variable que almacena la velocidad actual de la cinta transportadora
+    [SerializeField] private Vector3 direction;
     [SerializeField] private float currentSpeed;
     [SerializeField] private float stopSpeed = 0f;
     [SerializeField] private float workingSpeed = 0.5f;
@@ -40,16 +41,11 @@ public class ConveyorBelt : MonoBehaviour
         }
     }
 
-
-
     // Método para establecer la velocidad de la cinta transportadora
     public void SetSpeed(float speed) => currentSpeed = speed;
 
     // Método para obtener la velocidad actual de la cinta transportadora
-    public float GetSpeed()
-    {
-        return currentSpeed;
-    }
+    public float GetSpeed() => currentSpeed;
 
     // Método para obtener el estado del sensor y ajustar la velocidad en consecuencia
     public void GetSensorState(bool sensorState)
@@ -72,6 +68,9 @@ public class ConveyorBelt : MonoBehaviour
                 break;
         }
     }
+
+    public Vector3 GetDirection() => direction;
+
     // Enable the script and subscribe to the OnPLCConnectedRelease event when the script is enabled
     private void OnEnable() => PlcConnectionManager.OnPLCConnectedRelease += Call;
 
