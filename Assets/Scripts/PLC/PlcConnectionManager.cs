@@ -189,4 +189,12 @@ public class PlcConnectionManager : MonoBehaviour
             Debug.LogError($"Unexpected error writing variable at {address}: {ex.Message}");
         }
     }
+    public void DisconnectPLC()
+    {
+        if (plc != null && plc.IsConnected)
+        {
+            plc.Close();
+            Debug.Log("Conexión con el PLC cerrada.");
+        }
+    }
 }
