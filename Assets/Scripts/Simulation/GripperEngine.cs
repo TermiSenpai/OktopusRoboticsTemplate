@@ -57,7 +57,7 @@ public class GripperEngine : Engine
     }
 
     // Rotar el eje del servo con velocidad especificada
-    protected override void MoveAxis(Vector3 rotation) => objectToMove.transform.localRotation *= Quaternion.Euler(rotation * speed);
+    public override void MoveAxis(Vector3 rotation) => objectToMove.transform.localRotation *= Quaternion.Euler(rotation * speed);
 
     protected override void SendCurrentPosToPLC()
     {

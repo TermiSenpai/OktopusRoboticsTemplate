@@ -37,8 +37,8 @@ public abstract class Engine : MonoBehaviour
     [SerializeField] protected float posMin;
     [SerializeField] protected float posMax;
 
-    [SerializeField] protected bool debugR;
-    [SerializeField] protected bool debugL;
+    [SerializeField] public bool debugR;
+    [SerializeField] public bool debugL;
     [SerializeField] protected bool speedDebugControler = false;
     [SerializeField] protected float debugSpeed = 0.1f;
 
@@ -205,8 +205,10 @@ public abstract class Engine : MonoBehaviour
             MoveAxis(-direction);
     }
 
-    protected abstract void MoveAxis(Vector3 vector);
+    public abstract void MoveAxis(Vector3 vector);
     protected abstract void SendCurrentPosToPLC();
     protected abstract void UpdateAxisPos();
     protected abstract void LimitAxisPosition();
+
+    public Vector3 GetObjectToMovePosition() => objectToMove.transform.localPosition;
 }
