@@ -71,7 +71,7 @@ public class AutoMovementManager : MonoBehaviour
             if (axisXAtTarget && axisYAtTarget && axisZAtTarget)
                 break;
 
-            yield return null; // Waiting for the next frame
+            yield return new WaitForEndOfFrame(); // Waiting for the next frame
         }
     }
 }
