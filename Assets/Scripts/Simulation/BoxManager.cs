@@ -8,15 +8,9 @@ public class BoxManager : MonoBehaviour
     public GameObject currentBox;
     public float raycastDistance = 1f;
 
-    TextMeshProUGUI btnTxt;
-
     [SerializeField] Transform origin;
     Vector3 dir = Vector3.down;
 
-    private void Start()
-    {
-        btnTxt = GameObject.FindGameObjectWithTag("TakeDropTxt").GetComponent<TextMeshProUGUI>();
-    }
 
     //private void Update()
     //{
@@ -45,7 +39,6 @@ public class BoxManager : MonoBehaviour
             currentBox.transform.parent = boxParent;
             currentBox.GetComponent<Rigidbody>().isKinematic = true;
             currentBox.GetComponent<Rigidbody>().useGravity = false;
-            btnTxt.text = "Drop box";
         }
     }
 

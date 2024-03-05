@@ -19,6 +19,35 @@ public class AutoMovementManager : MonoBehaviour
     {
         box = FindObjectOfType<BoxManager>();
     }
+    public void StartPaletizer()
+    {
+        StartCoroutine(StartSecuence());
+    }
+    IEnumerator StartSecuence()
+    {
+        // Go to belt
+        yield return StartCoroutine(MoveToTarget(beltTarget));
+        // Take box
+        box.OnTakeBtn();
+        // elevate axis
+        yield return StartCoroutine(MoveToTarget(takeBoxAndElevate));
+        // Go to pallet
+        yield return StartCoroutine(MoveToTarget(palletPositions[index]));
+        // Drop box
+        box.OnDropBtn();
+        //Elevate axis
+        yield return StartCoroutine(MoveToTarget(takeBoxAndElevate));
+
+        //Repeat
+        if (index < palletPositions.Length - 1)
+        {
+            index++;
+            yield return new WaitForEndOfFrame();
+            StartCoroutine(StartSecuence());
+        }
+
+
+    }
 
     public void GoToBelt() => StartCoroutine(MoveToTarget(beltTarget));
 

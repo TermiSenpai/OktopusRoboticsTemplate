@@ -78828,7 +78828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: handler.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -78843,7 +78843,15 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GetSensorState
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: GetSensorState
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
@@ -78851,7 +78859,15 @@ PrefabInstance:
       value: ConveyorBelt, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BoxSpawner, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8880764487494250151, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
