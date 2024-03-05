@@ -7,79 +7,61 @@ public class AutoMovementManager : MonoBehaviour
     [SerializeField] Engine axisX;
     [SerializeField] Engine axisY;
     [SerializeField] Engine axisZ;
-    [Header("Belt Objetive")]
-    [SerializeField] float axisXBeltPos = -0.07428553f;
-    [SerializeField] float axisYBeltPos = 0.7341763f;
-    [SerializeField] float axisZBeltPos = -0.6578024f;
-    [Header("Pallet Objetive")]
-    [SerializeField] float axisXPalletPos = -0.1171427f;
-    [SerializeField] float axisYPalletPos = 0.06351654f;
-    [SerializeField] float axisZPalletPos = 0.4885714f;
+    private BoxManager box;
 
-    public void GoToBelt()
+    [Header("Coords")]
+    [SerializeField] private Vector3 beltTarget = new(-0.07428553f, 0.7341763f, -0.6578024f);
+    [SerializeField] private Vector3 takeBoxAndElevate = new(-0.07428553f, 1.189561f, 0.4916487f);
+    [SerializeField] private Vector3[] palletPositions; // Array para almacenar las posiciones del pallet
+    [SerializeField] int index;
+
+    private void Awake()
     {
-        StartCoroutine(nameof(MoveToBelt));
+        box = FindObjectOfType<BoxManager>();
     }
 
-    public void GoToPallet()
+    public void GoToBelt() => StartCoroutine(MoveToTarget(beltTarget));
+
+    public void GoToPallet() // Cambiado para aceptar un índice como parámetro
     {
-        StartCoroutine (nameof(MoveToPallet));
+        if (index >= 0 && index < palletPositions.Length)
+            StartCoroutine(MoveToTarget(palletPositions[index]));
     }
 
-    IEnumerator MoveToBelt()
+    public void TakeBoxAndElevate()
+    {
+        box.OnTakeBtn();
+        StartCoroutine(MoveToTarget(takeBoxAndElevate));
+    }
+
+    public void DropBoxAndElevate()
+    {
+        box.OnDropBtn();
+        StartCoroutine(MoveToTarget(takeBoxAndElevate));
+        index++;
+    }
+
+    IEnumerator MoveToTarget(Vector3 target)
     {
         while (true)
         {
-            // Verificar si los ejes están en las posiciones objetivo
-            bool axisXAtTarget = Mathf.Abs(axisX.GetObjectToMovePosition().x - axisXBeltPos) < 0.01f;
-            bool axisYAtTarget = Mathf.Abs(axisY.GetObjectToMovePosition().y - axisYBeltPos) < 0.01f;
-            bool axisZAtTarget = Mathf.Abs(axisZ.GetObjectToMovePosition().z - axisZBeltPos) < 0.01f;
+            bool axisXAtTarget = Mathf.Abs(axisX.GetObjectToMovePosition().x - target.x) < 0.01f;
+            bool axisYAtTarget = Mathf.Abs(axisY.GetObjectToMovePosition().y - target.y) < 0.01f;
+            bool axisZAtTarget = Mathf.Abs(axisZ.GetObjectToMovePosition().z - target.z) < 0.01f;
 
-            // Ajustar las variables booleanas en consecuencia
+            axisX.debugR = !axisXAtTarget && axisX.GetObjectToMovePosition().x > target.x;
+            axisX.debugL = !axisXAtTarget && axisX.GetObjectToMovePosition().x < target.x;
 
-            axisX.debugR = !axisXAtTarget && axisX.GetObjectToMovePosition().x > axisXBeltPos;
-            axisX.debugL = !axisXAtTarget && axisX.GetObjectToMovePosition().x < axisXBeltPos;
+            axisY.debugR = !axisYAtTarget && axisY.GetObjectToMovePosition().y > target.y;
+            axisY.debugL = !axisYAtTarget && axisY.GetObjectToMovePosition().y < target.y;
 
-            axisY.debugR = !axisYAtTarget && axisY.GetObjectToMovePosition().y > axisYBeltPos;
-            axisY.debugL = !axisYAtTarget && axisY.GetObjectToMovePosition().y < axisYBeltPos;
+            axisZ.debugR = !axisZAtTarget && axisZ.GetObjectToMovePosition().z > target.z;
+            axisZ.debugL = !axisZAtTarget && axisZ.GetObjectToMovePosition().z < target.z;
 
-            axisZ.debugR = !axisZAtTarget && axisZ.GetObjectToMovePosition().z > axisZBeltPos;
-            axisZ.debugL = !axisZAtTarget && axisZ.GetObjectToMovePosition().z < axisZBeltPos;
-
-            // Salir del bucle si todas las posiciones son las correctas
             if (axisXAtTarget && axisYAtTarget && axisZAtTarget)
                 break;
 
             yield return null;
         }
     }
-    IEnumerator MoveToPallet()
-    {
-        while (true)
-        {
-            // Verificar si los ejes están en las posiciones objetivo
-            bool axisXAtTarget = Mathf.Abs(axisX.GetObjectToMovePosition().x - axisXPalletPos) < 0.01f;
-            bool axisYAtTarget = Mathf.Abs(axisY.GetObjectToMovePosition().y - axisYPalletPos) < 0.01f;
-            bool axisZAtTarget = Mathf.Abs(axisZ.GetObjectToMovePosition().z - axisZPalletPos) < 0.01f;
-
-            // Ajustar las variables booleanas en consecuencia
-
-            axisX.debugR = !axisXAtTarget && axisX.GetObjectToMovePosition().x > axisXPalletPos;
-            axisX.debugL = !axisXAtTarget && axisX.GetObjectToMovePosition().x < axisXPalletPos;
-
-            axisY.debugR = !axisYAtTarget && axisY.GetObjectToMovePosition().y > axisYPalletPos;
-            axisY.debugL = !axisYAtTarget && axisY.GetObjectToMovePosition().y < axisYPalletPos;
-
-            axisZ.debugR = !axisZAtTarget && axisZ.GetObjectToMovePosition().z > axisZPalletPos;
-            axisZ.debugL = !axisZAtTarget && axisZ.GetObjectToMovePosition().z < axisZPalletPos;
-
-            // Salir del bucle si todas las posiciones son las correctas
-            if (axisXAtTarget && axisYAtTarget && axisZAtTarget)
-                break;
-
-            yield return null;
-        }
-    }
-
-
 }
