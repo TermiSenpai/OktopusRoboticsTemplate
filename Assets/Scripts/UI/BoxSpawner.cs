@@ -8,7 +8,7 @@ public class BoxSpawner : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating(nameof(OnBoxSpawnerBtn), 0, 1);
+        InvokeRepeating(nameof(OnBoxSpawnerBtn), 0, 1.25f);
     }
 
     public void OnBoxSpawnerBtn()
