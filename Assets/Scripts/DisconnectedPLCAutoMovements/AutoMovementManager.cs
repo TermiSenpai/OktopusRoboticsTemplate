@@ -31,7 +31,7 @@ public class AutoMovementManager : MonoBehaviour
         // Elevate axis
         yield return StartCoroutine(MoveToTarget(takeBoxAndElevate)); // Initiating a coroutine to move to the position to take and elevate the box
 
-        ChangeSpeed(0.001f);
+        ChangeSpeed(0.003f);
         // Go to pallet
         yield return StartCoroutine(MoveToTarget(palletPositions[index])); // Initiating a coroutine to move to the current pallet position
 
