@@ -1124,17 +1124,17 @@ MonoBehaviour:
   axisY: {fileID: 982286554}
   axisZ: {fileID: 733034719}
   beltTarget: {x: -0.07428553, y: 0.7341763, z: -0.6578024}
-  takeBoxAndElevate: {x: -0.07428553, y: 1.189561, z: 0.4916487}
+  takeBoxAndElevate: {x: -0.07428553, y: 0.8, z: 0.4916487}
   palletPositions:
-  - {x: -0.12, y: 0.095, z: 0.2}
-  - {x: -0.12, y: 0.095, z: 0.5}
-  - {x: -0.12, y: 0.095, z: 0.7}
-  - {x: -0.4, y: 0.095, z: 0.2}
-  - {x: -0.4, y: 0.095, z: 0.5}
-  - {x: -0.4, y: 0.095, z: 0.7}
-  - {x: 0.13, y: 0.095, z: 0.2}
-  - {x: 0.13, y: 0.095, z: 0.5}
-  - {x: 0.13, y: 0.095, z: 0.7}
+  - {x: -0.1, y: 0.095, z: 0.2}
+  - {x: -0.1, y: 0.095, z: 0.45}
+  - {x: -0.1, y: 0.095, z: 0.7}
+  - {x: -0.35, y: 0.095, z: 0.2}
+  - {x: -0.35, y: 0.095, z: 0.45}
+  - {x: -0.35, y: 0.095, z: 0.7}
+  - {x: 0.15, y: 0.095, z: 0.2}
+  - {x: 0.15, y: 0.095, z: 0.45}
+  - {x: 0.15, y: 0.095, z: 0.7}
   index: 0
 --- !u!4 &172176844
 Transform:
@@ -3440,8 +3440,8 @@ MonoBehaviour:
   leftCode: DB1.DBX1.2
   positionCode: DB1.DBD4
   speedCode: DB1.DBD40
-  speed: 0.1
-  direction: {x: -0.1, y: 0, z: 0}
+  speed: 0.001
+  direction: {x: -1, y: 0, z: 0}
   objectToMove: {fileID: 974690127}
   axisToLimit: 0
   posMin: -0.8
@@ -3867,8 +3867,8 @@ MonoBehaviour:
   leftCode: DB1.DBX2.2
   positionCode: DB1.DBD12
   speedCode: DB1.DBD48
-  speed: 0.1
-  direction: {x: 0, y: 0, z: -0.1}
+  speed: 0.001
+  direction: {x: 0, y: 0, z: -1}
   objectToMove: {fileID: 1044081857}
   axisToLimit: 2
   posMin: -0.8
@@ -5450,8 +5450,8 @@ MonoBehaviour:
   leftCode: DB1.DBX1.6
   positionCode: DB1.DBD8
   speedCode: DB1.DBD44
-  speed: 0.1
-  direction: {x: 0, y: -0.1, z: 0}
+  speed: 0.001
+  direction: {x: 0, y: -1, z: 0}
   objectToMove: {fileID: 2136284043}
   axisToLimit: 1
   posMin: 0
