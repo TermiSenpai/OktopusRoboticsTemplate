@@ -5,15 +5,25 @@ public class BoxSpawner : MonoBehaviour
     [SerializeField] GameObject box;
 
     public bool canSpawnBox = true;
+    [SerializeField] float timer = 0f;
+    [SerializeField] float maxTimer = 1.25f;
 
-    private void Start()
+    private void Update()
     {
-        InvokeRepeating(nameof(OnBoxSpawnerBtn), 0, 1.25f);
+        if (canSpawnBox)
+        {
+            if (timer > 0)
+                timer -= Time.deltaTime;
+            else
+            {
+                timer = maxTimer;
+                OnBoxSpawnerBtn();
+            }
+        }
     }
 
     public void OnBoxSpawnerBtn()
     {
-        if (canSpawnBox)
             Instantiate(box, transform.position, Quaternion.identity);
     }
     public void GetSensorState(bool sensorState)
