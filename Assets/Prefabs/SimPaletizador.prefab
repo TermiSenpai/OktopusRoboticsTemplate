@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   box: {fileID: 8228571765466051495, guid: f3b7acb033fac344a9e3237bfb4b36d5, type: 3}
   canSpawnBox: 1
+  timer: 0
+  maxTimer: 1.25
 --- !u!1 &5360694815986522
 GameObject:
   m_ObjectHideFlags: 0

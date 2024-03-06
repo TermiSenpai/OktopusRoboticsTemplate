@@ -21,6 +21,7 @@ public class AutoMovementManager : MonoBehaviour
 
     IEnumerator StartSequence()
     {
+        ChangeSpeed(0.005f);
         // Go to belt
         yield return StartCoroutine(MoveToTarget(beltTarget)); // Initiating a coroutine to move to the belt position
 
@@ -30,12 +31,14 @@ public class AutoMovementManager : MonoBehaviour
         // Elevate axis
         yield return StartCoroutine(MoveToTarget(takeBoxAndElevate)); // Initiating a coroutine to move to the position to take and elevate the box
 
+        ChangeSpeed(0.001f);
         // Go to pallet
         yield return StartCoroutine(MoveToTarget(palletPositions[index])); // Initiating a coroutine to move to the current pallet position
 
         // Drop box
         box.OnDropBtn(); // Calling the OnDropBtn method of the box
 
+        ChangeSpeed(0.005f);
         // Elevate axis
         yield return StartCoroutine(MoveToTarget(takeBoxAndElevate)); // Initiating a coroutine to move to the position to elevate the box again
 
@@ -53,9 +56,9 @@ public class AutoMovementManager : MonoBehaviour
         while (true)
         {
             // Checking if each axis is at the target position within a small threshold
-            bool axisXAtTarget = Mathf.Abs(axisX.GetObjectToMovePosition().x - target.x) < 0.01f;
-            bool axisYAtTarget = Mathf.Abs(axisY.GetObjectToMovePosition().y - target.y) < 0.01f;
-            bool axisZAtTarget = Mathf.Abs(axisZ.GetObjectToMovePosition().z - target.z) < 0.01f;
+            bool axisXAtTarget = Mathf.Abs(axisX.GetObjectToMovePosition().x - target.x) < axisX.speed;
+            bool axisYAtTarget = Mathf.Abs(axisY.GetObjectToMovePosition().y - target.y) < axisY.speed;
+            bool axisZAtTarget = Mathf.Abs(axisZ.GetObjectToMovePosition().z - target.z) < axisZ.speed;
 
             // Setting debug variables for each axis based on their current position relative to the target position
             axisX.debugR = !axisXAtTarget && axisX.GetObjectToMovePosition().x > target.x;
@@ -73,5 +76,12 @@ public class AutoMovementManager : MonoBehaviour
 
             yield return new WaitForEndOfFrame(); // Waiting for the next frame
         }
+    }
+
+    void ChangeSpeed(float value)
+    {
+        axisX.speed = value;
+        axisY.speed = value;
+        axisZ.speed = value;
     }
 }
