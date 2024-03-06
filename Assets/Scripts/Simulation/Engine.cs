@@ -23,7 +23,7 @@ public abstract class Engine : MonoBehaviour
     [SerializeField] protected string speedCode;
     [Header("References")]
     // Servo movement speed (editable from the Inspector)
-    [SerializeField] protected float speed;
+    public float speed;
     // Direction of servo movement (editable from the Inspector)
     [SerializeField] protected Vector3 direction;
     // Object representing the servo axis (editable from the Inspector)
