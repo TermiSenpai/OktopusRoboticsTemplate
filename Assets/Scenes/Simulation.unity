@@ -1102,7 +1102,7 @@ GameObject:
   - component: {fileID: 172176844}
   - component: {fileID: 172176843}
   m_Layer: 0
-  m_Name: test
+  m_Name: Secuence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1135,6 +1135,16 @@ MonoBehaviour:
   - {x: 0.15, y: 0.095, z: 0.2}
   - {x: 0.15, y: 0.095, z: 0.45}
   - {x: 0.15, y: 0.095, z: 0.7}
+  upperPallet:
+  - {x: -0.1, y: 0.8, z: 0.2}
+  - {x: -0.1, y: 0.8, z: 0.45}
+  - {x: -0.1, y: 0.8, z: 0.7}
+  - {x: -0.35, y: 0.8, z: 0.2}
+  - {x: -0.35, y: 0.8, z: 0.45}
+  - {x: -0.35, y: 0.8, z: 0.7}
+  - {x: 0.15, y: 0.8, z: 0.2}
+  - {x: 0.15, y: 0.8, z: 0.45}
+  - {x: 0.15, y: 0.8, z: 0.7}
   index: 0
 --- !u!4 &172176844
 Transform:

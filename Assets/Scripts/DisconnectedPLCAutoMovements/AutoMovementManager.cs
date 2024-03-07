@@ -13,6 +13,7 @@ public class AutoMovementManager : MonoBehaviour
     [SerializeField] private Vector3 beltTarget = new(-0.07428553f, 0.7341763f, -0.6578024f);
     [SerializeField] private Vector3 takeBoxAndElevate = new(-0.07428553f, 1.189561f, 0.4916487f);
     [SerializeField] private Vector3[] palletPositions; // Array to store pallet positions
+    [SerializeField] private Vector3[] upperPallet; // Array to store pallet positions
     [SerializeField] int index;
 
     private void Awake() => box = FindObjectOfType<BoxManager>(); // Finding the BoxManager component in the scene and assigning it to the box variable
@@ -33,6 +34,7 @@ public class AutoMovementManager : MonoBehaviour
 
         ChangeSpeed(0.003f);
         // Go to pallet
+        yield return StartCoroutine(MoveToTarget(upperPallet[index]));
         yield return StartCoroutine(MoveToTarget(palletPositions[index])); // Initiating a coroutine to move to the current pallet position
 
         // Drop box
@@ -40,7 +42,8 @@ public class AutoMovementManager : MonoBehaviour
 
         ChangeSpeed(0.005f);
         // Elevate axis
-        yield return StartCoroutine(MoveToTarget(takeBoxAndElevate)); // Initiating a coroutine to move to the position to elevate the box again
+        yield return StartCoroutine(MoveToTarget(upperPallet[index]));
+        //yield return StartCoroutine(MoveToTarget(takeBoxAndElevate)); // Initiating a coroutine to move to the position to elevate the box again
 
         // Repeat
         if (index < palletPositions.Length - 1) // Checking if there are more pallet positions to visit
