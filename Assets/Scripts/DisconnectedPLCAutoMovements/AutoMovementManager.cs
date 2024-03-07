@@ -19,8 +19,10 @@ public class AutoMovementManager : MonoBehaviour
 
     [SerializeField] private float sequenceTime;
     [SerializeField] private float totalSequenceTime;
-
     [SerializeField] private float sequencesPerMinute;
+
+    private bool activeProcess;
+
 
     private void Awake() => box = FindObjectOfType<BoxManager>(); // Finding the BoxManager component in the scene and assigning it to the box variable
     private void Start()
@@ -36,11 +38,14 @@ public class AutoMovementManager : MonoBehaviour
     }
     private void Update()
     {
+        if (!activeProcess) return;
+
         sequenceTime += Time.deltaTime;
         totalSequenceTime += Time.deltaTime;
     }
     public void StartPaletizer()
     {
+        activeProcess = true;
         totalSequenceTime = 0;
         StartCoroutine(StartSequence()); // Initiating the StartSequence coroutine
     }
@@ -80,11 +85,12 @@ public class AutoMovementManager : MonoBehaviour
             yield return new WaitForEndOfFrame(); // Waiting until the end of the current frame
             StartCoroutine(StartSequence()); // Initiating the StartSequence coroutine again for the next pallet position
         }
+        else
+            activeProcess = false;
     }
 
     IEnumerator MoveToTarget(Vector3 target)
     {
-        Debug.Log($"Going to {target}");
         while (true)
         {
             // Checking if each axis is at the target position within a small threshold
@@ -117,5 +123,6 @@ public class AutoMovementManager : MonoBehaviour
         axisZ.speed = value;
     }
 
-    void CalculateTime() => sequencesPerMinute = index / (totalSequenceTime / 60f);
+    void CalculateTime() => sequencesPerMinute = (1 * 60) / sequenceTime;
+
 }
