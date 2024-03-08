@@ -79,5 +79,5 @@ public class ServoEngine : Engine
     }
 
     // Mover el eje del servo con velocidad especificada
-    public override void MoveAxis(Vector3 movement) => objectToMove.transform.localPosition += movement * speed;
+    public override void MoveAxis(Vector3 movement) => objectToMove.transform.localPosition += movement * Speed;
 }

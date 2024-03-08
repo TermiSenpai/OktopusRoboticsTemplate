@@ -22,8 +22,7 @@ public abstract class Engine : MonoBehaviour
     [SerializeField] protected string positionCode;
     [SerializeField] protected string speedCode;
     [Header("References")]
-    // Servo movement speed (editable from the Inspector)
-    public float speed;
+    private float speed;
     // Direction of servo movement (editable from the Inspector)
     [SerializeField] protected Vector3 direction;
     // Object representing the servo axis (editable from the Inspector)
@@ -37,8 +36,8 @@ public abstract class Engine : MonoBehaviour
     [SerializeField] protected float posMin;
     [SerializeField] protected float posMax;
 
-    [SerializeField] public bool debugR;
-    [SerializeField] public bool debugL;
+    public bool debugR;
+    private bool debugL;
     [SerializeField] protected bool speedDebugControler = false;
     [SerializeField] protected float debugSpeed = 0.1f;
 
@@ -54,6 +53,8 @@ public abstract class Engine : MonoBehaviour
     protected bool isTaskActive = false;
 
     public uint LastSpeedValue { get => lastSpeedValue; set => lastSpeedValue = value; }
+    public float Speed { get => speed; set => speed = value; }
+    public bool DebugL { get => debugL; set => debugL = value; }
 
     #endregion
     private void Update()
@@ -157,7 +158,7 @@ public abstract class Engine : MonoBehaviour
             float result = speedValue.ConvertToFloat();
 
             // Store the converted speed value in the 'speed' variable
-            speed = result;
+            Speed = result;
         }
         catch (Exception ex)
         {
@@ -200,7 +201,7 @@ public abstract class Engine : MonoBehaviour
             MoveAxis(direction);
 
         // If debugging left movement is enabled
-        if (debugL)
+        if (DebugL)
             // Move the axis manually in the opposite direction to the specified direction
             MoveAxis(-direction);
     }

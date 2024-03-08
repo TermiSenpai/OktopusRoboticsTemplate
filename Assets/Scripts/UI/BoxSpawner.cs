@@ -22,10 +22,7 @@ public class BoxSpawner : MonoBehaviour
         }
     }
 
-    public void SpawnBox()
-    {
-        Instantiate(box, transform.position, Quaternion.identity);
-    }
+    public void SpawnBox() => Instantiate(box, transform.position, Quaternion.identity);
     public void GetSensorState(bool sensorState)
     {
         switch (sensorState)
