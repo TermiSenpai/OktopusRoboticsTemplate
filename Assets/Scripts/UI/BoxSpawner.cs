@@ -17,18 +17,17 @@ public class BoxSpawner : MonoBehaviour
             else
             {
                 timer = maxTimer;
-                OnBoxSpawnerBtn();
+                SpawnBox();
             }
         }
     }
 
-    public void OnBoxSpawnerBtn()
+    public void SpawnBox()
     {
-            Instantiate(box, transform.position, Quaternion.identity);
+        Instantiate(box, transform.position, Quaternion.identity);
     }
     public void GetSensorState(bool sensorState)
     {
-
         switch (sensorState)
         {
             // Si el estado del sensor es true, detener la cinta (velocidad = 0)
