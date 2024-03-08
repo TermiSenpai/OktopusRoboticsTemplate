@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &369770771876882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 228892401726711639}
+  - component: {fileID: 3656178752626864237}
+  m_Layer: 0
+  m_Name: BoxSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &228892401726711639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369770771876882}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.495, y: 1.814, z: -1.274}
+  m_LocalScale: {x: 0.47851, y: 0.47851, z: 0.47851}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 240121122401178814}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3656178752626864237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369770771876882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfefc5673a978fd4d968a0d226be2c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box: {fileID: 8228571765466051495, guid: f3b7acb033fac344a9e3237bfb4b36d5, type: 3}
+  canSpawnBox: 1
+  timer: 0
+  maxTimer: 1.25
 --- !u!1 &5360694815986522
 GameObject:
   m_ObjectHideFlags: 0
@@ -42131,6 +42179,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7827204422808176250}
+  - {fileID: 228892401726711639}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &631681057648105587
@@ -78828,7 +78877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: handler.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -78839,7 +78888,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6135616438954511935}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3656178752626864237}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
@@ -78847,11 +78904,23 @@ PrefabInstance:
       value: GetSensorState
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: GetSensorState
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ConveyorBelt, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BoxSpawner, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
       propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585731752221849906, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
+      propertyPath: eventHandler.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8880764487494250151, guid: 4486c4db487bef843a9fa6a3c006157c, type: 3}
