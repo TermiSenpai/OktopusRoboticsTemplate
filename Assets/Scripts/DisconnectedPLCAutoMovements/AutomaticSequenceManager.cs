@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.Collections;
 using UnityEngine;
 
-public class AutoMovementManager : MonoBehaviour
+public class AutomaticSequenceManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Engine axisX;
@@ -18,10 +18,16 @@ public class AutoMovementManager : MonoBehaviour
     [SerializeField] int index;
 
     [SerializeField] private float sequenceTime;
-    [SerializeField] private float totalSequenceTime;
-    [SerializeField] private float sequencesPerMinute;
+    private float totalSequenceTime;
+    private float sequencesPerMinute;
 
     private bool activeProcess;
+    private int frames;
+    [Header("Averge Speed")]
+    [SerializeField] float averageSpeed;
+    float averageXSpeed;
+    float averageYSpeed;
+    float averageZSpeed;
 
 
     private void Awake() => box = FindObjectOfType<BoxManager>(); // Finding the BoxManager component in the scene and assigning it to the box variable
@@ -42,6 +48,8 @@ public class AutoMovementManager : MonoBehaviour
 
         sequenceTime += Time.deltaTime;
         totalSequenceTime += Time.deltaTime;
+        frames++;
+        CalculateAverageSpeed();
     }
     public void StartPaletizer()
     {
@@ -124,5 +132,13 @@ public class AutoMovementManager : MonoBehaviour
     }
 
     void CalculateTime() => sequencesPerMinute = (1 * 60) / sequenceTime;
+    void CalculateAverageSpeed()
+    {
+        averageXSpeed += axisX.speed / frames;
+        averageYSpeed += axisY.speed / frames;
+        averageZSpeed += axisZ.speed / frames;
+
+        averageSpeed = (averageXSpeed + averageYSpeed + averageZSpeed) / 3;
+    }
 
 }

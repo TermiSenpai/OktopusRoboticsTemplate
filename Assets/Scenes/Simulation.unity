@@ -1102,7 +1102,7 @@ GameObject:
   - component: {fileID: 172176844}
   - component: {fileID: 172176843}
   m_Layer: 0
-  m_Name: Secuence
+  m_Name: AutomaticSequenceManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1156,8 +1156,7 @@ MonoBehaviour:
   upperPallet: []
   index: 0
   sequenceTime: 0
-  totalSequenceTime: 0
-  sequencesPerMinute: 0
+  averageSpeed: 0
 --- !u!4 &172176844
 Transform:
   m_ObjectHideFlags: 0
@@ -11434,6 +11433,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 433590956}
   - {fileID: 718836981}
+  - {fileID: 172176844}
   - {fileID: 2124894136}
   - {fileID: 18562622}
   - {fileID: 915933318}
@@ -11444,4 +11444,3 @@ SceneRoots:
   - {fileID: 982286558}
   - {fileID: 1157326328}
   - {fileID: 963985283}
-  - {fileID: 172176844}
