@@ -12,9 +12,9 @@ public class AutomaticSequenceManager : MonoBehaviour
 
     [Header("Coords")]
     [SerializeField] private Vector3 beltTarget = new(-0.07428553f, 0.7341763f, -0.6578024f);
-    [SerializeField] private Vector3 takeBoxAndElevate = new(-0.07428553f, 1.189561f, 0.4916487f);
+    [SerializeField] private Vector3 upperBelt = new(-0.07428553f, 1.189561f, 0.4916487f);
     [SerializeField] private Vector3[] palletPositions; // Array to store pallet positions
-    [SerializeField] private Vector3[] upperPallet; // Array to store pallet positions
+    private Vector3[] upperPallet; // Array to store upper pallet positions
     [SerializeField] int index;
 
     [SerializeField] private float sequenceTime;
@@ -23,12 +23,15 @@ public class AutomaticSequenceManager : MonoBehaviour
 
     private bool activeProcess;
     private int frames;
-    [Header("Averge Speed")]
+    [Header("Average Speed")]
     [SerializeField] float averageSpeed;
     float averageXSpeed;
     float averageYSpeed;
     float averageZSpeed;
 
+    public float AverageSpeed { get => averageSpeed; set => averageSpeed = value; }
+    public float TotalSequenceTime { get => totalSequenceTime; set => totalSequenceTime = value; }
+    public float SequencesPerMinute { get => sequencesPerMinute; set => sequencesPerMinute = value; }
 
     private void Awake() => box = FindObjectOfType<BoxManager>(); // Finding the BoxManager component in the scene and assigning it to the box variable
     private void Start()
@@ -69,7 +72,7 @@ public class AutomaticSequenceManager : MonoBehaviour
         box.OnTakeBtn(); // Calling the OnTakeBtn method of the box
 
         // Elevate axis
-        yield return StartCoroutine(MoveToTarget(takeBoxAndElevate)); // Initiating a coroutine to move to the position to take and elevate the box
+        yield return StartCoroutine(MoveToTarget(upperBelt)); // Initiating a coroutine to move to the position to take and elevate the box
         yield return StartCoroutine(MoveToTarget(upperPallet[index]));
 
         ChangeSpeed(0.003f);
@@ -124,21 +127,30 @@ public class AutomaticSequenceManager : MonoBehaviour
         }
     }
 
+    // Definition of the ChangeSpeed function that changes the speed of the axes
     void ChangeSpeed(float value)
     {
+        // Assigns the provided speed value to the X, Y, and Z axes
         axisX.speed = value;
         axisY.speed = value;
         axisZ.speed = value;
     }
 
-    void CalculateTime() => sequencesPerMinute = (1 * 60) / sequenceTime;
+    // Definition of the CalculateTime function that calculates the number of sequences per minute
+    void CalculateTime() => sequencesPerMinute = 60 / sequenceTime;
+
+    // Definition of the CalculateAverageSpeed function that calculates the average speed
     void CalculateAverageSpeed()
     {
+        // Accumulates the speed of each axis divided by the number of frames into the respective average speed
         averageXSpeed += axisX.speed / frames;
         averageYSpeed += axisY.speed / frames;
         averageZSpeed += axisZ.speed / frames;
 
+        // Calculates the overall average speed by taking the sum of the average speeds of the three axes and dividing it by 3
         averageSpeed = (averageXSpeed + averageYSpeed + averageZSpeed) / 3;
     }
+
+
 
 }
