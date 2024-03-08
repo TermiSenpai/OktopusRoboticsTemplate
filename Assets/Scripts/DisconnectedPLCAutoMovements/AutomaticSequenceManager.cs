@@ -15,16 +15,18 @@ public class AutomaticSequenceManager : MonoBehaviour
     [SerializeField] private Vector3 upperBelt = new(-0.07428553f, 1.189561f, 0.4916487f);
     [SerializeField] private Vector3[] palletPositions; // Array to store pallet positions
     private Vector3[] upperPallet; // Array to store upper pallet positions
-    [SerializeField] int index;
 
-    [SerializeField] private float sequenceTime;
+    [Header("Current process")]
+    [SerializeField] int index;
+    [SerializeField] private float sequencesPerMinute;
+
     private float totalSequenceTime;
-    private float sequencesPerMinute;
 
     private bool activeProcess;
     private int frames;
     [Header("Average Speed")]
     [SerializeField] float averageSpeed;
+    [SerializeField] private float sequenceTime;
     float averageXSpeed;
     float averageYSpeed;
     float averageZSpeed;
