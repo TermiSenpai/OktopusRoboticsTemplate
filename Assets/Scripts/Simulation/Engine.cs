@@ -22,7 +22,7 @@ public abstract class Engine : MonoBehaviour
     [SerializeField] protected string positionCode;
     [SerializeField] protected string speedCode;
     [Header("References")]
-    private float speed;
+    public float speed;
     // Direction of servo movement (editable from the Inspector)
     [SerializeField] protected Vector3 direction;
     // Object representing the servo axis (editable from the Inspector)
@@ -39,10 +39,10 @@ public abstract class Engine : MonoBehaviour
     public bool debugR;
     private bool debugL;
     [SerializeField] protected bool speedDebugControler = false;
-    [SerializeField] protected float debugSpeed = 0.1f;
+    [SerializeField] protected float debugSpeed = 0.07f;
 
-    bool rightMove;
-    bool leftMove;
+    [SerializeField] bool rightMove;
+    [SerializeField] bool leftMove;
     uint speedValue;
     uint lastSpeedValue;
 
@@ -56,11 +56,18 @@ public abstract class Engine : MonoBehaviour
     public float Speed { get => speed; set => speed = value; }
     public bool DebugL { get => debugL; set => debugL = value; }
 
+    protected PlcConnectionManager plcInstance;
+
+    private void Awake()
+    {
+        plcInstance = PlcConnectionManager.InstanceManager;
+    }
+
     #endregion
     private void Update()
     {
         // Switch statement to handle different cases based on PLC connection status
-        switch (PlcConnectionManager.InstanceManager.IsPLCDisconnected())
+        switch (plcInstance.IsPLCDisconnected())
         {
             // Case when PLC is disconnected
             case true:
@@ -76,7 +83,7 @@ public abstract class Engine : MonoBehaviour
                 // Handle movements based on PLC instructions
                 HandlePLCMovements();
                 // Send the current position of the servo to the PLC
-                SendCurrentPosToPLC();
+                //_ = SendPLCPosAsync();
                 // If debug mode is enabled, change and send speed to PLC
                 if (speedDebugControler) SendDebugSpeedToPLC();
                 break;
@@ -104,11 +111,12 @@ public abstract class Engine : MonoBehaviour
     IEnumerator TimeUpdateData()
     {
         // Continue looping while the PLC is connected
-        while (!PlcConnectionManager.InstanceManager.IsPLCDisconnected())
+        while (!plcInstance.IsPLCDisconnected())
         {
             // Trigger an asynchronous read of PLC values and wait for a specified amount of time
-            _ = ReadPLCValuesAsync();
-            yield return new WaitForSeconds(waitSecs);
+            var sendPosTask = SendPLCPosAsync();
+            var readValuesTask = ReadPLCValuesAsync();
+            yield return new WaitUntil(() => sendPosTask.IsCompleted && readValuesTask.IsCompleted);
         }
     }
 
@@ -123,17 +131,20 @@ public abstract class Engine : MonoBehaviour
             isTaskActive = true;
 
             // Asynchronously read the values of PLC variables
-            Task<bool> rightMoveTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(rightCode);
-            Task<bool> leftMoveTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<bool>(leftCode);
-            Task<uint> speedTask = PlcConnectionManager.InstanceManager.ReadVariableAsync<uint>(speedCode);
+            var tasks = new Task[]
+            {
+                plcInstance.ReadVariableAsync<bool>(rightCode),
+                plcInstance.ReadVariableAsync<bool>(leftCode),
+                plcInstance.ReadVariableAsync<uint>(speedCode)
+            };
 
             // Wait for all tasks to complete
-            await Task.WhenAll(rightMoveTask, leftMoveTask, speedTask);
+            await Task.WhenAll(tasks);
 
             // Handle the read values
-            rightMove = rightMoveTask.Result;
-            leftMove = leftMoveTask.Result;
-            speedValue = speedTask.Result;
+            rightMove = ((Task<bool>)tasks[0]).Result;
+            leftMove = ((Task<bool>)tasks[1]).Result;
+            speedValue = ((Task<uint>)tasks[2]).Result;
         }
         catch (Exception ex)
         {
@@ -145,6 +156,11 @@ public abstract class Engine : MonoBehaviour
             // Set the task as inactive
             isTaskActive = false;
         }
+    }
+
+    async Task SendPLCPosAsync()
+    {
+        await SendCurrentPosToPLC();
     }
 
     // Receive speed from PLC
@@ -177,7 +193,7 @@ public abstract class Engine : MonoBehaviour
         // Write the converted debug speed value to the PLC
         // using the PlcConnectionManager instance
         // The 'speedCode' is used as the identifier for the variable to write to
-        PlcConnectionManager.InstanceManager.WriteVariableValue(speedCode, convert);
+        _= plcInstance.WriteVariableAsync(speedCode, convert);
     }
 
     // Perform movements controlled by PLC
@@ -207,7 +223,7 @@ public abstract class Engine : MonoBehaviour
     }
 
     public abstract void MoveAxis(Vector3 vector);
-    protected abstract void SendCurrentPosToPLC();
+    protected abstract Task SendCurrentPosToPLC();
     protected abstract void UpdateAxisPos();
     protected abstract void LimitAxisPosition();
 

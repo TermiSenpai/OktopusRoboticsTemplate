@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GripperEngine : Engine
@@ -59,14 +60,16 @@ public class GripperEngine : Engine
     // Rotar el eje del servo con velocidad especificada
     public override void MoveAxis(Vector3 rotation) => objectToMove.transform.localRotation *= Quaternion.Euler(rotation * Speed);
 
-    protected override void SendCurrentPosToPLC()
+    protected override async Task SendCurrentPosToPLC()
     {
-        
+
         // Comprobar si la rotación actual del eje ha cambiado desde la última actualización
         if (axisRot != lastAxisRot)
         {
+            // Asynchronously read the values of PLC variables
+            await plcInstance.WriteVariableAsync(positionCode, axisRot);
+
             // Si la rotación ha cambiado, actualizar la última posición conocida y enviarla al PLC
-            PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisRot);
             lastAxisRot = axisRot;
         }
 
