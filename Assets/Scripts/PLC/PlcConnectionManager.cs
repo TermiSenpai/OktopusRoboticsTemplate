@@ -140,13 +140,13 @@ public class PlcConnectionManager : MonoBehaviour
     /// </summary>
     /// <param name="address">Direcci�n de la variable a escribir.</param>
     /// <param name="value">Valor a escribir en la variable.</param>
-    public void WriteVariableAsync(string address, object value)
+    public async Task<bool> WriteVariableAsync(string address, object value)
     {
-        // Verificar la conexi�n antes de intentar escribir en la variable
+        // Verificar la conexión antes de intentar escribir en la variable
         if (IsPLCDisconnected())
         {
             Debug.LogError("PLC is not connected.");
-            return;
+            return false;
         }
 
         try
@@ -154,14 +154,17 @@ public class PlcConnectionManager : MonoBehaviour
             // Registrar el evento de escritura
             Debug.Log($"Writing variable at {address} with value {value}");
             // Intentar escribir en la variable del PLC
-            plc.WriteAsync(address, value);
+            await plc.WriteAsync(address, value);
+            return true;
         }
         catch (Exception ex)
         {
-            // Manejar cualquier excepci�n que pueda ocurrir al intentar escribir en la variable
+            // Manejar cualquier excepción que pueda ocurrir al intentar escribir en la variable
             Debug.LogError($"Error writing variable at {address}: {ex.Message}");
+            return false;
         }
     }
+
     public void WriteVariableValue(string address, object value)
     {
         // Verificar la conexi�n antes de intentar escribir en la variable
