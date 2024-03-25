@@ -12,20 +12,19 @@ public class BoxManager : MonoBehaviour
     Vector3 dir = Vector3.down;
 
 
-    //private void Update()
-    //{
-    //    if (currentBox != null)
-    //        return;
+    private void Update()
+    {
+        if (currentBox != null)
+            return;
 
-    //    Ray ray = new(origin.position, dir);
-    //    if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, targetLayer))
-    //    {
-    //        Debug.Log("Golpeó: " + hit.collider.name);
-    //        Debug.DrawRay(origin.position, dir * hit.distance, Color.red);
-    //        btnTxt.text = "Take box";
-    //    }
-    //    else btnTxt.text = string.Empty;
-    //}
+        Ray ray = new(origin.position, dir);
+        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, targetLayer))
+        {
+            Debug.Log("Golpeó: " + hit.collider.name);
+            Debug.DrawRay(origin.position, dir * hit.distance, Color.red);
+        }
+        else Debug.DrawRay(origin.position, dir * hit.distance, Color.green);
+    }
 
     public void OnTakeBtn()
     {
@@ -39,6 +38,19 @@ public class BoxManager : MonoBehaviour
             currentBox.transform.parent = boxParent;
             currentBox.GetComponent<Rigidbody>().isKinematic = true;
             currentBox.GetComponent<Rigidbody>().useGravity = false;
+        }
+    }
+    public void OnTakeBtn(string code)
+    {
+        Ray ray = new(origin.position, dir);
+        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, targetLayer))
+        {
+            currentBox = hit.collider.gameObject;
+
+            currentBox.transform.parent = boxParent;
+            currentBox.GetComponent<Rigidbody>().isKinematic = true;
+            currentBox.GetComponent<Rigidbody>().useGravity = false;
+            PlcConnectionManager.InstanceManager.WriteVariableValue(code, true);
         }
     }
 

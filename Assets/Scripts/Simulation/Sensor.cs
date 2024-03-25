@@ -25,6 +25,15 @@ public class Sensor : MonoBehaviour
         HandleRaycast(raycastOrigin, raycastDirection);
     }
 
+    private void OnEnable()
+    {
+        PlcConnectionManager.OnPLCConnectedRelease += HandleDelegate;
+    }
+
+    private void OnDisable()
+    {
+        PlcConnectionManager.OnPLCConnectedRelease -= HandleDelegate;
+    }
     // Realiza el Raycast y gestiona el resultado
     private void HandleRaycast(Vector3 origin, Vector3 direction)
     {
@@ -52,6 +61,12 @@ public class Sensor : MonoBehaviour
 
         // Activar/desactivar el PLC asociado al sensor segun el resultado de la deteccion
         _ = PlcConnectionManager.InstanceManager.WriteVariableAsync(PLCCode, detectionResult);
+    }
+
+    void HandleDelegate()
+    {
+        lastState = !lastState;
+        HandleRaycast(raycastOrigin, raycastDirection);
     }
 
 }
