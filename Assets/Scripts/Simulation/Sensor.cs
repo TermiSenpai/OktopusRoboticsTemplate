@@ -9,7 +9,7 @@ public class Sensor : MonoBehaviour
     [SerializeField] private UnityEvent<bool> eventHandler;
     private bool lastState = false;
 
-    // Obtener la posicion y la direccion del eje y local del sensor
+    // Get the position and local Y-axis direction of the sensor
     Vector3 raycastOrigin;
     Vector3 raycastDirection;
 
@@ -18,48 +18,39 @@ public class Sensor : MonoBehaviour
         raycastOrigin = transform.position;
         raycastDirection = transform.up;
     }
-    // M騁odo llamado en cada frame para actualizar el estado del sensor
-    private void Update()
-    {
-        // Realizar el Raycast y gestionar el resultado
-        HandleRaycast(raycastOrigin, raycastDirection);
-    }
 
-    private void OnEnable()
-    {
-        PlcConnectionManager.OnPLCConnectedRelease += HandleDelegate;
-    }
+    // Perform Raycast and handle the result
+    private void Update() => HandleRaycast(raycastOrigin, raycastDirection);
 
-    private void OnDisable()
-    {
-        PlcConnectionManager.OnPLCConnectedRelease -= HandleDelegate;
-    }
-    // Realiza el Raycast y gestiona el resultado
+    private void OnEnable() => PlcConnectionManager.OnPLCConnectedRelease += HandleDelegate;
+
+    private void OnDisable() => PlcConnectionManager.OnPLCConnectedRelease -= HandleDelegate;
+
+    // Perform Raycast and handle the result
     private void HandleRaycast(Vector3 origin, Vector3 direction)
     {
-        // Lanzar el Raycast
+        // Perform Raycast
         if (Physics.Raycast(origin, direction, raycastDistance))
-            // El Raycast golpeo algo
+            // Raycast hit something
             HandleDetectionResult(true);
         else
-            // El Raycast no golpeo nada
+            // Raycast didn't hit anything
             HandleDetectionResult(false);
     }
 
-    // Actua segun el resultado de la deteccion
+    // Act according to the detection result
     private void HandleDetectionResult(bool detectionResult)
     {
         if (lastState == detectionResult) return;
 
-
         lastState = detectionResult;
-        // En caso de que exista un evento y una llamada, se realizará la llamada
+        // If there is an event and a call, the call will be made
         eventHandler?.Invoke(detectionResult);
 
-        // Verificar la conexion al PLC antes de realizar acciones
+        // Check PLC connection before performing actions
         if (PlcConnectionManager.InstanceManager.IsPLCDisconnected()) return;
 
-        // Activar/desactivar el PLC asociado al sensor segun el resultado de la deteccion
+        // Activate/deactivate the PLC associated with the sensor according to the detection result
         _ = PlcConnectionManager.InstanceManager.WriteVariableAsync(PLCCode, detectionResult);
     }
 
@@ -68,5 +59,4 @@ public class Sensor : MonoBehaviour
         lastState = !lastState;
         HandleRaycast(raycastOrigin, raycastDirection);
     }
-
 }
