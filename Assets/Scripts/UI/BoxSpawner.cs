@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class BoxSpawner : MonoBehaviour
@@ -27,15 +28,28 @@ public class BoxSpawner : MonoBehaviour
     {
         switch (sensorState)
         {
-            // Si el estado del sensor es true, detener la cinta (velocidad = 0)
             case true:
                 canSpawnBox = !sensorState;
                 break;
 
-            // Si el estado del sensor es false, establecer una velocidad predeterminada (0.5)
             case false:
                 canSpawnBox = !sensorState;
                 break;
         }
+    }
+
+    private void OnEnable()
+    {
+        PlcConnectionManager.OnPLCConnectedRelease += OnPlcConnected;
+    }
+    private void OnDisable()
+    {
+
+        PlcConnectionManager.OnPLCConnectedRelease -= OnPlcConnected;
+    }
+
+    void OnPlcConnected()
+    {
+        canSpawnBox = PlcConnectionManager.InstanceManager.ReadVariableValue<bool>("DB1.DBX2.5");
     }
 }
