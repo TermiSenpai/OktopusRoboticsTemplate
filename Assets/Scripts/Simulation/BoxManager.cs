@@ -8,15 +8,9 @@ public class BoxManager : MonoBehaviour
     public GameObject currentBox;
     public float raycastDistance = 1f;
 
-    TextMeshProUGUI btnTxt;
-
     [SerializeField] Transform origin;
     Vector3 dir = Vector3.down;
 
-    private void Start()
-    {
-        btnTxt = GameObject.FindGameObjectWithTag("TakeDropTxt").GetComponent<TextMeshProUGUI>();
-    }
 
     private void Update()
     {
@@ -28,22 +22,12 @@ public class BoxManager : MonoBehaviour
         {
             Debug.Log("Golpeó: " + hit.collider.name);
             Debug.DrawRay(origin.position, dir * hit.distance, Color.red);
-            btnTxt.text = "Take box";
         }
-        else btnTxt.text = string.Empty;
+        else Debug.DrawRay(origin.position, dir * hit.distance, Color.green);
     }
 
     public void OnTakeBtn()
     {
-        if (currentBox != null)
-        {
-            currentBox.transform.parent = null;
-            currentBox.GetComponent<Rigidbody>().useGravity = true;
-            currentBox.GetComponent<Rigidbody>().isKinematic = false;
-            currentBox = null;
-            return;
-        }
-
         Ray ray = new(origin.position, dir);
         if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, targetLayer))
         {
@@ -54,7 +38,31 @@ public class BoxManager : MonoBehaviour
             currentBox.transform.parent = boxParent;
             currentBox.GetComponent<Rigidbody>().isKinematic = true;
             currentBox.GetComponent<Rigidbody>().useGravity = false;
-            btnTxt.text = "Drop box";
+        }
+    }
+    public void OnTakeBtn(string code)
+    {
+        Ray ray = new(origin.position, dir);
+        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, targetLayer))
+        {
+            currentBox = hit.collider.gameObject;
+
+            currentBox.transform.parent = boxParent;
+            currentBox.GetComponent<Rigidbody>().isKinematic = true;
+            currentBox.GetComponent<Rigidbody>().useGravity = false;
+            PlcConnectionManager.InstanceManager.WriteVariableValue(code, true);
+        }
+    }
+
+    public void OnDropBtn()
+    {
+        if (currentBox != null)
+        {
+            currentBox.transform.parent = null;
+            currentBox.GetComponent<Rigidbody>().useGravity = true;
+            currentBox.GetComponent<Rigidbody>().isKinematic = false;
+            currentBox = null;
+            return;
         }
     }
 

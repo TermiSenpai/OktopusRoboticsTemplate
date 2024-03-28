@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +16,13 @@ public class SimUI : MonoBehaviour
         sliderY.value = PaletizerAxisMovement.Instance.GetAxisY();
 
         sliderZ.onValueChanged.AddListener(PaletizerAxisMovement.Instance.OnSliderZ);
+        sliderZ.value = PaletizerAxisMovement.Instance.GetAxisZ();
+    }
+
+    private void Update()
+    {
+        sliderX.value = PaletizerAxisMovement.Instance.GetAxisX();
+        sliderY.value = PaletizerAxisMovement.Instance.GetAxisY();
         sliderZ.value = PaletizerAxisMovement.Instance.GetAxisZ();
     }
 }

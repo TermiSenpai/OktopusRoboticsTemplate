@@ -1,3 +1,7 @@
+using S7.Net;
+using System;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 // Clase que controla el movimiento de un motor servo en un eje espec�fico
@@ -64,20 +68,38 @@ public class ServoEngine : Engine
     }
 
     // Send the current position to PLC
-    protected override void SendCurrentPosToPLC()
+    protected override async Task SendCurrentPosToPLC()
     {
+        if (isTaskActive) return;
         // Check if the current axis position has changed since the last update
         if (axisPos != lastAxisPos)
         {
-            // If the position has changed, update the last known position and send it to the PLC
+            // If the position has changed, update the last known position
             lastAxisPos = axisPos;
-            PlcConnectionManager.InstanceManager.WriteVariableValue(positionCode, axisPos);
-        }
 
-        // Reset the task activity flag to indicate that the task is no longer active
-        isTaskActive = false;
+            // Start a coroutine to send the position asynchronously
+            // Asynchronously read the values of PLC variables
+
+            await plcInstance.WriteVariableAsync(positionCode, axisPos);
+            //StartCoroutine(SendPosToPLCAsyncCoroutine(positionCode, axisPos));
+        }
     }
 
+    //private IEnumerator SendPosToPLCAsyncCoroutine(string code, float pos)
+    //{
+    //    // Write position to PLC asynchronously
+    //    Task task = Task.Run(async () =>
+    //    {
+    //        await plcInstance.WriteVariableAsync(code, pos);
+    //    });
+
+    //    // Wait for the task to complete
+    //    yield return new WaitUntil(() => task.IsCompleted);
+
+    //    isTaskActive = false;
+
+    //    yield return null; // Signal coroutine completion
+    //}
     // Mover el eje del servo con velocidad especificada
-    protected override void MoveAxis(Vector3 movement) => objectToMove.transform.localPosition += movement * speed;
+    public override void MoveAxis(Vector3 movement) => objectToMove.transform.localPosition += movement * Speed;
 }

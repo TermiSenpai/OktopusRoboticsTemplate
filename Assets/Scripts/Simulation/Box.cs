@@ -46,16 +46,23 @@ public class Box : MonoBehaviour
         currentSpeed = belt.GetSpeed();
     }
 
-    // Método para mover el GameObject en la dirección positiva del eje X
+    // Método para mover el GameObject en la dirección obtenida de belt.GetDirection()
     private void MoveGameObject()
     {
         // Obtener la posición actual del GameObject
         Vector3 currentPosition = transform.position;
 
-        // Calcular la nueva posición en función de la velocidad y el tiempo
-        float newXPosition = currentPosition.x + currentSpeed * Time.deltaTime;
+        // Obtener la dirección de movimiento desde belt.GetDirection()
+        Vector3 movementDirection = belt.GetDirection();
+
+        // Calcular el desplazamiento en la dirección obtenida
+        Vector3 movement = currentSpeed * Time.deltaTime * movementDirection;
+
+        // Calcular la nueva posición sumando el desplazamiento a la posición actual
+        Vector3 newPosition = currentPosition + movement;
 
         // Asignar la nueva posición al GameObject
-        transform.position = new Vector3(newXPosition, currentPosition.y, currentPosition.z);
+        transform.position = newPosition;
     }
+
 }
