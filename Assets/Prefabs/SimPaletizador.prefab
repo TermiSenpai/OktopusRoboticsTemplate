@@ -42211,7 +42211,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   currentBox: {fileID: 0}
-  raycastDistance: 0.05
+  raycastDistance: 0.15
   origin: {fileID: 6442884269195551105}
 --- !u!1 &5019302150239460327
 GameObject:
